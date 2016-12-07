@@ -19,6 +19,8 @@
 
 
 
+var markup = fs.readFileSync("data/index.html", "utf8");
+var doc = jsdom(markup);
 
 process(doc, {});
 
@@ -28,13 +30,3 @@ function process(doc, data) {
 
 }
 
-
-if(typeof exports !== 'undefined') {
-	if(typeof module !== 'undefined' && module.exports) {
-	  exports = module.exports = mymodule;
-	}
-	exports.mymodule = mymodule
-} 
-else {
-	root.mymodule = mymodule
-}

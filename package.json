@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bibtex-parse-js": "0.0.23",
+    "crossref": "^1.1.0",
     "jsdom": "^9.8.3"
   }
 }
