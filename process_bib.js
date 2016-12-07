@@ -9,10 +9,10 @@ var fs = require("fs"),
     .then(resp => resp.text())
     .then(body => console.log(body))*/
 
-var markup = fs.readFileSync("index.html", "utf8");
+var markup = fs.readFileSync("data/index.html", "utf8");
 var doc = jsdom(markup);
 
-var raw_bib = fs.readFileSync("test.bib", "utf8");
+var raw_bib = fs.readFileSync("data/test.bib", "utf8");
 var bib = {};
 bibtexParse.toJSON(raw_bib).forEach(e => {
   bib[e.citationKey] = e.entryTags;
