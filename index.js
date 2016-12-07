@@ -1,9 +1,9 @@
 var fs = require("fs"),
 	jsdom = require("jsdom").jsdom;
 
-var metaTags = require("./processMetaTags.js");
+var meta = require("./transforms/meta.js");
 
-var transforms = [metaTags];
+var transforms = [meta];
 
 var markup = fs.readFileSync("data/index.html", "utf8");
 var dom = jsdom(markup);
