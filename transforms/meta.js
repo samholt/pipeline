@@ -2,13 +2,19 @@
 module.exports = (dom, data) => {
 
 	let head = dom.querySelector("head");
+	head.appendChild(el(dom, "meta", {"chartset": "utf-8"}));
 
-	head.appendChild(meta(dom, {"chartset": "utf-8"}));
+	if (!dom.querySelector("meta[name=viewport]")) {
+		head.appendChild(el(dom, "meta", {"name": "viewport", "content": "width=device-width, initial-scale=1"}));
+	}
+	head.appendChild(el(dom, "meta", {"http-equiv": "X-UA-Compatible", "content": "IE=Edge,chrome=1"}));
+	head.appendChild(el(dom, "link", {"rel": "icon", "type": "image/png", "href": "/favicon.png"}));
+	head.appendChild(el(dom, "link", {"href": "/rss.xml", "rel": "alternate", "type": "application/rss+xml", "title": "Articles from Distill"}));
 
 	return dom;
 }
 
-function meta(dom, attributes) {
+function el(dom, attributes) {
 	let element = dom.createElement("META");
 	Object.keys(attributes).forEach((key) => {
 		element.setAttribute(key, attributes[key]);
@@ -16,10 +22,6 @@ function meta(dom, attributes) {
 	return element;
 }
 
-// <meta name="viewport" content="width=device-width, initial-scale=1">
-// <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-// <link rel="icon" type="image/png" href="/favicon.png" />
-// <link href="/rss.xml" rel="alternate" type="application/rss+xml" title="Articles from Distill" />
 
 // <meta name="author" content="Carter, et al.">
 
@@ -55,5 +57,3 @@ function meta(dom, attributes) {
 // <meta name="citation_author" content="Olah, Chris">
 // <meta name="citation_publication_date" content="2016/12/06">
 // <meta name="citation_journal_title" content="Distill">
-
-// <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600|Material+Icons" rel="stylesheet">
