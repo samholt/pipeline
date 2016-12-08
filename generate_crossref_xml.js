@@ -43,6 +43,8 @@ function citation_xml(key, ind){
 		info.push({author: ent.author.split(" and ")[0].split(",")[0].trim()});
 	if ("journal" in ent)
 		info.push({journal_title: ent.journal});
+	if ("booktitle" in ent)
+		info.push({volume_title: ent.booktitle});
 	if ("volume" in ent)
 		info.push({volume: ent.volume});
 	if ("issue" in ent)
@@ -119,11 +121,11 @@ function process(doc, data) {
 							{title: data.title},
 						]},
 						{ contributors:
-							data.authors.map(author => (
+							data.authors.map((author, ind) => (
 								{person_name: [
 									{ _attr: {
 										contributor_role: "author",
-										sequence: (data.authors.indexOf(author)==0)? "first" : "additional"
+										sequence: (ind == 0)? "first" : "additional"
 									}},
 									{given_name: author.firstName},
 									{surname: author.lastName},
@@ -142,7 +144,7 @@ function process(doc, data) {
 						]},
 						{doi_data: [
 							{doi: article_doi},
-							{timestamp: ""},
+							//{timestamp: ""},
 							{resource: data.url},
 						]},
 						{citation_list:
