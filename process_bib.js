@@ -1,6 +1,7 @@
 var fs = require("fs"),
 	jsdom = require("jsdom").jsdom,
-  bibtexParse = require('bibtex-parse-js');
+  bibtexParse = require('bibtex-parse-js'),
+	uris = require("querystring").stringify;
 
   /*var fetch = require('node-fetch'),
       uris = require("querystring").stringify;
@@ -76,6 +77,21 @@ function bibliography_cite(key){
   }
 }
 
+//https://scholar.google.com/scholar?q=allintitle%3ADocument+author%3Aolah
+function get_URL(key){
+	if (key in bib){
+		var ent = bib[key];
+    var names = ent.author.split(" and ");
+    names = names.map(name => name.split(",")[0].trim())
+		var title = ent.title.split(" ")//.replace(/[,:]/, "")
+		var url = "http://search.labs.crossref.org/dois?"//""https://scholar.google.com/scholar?"
+		url += uris({q: names.join(" ") + " " + title.join(" ")})
+		console.log(url);
+	}
+
+}
+
+
 function process(doc, data) {
 
   // Handle cite tags!
@@ -89,6 +105,8 @@ function process(doc, data) {
     cite_tag.innerHTML = cite_string;
   })
 
+
+	data.citations.sort().forEach(key => get_URL(key))
 
   var bibliography = doc.defaultView.document.getElementsByTagName("d-bibliography")[0];
   bibliography_string = "\n";
