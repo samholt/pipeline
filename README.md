@@ -1,15 +1,16 @@
-# Build and Deploy for Distill.pub
+# Build and Deploy the Distill Website
 
-Instructions for how to build and deploy the distill.pub website.
+Instructions for how to build and deploy the [http://distill.pub]().
 
 Each page on the website is a `post`, whose contents are stored in an external github repository. The only other html page that is not contained within a post repository is the `index` page, which is generated separately.
 
 The manifest of posts is documented in `package.json`. The `bin/clone.js` script clones (or pulls) each repository listed. The `bin/build.js` script then copies everything from the `public/` directory of those repositories to our `docs` folder, runs a few transformations on the html files, and generates a few additional files. The `docs` folder is then served automatically by github pages when the changes are committed and pushed to Github.
 
-
 ## Transformations to the HTML of each post
 
 We do a few transformations to all the `.html` files that are direct children of the `public/` folder of each post.
+
+- *Distill components* TK
 
 - *Analytics* Adds analytics to the bottom of the page (currently google analytics).
 
