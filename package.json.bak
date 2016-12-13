@@ -8,6 +8,18 @@
   },
   "posts": [
     {
+      "publishPath": "2016/handwriting",
+      "githubRepo": "distillpub/post--handwriting"
+    },
+    {
+      "publishPath": "2016/deconv-checkerboard",
+      "githubRepo": "distillpub/post--deconv-checkerboard"
+    },
+    {
+      "publishPath": "2016/misread-tsne",
+      "githubRepo": "distillpub/post--misread-tsne"
+    },
+    {
       "publishPath": "2016/augmented-rnns",
       "githubRepo": "distillpub/post--augmented-rnns"
     },
@@ -21,8 +33,6 @@
     "bibtex-parse-js": "0.0.23",
     "crossref": "^1.1.0",
     "js-beautify": "^1.6.4",
-    "jsdom": "^9.8.3",
-    "xml": "^1.0.1",
-    "xmlbuilder": "^8.2.2"
+    "jsdom": "^9.8.3"
   }
 }

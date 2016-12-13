@@ -4,8 +4,8 @@ var fs = require("fs"),
     beautify = require("js-beautify").html;
 
 var transforms = [
-	require("./transforms/meta.js"),
-	require("./transforms/analytics.js")
+	require("./meta.js"),
+	require("./analytics.js")
 ];
 
 module.exports = (htmlString, packageData) => {

@@ -156,6 +156,6 @@ function process(doc, data) {
 				]},
 			]},
 		]};
-	console.log(xml(crf_data, {indent: "  "}));
-
+		
+	return xml(crf_data, {indent: "  "});
 }

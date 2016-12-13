@@ -44,30 +44,30 @@ module.exports = (dom, data) => {
   // <meta name="citation_publication_date" content="2016/12/06">
   // <meta name="citation_journal_title" content="Distill">
 
-  function append_meta(params){ head.appendChild(el(dom, "meta", params)); }
-
-
-  // <meta name="citation_title" content="Experiments in Handwriting with a Neural Network">
-  append_meta({name: "citation_title", content: data.title});
-  // <meta name="citation_author" content="Carter, Shan">
-  // <meta name="citation_author" content="Ha, David">
-  // ...
-  data.authors.forEach(author => {
-    var author_name = author.lastName + ", " + author.firstName;
-    append_meta({name: "citation_author", content: author_name});
-  });
-  // <meta name="citation_publication_date" content="2016/12/06">
-  var date = new Date(data.firstPublished);
-  var date_string = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
-  append_meta({name: "citation_publication_date", content: date_string});
-  // <meta name="citation_journal_title" content="Distill">
-  append_meta({name: "citation_journal_title", content: data.journal.full_title});
-  append_meta({name: "citation_volume", content: data.volume});
-  append_meta({name: "citation_issue", content: data.issue});
-  append_meta({name: "citation_fulltext_html_url", content: data.url});
-  // TODO: Get DOI and ISSN
-  append_meta({name: "citation_doi", content: data.doi});
-  append_meta({name: "citation_issn", content: data.journal.issn});
+  // function append_meta(params){ head.appendChild(el(dom, "meta", params)); }
+  //
+  //
+  // // <meta name="citation_title" content="Experiments in Handwriting with a Neural Network">
+  // append_meta({name: "citation_title", content: data.title});
+  // // <meta name="citation_author" content="Carter, Shan">
+  // // <meta name="citation_author" content="Ha, David">
+  // // ...
+  // data.authors.forEach(author => {
+  //   var author_name = author.lastName + ", " + author.firstName;
+  //   append_meta({name: "citation_author", content: author_name});
+  // });
+  // // <meta name="citation_publication_date" content="2016/12/06">
+  // var date = new Date(data.firstPublished);
+  // var date_string = date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate();
+  // append_meta({name: "citation_publication_date", content: date_string});
+  // // <meta name="citation_journal_title" content="Distill">
+  // append_meta({name: "citation_journal_title", content: data.journal.full_title});
+  // append_meta({name: "citation_volume", content: data.volume});
+  // append_meta({name: "citation_issue", content: data.issue});
+  // append_meta({name: "citation_fulltext_html_url", content: data.url});
+  // // TODO: Get DOI and ISSN
+  // append_meta({name: "citation_doi", content: data.doi});
+  // append_meta({name: "citation_issn", content: data.journal.issn});
 
 
   // return dom;

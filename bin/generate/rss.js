@@ -1,6 +1,6 @@
-let builder = require('xmlbuilder');
+let builder = require("xmlbuilder");
 
-modules.exports = (posts) => {
+module.exports = (posts) => {
   var root = builder.begin();
   var rss = root.element("rss")
   rss.attribute("version", "2.0");

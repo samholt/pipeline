@@ -2,8 +2,8 @@ var fs = require("fs"),
     path = require("path"),
     exec = require("child_process").execSync,
     transformHtml = require("./transform/index.js"),
-    generateRss = require("./generate/rss.js")
-    generateCrossref = require("./generate/crossref.js");
+    generateRss = require("./generate/rss.js");
+    // generateCrossref = require("./generate/crossref.js");
 
 let posts = JSON.parse(fs.readFileSync("package.json", "utf8")).posts;
 
@@ -15,7 +15,7 @@ try { fs.mkdirSync("docs"); } catch (e) { }
 
 posts
   .forEach((post, i) => {
-    console.log("Building post #" + i + ": " + post.title);
+    console.log("Building post #" + i + ": " + post.githubRepo);
     var repoPath = "build/" + post.githubRepo;
     exec("mkdir -p " + path.join("docs", post.publishPath));
 
@@ -40,7 +40,7 @@ posts
     //Transform and rewrite all the html files that are direct children of public/
     fs.readdirSync(publishedPath).forEach((f) => {
       if (path.extname(f) === ".html") {
-        let transformedHtml = transformHtml(fs.readFileSync(path.join(publishedPath, f), "utf8"), post.packageData)
+        let transformedHtml = transformHtml(fs.readFileSync(path.join(publishedPath, f), "utf8"), post.packageData.distill)
         fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
       }
     });
