@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = (dom, data) => {
   let body = dom.querySelector("body");
   let script = dom.createElement("script");

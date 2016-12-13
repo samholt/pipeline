@@ -1,0 +1,65 @@
+<h1>Distill</h1>
+
+<style>
+
+.posts-list {
+  margin-bottom: 60px;
+}
+
+.posts-list .post-preview {
+  text-decoration: none;
+  overflow: hidden;
+  display: block;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 24px 0;
+}
+
+
+@media(min-width: 768px) {
+  .posts-list .post-preview .description {
+    margin-right: 50%;
+  }
+}
+
+.posts-list .post-preview h2 {
+  margin: 0 0 12px 0;
+  line-height: 1.35em;
+}
+
+.posts-list .post-preview p {
+  margin: 0 0 12px 0;
+  line-height: 1.55em;
+}
+
+.posts-list .post-preview .thumbnail {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin-bottom: 24px;
+  position: relative;
+  max-width: 500px;
+}
+.posts-list .post-preview img {
+  width: 100%;
+  display: block;
+}
+
+@media(min-width: 768px) {
+  .posts-list .post-preview .thumbnail {
+    float: right;
+    width: 40%;
+  }
+}
+
+</style>
+
+<div class="posts-list w-body">
+  {{#distill.posts}}
+  <a href="{{publishPath}}" class="post-preview">
+    <div class="thumbnail"><img src="{{publishPath}}/thumbnail.png"></div>
+    <div class="description">
+      <h2>{{package.distill.title}}</h2>
+      <p>{{package.distill.description}}</p>
+    </div>
+  </a>
+  {{/distill.posts}}
+</div>

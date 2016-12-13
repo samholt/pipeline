@@ -1,5 +1,3 @@
-"use strict";
-
 module.exports = (dom, data) => {
   let head = dom.querySelector("head");
   head.appendChild(el(dom, "meta", {"chartset": "utf-8"}));

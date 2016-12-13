@@ -1,13 +1,34 @@
 {
   "name": "distill-transformation-pipeline",
   "version": "1.0.0",
-  "description": "## Byline",
-  "main": "sample.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clone": "node bin/clone.js",
+    "build": "yarn clone && node bin/build.js"
   },
-  "author": "",
-  "license": "ISC",
+  "posts": [
+    {
+      "publishPath": "2016/handwriting",
+      "githubRepo": "distillpub/post--handwriting"
+    },
+    {
+      "publishPath": "2016/deconv-checkerboard",
+      "githubRepo": "distillpub/post--deconv-checkerboard"
+    },
+    {
+      "publishPath": "2016/misread-tsne",
+      "githubRepo": "distillpub/post--misread-tsne"
+    },
+    {
+      "publishPath": "2016/augmented-rnns",
+      "githubRepo": "distillpub/post--augmented-rnns"
+    },
+    {
+      "publishPath": "/faq",
+      "githubRepo": "distillpub/post--faq",
+      "no-homepage": "true"
+    }
+  ],
   "dependencies": {
     "bibtex-parse-js": "0.0.23",
     "crossref": "^1.1.0",
