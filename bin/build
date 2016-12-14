@@ -1,0 +1,104 @@
+#!/usr/bin/env node
+
+let fs = require("fs"),
+    path = require("path"),
+    exec = require("child_process").execSync;
+
+// Local modules
+let verifyPostData = require("./modules/verify-post-data.js"),
+    // generateRss = require("./generate/rss.js");
+    // generateCrossref = require("./generate/crossref.js");
+
+// d3
+let d3 = Object.assign({},
+    require("d3-dsv"),
+    require("d3-time-format"));
+
+// HTML transforms
+let jsdom = require("jsdom").jsdom,
+    serializeDocument = require("jsdom").serializeDocument,
+    beautify = require("js-beautify").html;
+
+let HTMLtransforms = [
+	require("./modules/insert-meta-tags.js"),
+	require("./modules/insert-analytics.js")
+];
+
+let data = {}
+
+// The journal data contains information about the distill journal:
+//   "full_title": "Distill"
+//   "abbrev_title": "Distill"
+//   "doi": "00.0000/dstl"
+//   "issn": "0000-0000"
+data.journal = JSON.parse(fs.readFileSync("journal.json", "utf8"));
+
+// The posts.csv file is a manifest of all posts to be published:
+//   2, 2016/misread-tsne, distillpub/post--misread-tsne, 2016/10/13
+data.posts = d3.csvParseRows(fs.readFileSync("posts.csv", "utf8"), (r) => {
+  return {
+    doi: +r[0],
+    publishPath: r[1].trim(),
+    githubRepo: r[2].trim(),
+    publishedDate: d3.timeParse("%Y/%m/%d")(r[3].trim())
+  }
+// Merge the posts.csv data with the data housed in the local package.json files in each repo
+}).map((rawPost, i) => {
+  let packageData = JSON.parse(fs.readFileSync(path.join("posts/" + rawPost.githubRepo, "package.json"), "utf8"));
+  let mergedData = Object.assign(rawPost, packageData.distill);
+  return verifyPostData(mergedData);
+});
+
+console.log(data)
+
+// Create docs folder if it doesn't already exist
+// TODO: should we nuke the docs/ folder prior to rebuilding?
+try { fs.mkdirSync("docs"); } catch (e) { }
+
+data.posts.forEach((post, i) => {
+  console.log("Building post " + i + " of " + data.posts.length + ": " + post.githubRepo);
+  var repoPath = "posts/" + post.githubRepo;
+  exec("mkdir -p " + path.join("docs", post.publishPath));
+
+  // TODO: what if we don't have a thumbnail?
+
+  // Copy the contents of the repo's public folder to the new location.
+  let publishedPath = path.join("docs", post.publishPath)
+  try {
+    exec("cp -r " + path.join(repoPath, "public/") + " " + publishedPath);
+  } catch (e) {
+    console.error("No public folder for " + repoPath);
+  }
+
+  //Transform and rewrite all the html files that are direct children of public/
+
+  // var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+  // transforms.forEach((fn) => {
+  //   fn.call(this, dom, packageData);
+  // });
+  // return beautify(serializeDocument(dom), {
+  //   indent_size: 2,
+  //   wrap_line_length: 0,
+  //   preserve_newlines: false,
+  //   unformatted: ["code", "pre", "span", "d-cite"]
+  // });
+
+  // fs.readdirSync(publishedPath).forEach((f) => {
+  //   if (path.extname(f) === ".html") {
+  //     let transformedHtml = transformHtml(fs.readFileSync(path.join(publishedPath, f), "utf8"), mergedPostData)
+  //     fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
+  //   }
+  // });
+
+  // Generate crossref
+  // let crossrefXml = generateCrossref(index.html, post.distillData)
+  // fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
+
+});
+
+fs.writeFileSync("docs/rss.xml", generateRss(posts.filter((d) => !d["no-homepage"])), "utf8");
+exec("cp favicon.png docs/");
+exec("cp CNAME docs/");
+
+// TODO transform and render index.html
+// posts.filter((d) => !d["no-homepage"])
