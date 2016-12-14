@@ -34,8 +34,9 @@ let data = {}
 data.journal = JSON.parse(fs.readFileSync("journal.json", "utf8"));
 
 // The posts.csv file is a manifest of all posts to be published:
+// https://raw.githubusercontent.com/distillpub/posts/master/posts.csv
 //   2, 2016/misread-tsne, distillpub/post--misread-tsne, 2016/10/13
-data.posts = d3.csvParseRows(fs.readFileSync("posts.csv", "utf8"), (r) => {
+data.posts = d3.csvParseRows(fs.readFileSync("posts/posts.csv", "utf8"), (r) => {
   return {
     doi: +r[0],
     publishPath: r[1].trim(),
