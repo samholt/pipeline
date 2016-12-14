@@ -7,9 +7,9 @@ module.exports = (post) => {
   d.description = post.description;
 
   // paths
-  d.publishPath = post.publishPath;
-  d.url = "http://distill.pub/" + post.publishPath;
-  d.githubUrl = "https://github.com/" + post.githubRepo;
+  d.distillPath = post.distillPath;
+  d.url = "http://distill.pub/" + post.distillPath;
+  d.githubUrl = "https://github.com/" + post.githubPath;
 
   d.homepage = !post.noHomepage;
 
@@ -36,7 +36,7 @@ module.exports = (post) => {
 
   d.authors.forEach((a) => {
     if (!a.firstName || !a.lastName || !a.personalURL || !a.affiliation || !a.affiliationURL) {
-      console.error("Author missing required field(s) in " + post.githubRepo);
+      console.error("Author missing required field(s) in " + post.githubPath);
     }
   })
 
@@ -68,7 +68,7 @@ module.exports = (post) => {
   // function handle_dois(data) {
   //   var dois = [];
   //   data.journal.posts.forEach(post => {
-  //     var name = post.publishPath.split("/")[1];
+  //     var name = post.distillPath.split("/")[1];
   //     if (post.doi_suffix != undefined){
   //       // Is the DOI a duplicate?
   //       if (dois.indexOf(post.doi_suffix) != -1)

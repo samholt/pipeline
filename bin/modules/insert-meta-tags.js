@@ -50,7 +50,7 @@ module.exports = (dom, data) => {
   //
   //
   // // <meta name="citation_title" content="Experiments in Handwriting with a Neural Network">
-  head.appendChild(el(dom, "meta", {name: "citation_title", content: data.title});
+  head.appendChild(el(dom, "meta", {name: "citation_title", content: data.title}));
   // // <meta name="citation_author" content="Carter, Shan">
   // // <meta name="citation_author" content="Ha, David">
   // // ...
@@ -66,7 +66,7 @@ module.exports = (dom, data) => {
   // appendMeta({name: "citation_journal_title", content: data.journal.full_title});
   // appendMeta({name: "citation_volume", content: data.volume});
   // appendMeta({name: "citation_issue", content: data.issue});
-  head.appendChild(el(dom, "meta", {name: "citation_fulltext_html_url", content: data.url});
+  head.appendChild(el(dom, "meta", {name: "citation_fulltext_html_url", content: data.url}));
   // // TODO: Get DOI and ISSN
   // appendMeta({name: "citation_doi", content: data.doi});
   // appendMeta({name: "citation_issn", content: data.journal.issn});
