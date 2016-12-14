@@ -1,5 +1,4 @@
-var fs = require("fs"),
-    jsdom = require("jsdom").jsdom,
+var jsdom = require("jsdom").jsdom,
     serializeDocument = require("jsdom").serializeDocument,
     beautify = require("js-beautify").html;
 

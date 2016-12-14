@@ -1,0 +1,18 @@
+[
+  {
+    "publishPath": "2016/handwriting",
+    "githubRepo": "distillpub/post--handwriting"
+  },
+  {
+    "publishPath": "2016/deconv-checkerboard",
+    "githubRepo": "distillpub/post--deconv-checkerboard"
+  },
+  {
+    "publishPath": "2016/misread-tsne",
+    "githubRepo": "distillpub/post--misread-tsne"
+  },
+  {
+    "publishPath": "2016/augmented-rnns",
+    "githubRepo": "distillpub/post--augmented-rnns"
+  }
+]
