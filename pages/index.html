@@ -53,13 +53,13 @@
 </style>
 
 <div class="posts-list w-body">
-  {{#distill.posts}}
-  <a href="{{publishPath}}" class="post-preview">
-    <div class="thumbnail"><img src="{{publishPath}}/thumbnail.png"></div>
+  {{#posts}}
+  <a href="{{&distillPath}}" class="post-preview">
+    <div class="thumbnail"><img src="{{&distillPath}}/thumbnail.png"></div>
     <div class="description">
-      <h2>{{package.distill.title}}</h2>
-      <p>{{package.distill.description}}</p>
+      <h2>{{.title}}</h2>
+      <p>{{description}}</p>
     </div>
   </a>
-  {{/distill.posts}}
+  {{/posts}}
 </div>
