@@ -20,7 +20,10 @@ let jsdom = require("jsdom").jsdom,
     beautify = require("js-beautify").html;
 
 let htmlTransforms = [
+  require("./modules/render-markdown.js"),
+  require("./modules/render-include.js"),
   require("./modules/insert-meta-tags.js"),
+  require("./modules/insert-distill-components.js"),
   require("./modules/insert-analytics.js")
 ];
 
@@ -51,7 +54,7 @@ data.posts = d3.csvParse(fs.readFileSync("posts/posts.csv", "utf8"), (r) => {
   let packageData = JSON.parse(fs.readFileSync(path.join("posts/" + rawPost.githubPath, "package.json"), "utf8"));
   let mergedData = Object.assign(rawPost, packageData.distill);
   return verifyPostData(mergedData, data.journal);
-});
+}).sort((a, b) => { return b.publishedDate - a.publishedDate; });
 
 // TODO: should we nuke the docs/ folder prior to rebuilding?
 
@@ -76,14 +79,15 @@ data.posts.forEach((post, i) => {
       let htmlString = fs.readFileSync(path.join(publishedPath, f), "utf8");
       var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
       htmlTransforms.forEach((fn) => {
-        fn.call(this, dom, post);
+        fn.call(this, dom, post, publishedPath);
       });
-      let transformedHtml =  beautify(serializeDocument(dom), {
-        indent_size: 2,
-        wrap_line_length: 0,
-        preserve_newlines: false,
-        unformatted: ["code", "pre", "span", "d-cite"]
-      });
+      let transformedHtml =  serializeDocument(dom)
+      // beautify(serializeDocument(dom), {
+      //   indent_size: 2,
+      //   wrap_line_length: 0,
+      //   preserve_newlines: false,
+      //   unformatted: ["code", "pre", "span", "d-cite"]
+      // });
       fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
     }
   });
@@ -97,4 +101,5 @@ data.posts.forEach((post, i) => {
 fs.writeFileSync("docs/index.html", mustache.render(fs.readFileSync("pages/index.html", "utf8"), data));
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
 exec("cp pages/favicon.png docs/");
+exec("cp distill-components/dist/distill.js docs/components.js");
 exec("cp pages/CNAME docs/");
