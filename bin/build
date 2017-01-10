@@ -71,5 +71,5 @@ var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, F
 distill.render(indexDom, {});
 fs.writeFileSync("docs/index.html", serializeDocument(indexDom));
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
-exec("cp node_modules/distill-template/dist/template.js docs/template.js");
+exec("cp distill-template/dist/template.js docs/template.js");
 exec("cp pages/CNAME docs/");
