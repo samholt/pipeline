@@ -3,29 +3,17 @@
 let fs = require("fs"),
     path = require("path"),
     exec = require("child_process").execSync,
-    mustache = require("mustache");
-
-// Local modules
-let verifyPostData = require("./modules/verify-post-data.js");
-    // generateCrossref = require("./generate/crossref.js");
+    mustache = require("mustache"),
+    distill = require("distill-template"),
+    analytics = require("./analytics");
 
 // d3
 let d3 = Object.assign({},
     require("d3-dsv"),
     require("d3-time-format"));
 
-// HTML transforms
 let jsdom = require("jsdom").jsdom,
-    serializeDocument = require("jsdom").serializeDocument,
-    beautify = require("js-beautify").html;
-
-let htmlTransforms = [
-  require("./modules/render-markdown.js"),
-  require("./modules/render-include.js"),
-  require("./modules/insert-meta-tags.js"),
-  require("./modules/insert-distill-components.js"),
-  require("./modules/insert-analytics.js")
-];
+    serializeDocument = require("jsdom").serializeDocument;
 
 let RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
 
@@ -37,24 +25,9 @@ let data = {
 // The journal data contains information about the distill journal:
 data.journal = JSON.parse(fs.readFileSync("journal.json", "utf8"));
 
-//TODO: pull in components.min.js
-
-// The posts.csv file is a manifest of all posts to be published:
-// https://raw.githubusercontent.com/distillpub/posts/master/posts.csv
-//   doiSuffix,distillPath,githubPath,publishedDate
-data.posts = d3.csvParse(fs.readFileSync("posts/posts.csv", "utf8"), (r) => {
-  return {
-    doiSuffix: +r.doiSuffix,
-    distillPath: r.distillPath.trim(),
-    githubPath: r.githubPath.trim(),
-    publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim())
-  }
-// Merge the posts.csv data with the data housed in the local package.json files in each repo
-}).map((rawPost, i) => {
-  let packageData = JSON.parse(fs.readFileSync(path.join("posts/" + rawPost.githubPath, "package.json"), "utf8"));
-  let mergedData = Object.assign(rawPost, packageData.distill);
-  return verifyPostData(mergedData, data.journal);
-}).sort((a, b) => { return b.publishedDate - a.publishedDate; });
+// Merge the posts data with the data housed in the local package.json files in each repo
+data.posts = JSON.parse(fs.readFileSync("posts/posts.json", "utf8"));
+data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
 
 // TODO: should we nuke the docs/ folder prior to rebuilding?
 
@@ -78,28 +51,19 @@ data.posts.forEach((post, i) => {
     if (path.extname(f) === ".html") {
       let htmlString = fs.readFileSync(path.join(publishedPath, f), "utf8");
       var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-      htmlTransforms.forEach((fn) => {
-        fn.call(this, dom, post, publishedPath);
-      });
-      let transformedHtml =  serializeDocument(dom)
-      // beautify(serializeDocument(dom), {
-      //   indent_size: 2,
-      //   wrap_line_length: 0,
-      //   preserve_newlines: false,
-      //   unformatted: ["code", "pre", "span", "d-cite"]
-      // });
+      distill.render(dom, post);
+      let transformedHtml =  serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
       fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
     }
   });
 
   // Generate crossref
-  // let crossrefXml = generateCrossref(index.html, post.distillData)
-  // fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
+  let crossrefXml = distill.generateCrossref(post);
+  fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
 
 });
 
-fs.writeFileSync("docs/index.html", mustache.render(fs.readFileSync("pages/index.html", "utf8"), data));
-fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
-exec("cp pages/favicon.png docs/");
-exec("cp distill-components/dist/distill.js docs/components.js");
+fs.writeFileSync("docs/index.html", mustache.render(fs.readFileSync("pages/index.html", "utf8") + analytics, data));
+fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8") + analytics, data));
+exec("cp node_modules/distill-template/dist/template.js docs/template.js");
 exec("cp pages/CNAME docs/");

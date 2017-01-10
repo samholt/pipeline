@@ -9,9 +9,10 @@
   "dependencies": {
     "bibtex-parse-js": "0.0.23",
     "crossref": "^1.1.0",
+    "d3": "^4.4.1",
     "d3-dsv": "^1.0.3",
     "d3-time-format": "^2.0.3",
-    "distill-template": "^0.0.3",
+    "distill-template": "^0.0.16",
     "js-beautify": "^1.6.4",
     "jsdom": "^9.8.3",
     "marked": "^0.3.6",

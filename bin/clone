@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 var fs = require("fs"),
-    exec = require('child_process').execSync;
-
-var posts = JSON.parse(fs.readFileSync("posts.json", "utf8")).posts;
+    exec = require("child_process").execSync,
+    d3 = require("d3"),
+    request = require("request");
 
 try {
   fs.mkdirSync("posts");
@@ -11,18 +11,34 @@ try {
   // posts folder already exists
 }
 
-//TODO: curl posts manifest from external repository into posts.csv or whatever
-// https://raw.githubusercontent.com/distillpub/posts/master/posts.csv
-
-posts.forEach(function(post) {
-  var repoPath = "posts/" + post.githubRepo;
-  try {
-    // If repo already exists, just pull it
-    fs.accessSync(repoPath, fs.F_OK);
-    console.log("Pulling " + post.githubRepo);
-    exec("git -C " + repoPath + " pull")
-  } catch (e) {
-    // Repo doesn't exist locally, so let's clone it
-    exec("git clone --depth 1 " + "https://github.com/" + post.githubRepo + ".git" + " " + repoPath);
+request("https://raw.githubusercontent.com/distillpub/posts/master/posts.csv", function(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    let posts = d3.csvParse(body, (r) => {
+      return {
+        doiSuffix: +r.doiSuffix,
+        distillPath: r.distillPath.trim(),
+        githubPath: r.githubPath.trim(),
+        publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim())
+      }
+    });
+    fs.writeFileSync("posts/posts.json", JSON.stringify(posts), "utf8")
+    clone(posts);
+  } else {
+    console.error(error);
   }
 });
+
+function clone(posts) {
+  posts.forEach(function(post) {
+    var repoPath = "posts/" + post.githubPath;
+    try {
+      // If repo already exists, just pull it
+      fs.accessSync(repoPath, fs.F_OK);
+      console.log("Pulling " + post.githubPath);
+      exec("git -C " + repoPath + " pull")
+    } catch (e) {
+      // Repo doesn't exist locally, so let's clone it
+      exec("git clone --depth 1 " + "https://github.com/" + post.githubPath + ".git" + " " + repoPath);
+    }
+  });
+}
