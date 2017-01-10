@@ -66,10 +66,23 @@ data.posts.forEach((post, i) => {
 
 });
 
-let indexString = mustache.render(fs.readFileSync("pages/index.html", "utf8") + analytics, data);
-var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-distill.render(indexDom, {});
-fs.writeFileSync("docs/index.html", serializeDocument(indexDom));
+// let indexString = mustache.render(fs.readFileSync("pages/index.html", "utf8") + analytics, data);
+// var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+// distill.render(indexDom, {});
+// fs.writeFileSync("docs/index.html", serializeDocument(indexDom));
+
+renderPage("index.html", data);
+renderPage("faq/index.html", data);
+
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
 exec("cp distill-template/dist/template.js docs/template.js");
 exec("cp pages/CNAME docs/");
+
+function renderPage(location, data) {
+  console.log("Building page: " + location)
+  let indexString = mustache.render(fs.readFileSync(path.join("pages/",location), "utf8") + analytics, data);
+  var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+  distill.render(indexDom, {});
+  exec("mkdir -p " + path.dirname(path.join("docs", location)));
+  fs.writeFileSync(path.join("docs/", location), serializeDocument(indexDom));
+}
