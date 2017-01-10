@@ -1,8 +1,5 @@
 <!doctype html>
 <meta charset="utf-8">
-<script src="/components.js"></script>
-<dt-header></dt-header>
-<h1>Distill</h1>
 
 <style>
 
@@ -56,16 +53,16 @@
 
 </style>
 
-<div class="posts-list w-body">
+<main class="posts-list l-body">
+  <h1>Latest</h1>
+
   {{#posts}}
   <a href="{{&distillPath}}" class="post-preview">
     <div class="thumbnail"><img src="{{&distillPath}}/thumbnail.png"></div>
     <div class="description">
-      <h2>{{.title}}</h2>
+      <h2>{{title}}</h2>
       <p>{{description}}</p>
     </div>
   </a>
   {{/posts}}
-</div>
-
-<dt-footer></dt-footer>
+</main>
