@@ -33,7 +33,7 @@ data.posts.forEach((p) => {
 data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
 
 // TODO: should we nuke the docs/ folder prior to rebuilding?
-
+console.log("POSTS -----------");
 data.posts.forEach((post, i) => {
   console.log("Building post " + (i + 1) + " of " + data.posts.length + ": " + post.githubPath);
   let repoPath = path.join("posts", post.githubPath);
@@ -66,20 +66,20 @@ data.posts.forEach((post, i) => {
 
 });
 
-// let indexString = mustache.render(fs.readFileSync("pages/index.html", "utf8") + analytics, data);
-// var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-// distill.render(indexDom, {});
-// fs.writeFileSync("docs/index.html", serializeDocument(indexDom));
+let pages = ["index.html", "faq/index.html", "archive-info/index.html"];
+console.log("PAGES -----------");
+pages.forEach(function(p, i) {
+  console.log("Building page " + (i + 1) + " of " + pages.length + ": " + p);
+  renderPage(p, data);
+});
+console.log("-----------");
 
-renderPage("index.html", data);
-renderPage("faq/index.html", data);
 
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
 exec("cp distill-template/dist/template.js docs/template.js");
 exec("cp pages/CNAME docs/");
 
 function renderPage(location, data) {
-  console.log("Building page: " + location)
   let indexString = mustache.render(fs.readFileSync(path.join("pages/",location), "utf8") + analytics, data);
   var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
   distill.render(indexDom, {});
