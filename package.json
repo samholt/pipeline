@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "clone": "node bin/clone",
-    "build": "node bin/build"
+    "build": "node bin/build",
+    "serve": "static -a localhost"
   },
   "dependencies": {
     "bibtex-parse-js": "0.0.23",
