@@ -10,7 +10,9 @@ let fs = require("fs"),
 // d3
 let d3 = Object.assign({},
     require("d3-dsv"),
-    require("d3-time-format"));
+    require("d3-time-format"),
+    require("d3-collection")
+);
 
 let jsdom = require("jsdom").jsdom,
     serializeDocument = require("jsdom").serializeDocument;
@@ -66,6 +68,17 @@ data.posts.forEach((post, i) => {
 
 });
 
+// Nest the articles into volume/issues
+data.issues = d3.nest()
+    .key((d) => d.volume * 100 + d.issue)
+    .sortKeys((a, b) => a - b)
+    .entries(data.posts);
+
+data.issues.forEach((issue) => {
+  issue.volume = issue.values[0].volume;
+  issue.issue = issue.values[0].issue;
+});
+
 let pages = ["index.html", "faq/index.html", "archive-info/index.html"];
 console.log("PAGES -----------");
 pages.forEach(function(p, i) {
@@ -73,7 +86,6 @@ pages.forEach(function(p, i) {
   renderPage(p, data);
 });
 console.log("-----------");
-
 
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
 exec("cp distill-template/dist/template.js docs/template.js");

@@ -13,32 +13,18 @@
   <p>To better integrate into library systems, we do organize our articles into volumes and issues. At the end of every month, articles published that month are collated into an issue. At the end of the year, issues for that year are collated into a volume. This a standard practice for electronic journals with rolling publications.</p>
   <p>Our first issue was designated <strong>Vol 1, Issue 9</strong> in order to keep the issue number consistently mapped to the given month.</p>
   <h2 id="issues-to-date">Issues To Date</h2>
-  <div class="w-body" style="padding-left: 40px;">
-
-    <strong>Vol 1, Issue 9</strong>
-
+  <div style="padding-left: 40px;">
+  {{#issues}}
+    <strong>Vol {{volume}}, Issue {{issue}}</strong>
     <ul>
-    <li> <a href="http://distill.pub/2016/augmented-rnns/">Attention and Augmented Recurrent Neural Networks</a> </li>
+    {{#values}}
+      <li> <a href="{{url}}">{{title}}</a> </li>
+    {{/values}}
+    {{^values}}
+      <li><em>(empty issue)</em></li>
+    {{/values}}
     </ul>
-
-    <strong>Vol 1, Issue 10</strong>
-
-    <ul>
-    <li> <a href="http://distill.pub/2016/misread-tsne/">How to Use t-SNE Effectively</a> </li>
-    <li> <a href="http://distill.pub/2016/deconv-checkerboard/">Deconvolution and Checkerboard Artifacts</a> </li>
-    </ul>
-
-    <strong>Vol 1, Issue 11</strong>
-
-    <ul>
-    <li> <em>(empty issue)</em> </li>
-    </ul>
-
-    <strong>Vol 1, Issue 12</strong>
-
-    <ul>
-    <li> <a href="http://distill.pub/2016/handwriting/">Four Experiments in Handwriting with a Neural Network</a> </li>
-    </ul>
+  {{/issues}}
 
   </div>
 
