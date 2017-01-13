@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clone": "node bin/clone",
-    "build": "node bin/build",
+    "build": "git submodule update --remote && node bin/build",
     "serve": "static docs/ -a localhost"
   },
   "dependencies": {
