@@ -1,3 +1,4 @@
 [submodule "distill-template"]
 	path = distill-template
 	url = https://github.com/distillpub/distill-template.git
+	branch = master
