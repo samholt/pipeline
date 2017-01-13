@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "push": "git push --recurse-submodules=on-demand",
     "clone": "node bin/clone",
-    "build": "git submodule update --remote && node bin/build",
+    "build": "node bin/build",
     "serve": "static docs/ -a localhost"
   },
   "dependencies": {
