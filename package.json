@@ -5,7 +5,7 @@
   "scripts": {
     "clone": "node bin/clone",
     "build": "node bin/build",
-    "serve": "static -a localhost"
+    "serve": "static docs/ -a localhost"
   },
   "dependencies": {
     "bibtex-parse-js": "0.0.23",
