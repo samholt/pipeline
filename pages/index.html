@@ -6,23 +6,9 @@ description: Articles about Machine Learning
 </script>
 
 <style>
-h1 {
-  margin-top: 36px;
-  font-weight: 400;
-  font-size: 36px;
-  line-height: 1em;
-  margin-bottom: 36px;
-}
-
-@media(min-width: 768px) {
-  h1 {
-    margin-top: 72px;
-    font-size: 48px;
-  }
-}
-
 .posts-list {
   margin-bottom: 60px;
+  margin-top: 48px;
 }
 
 .posts-list .post-preview {
@@ -31,13 +17,6 @@ h1 {
   display: block;
   border-top: 1px solid rgba(0, 0, 0, 0.1);
   padding: 24px 0;
-}
-
-
-@media(min-width: 768px) {
-  .posts-list .post-preview .description {
-    margin-right: 50%;
-  }
 }
 
 .posts-list .post-preview h2 {
@@ -52,7 +31,6 @@ h1 {
 }
 
 .posts-list .post-preview .thumbnail {
-  border: 1px solid rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   margin-bottom: 24px;
   position: relative;
@@ -63,25 +41,51 @@ h1 {
   display: block;
 }
 
+.posts-list .metadata {
+  font-size: 12px;
+  line-height: 1.4em;
+  margin-bottom: 18px;
+}
+
 @media(min-width: 768px) {
+  .posts-list {
+    margin-top: 100px;
+  }
+  dt-article .posts-list h1 {
+    margin-left: 15%;
+    margin-bottom: 36px;
+  }
   .posts-list .post-preview .thumbnail {
     float: right;
+    width: 35%;
+  }
+  .posts-list .post-preview .description {
+    float: left;
     width: 40%;
+  }
+  .posts-list .post-preview .metadata {
+    float: left;
+    width: 15%;
+    margin-top: 8px;
   }
 }
 
 </style>
 
-<main class="posts-list l-body centered">
-  <h1>Latest Articles</h1>
-
-  {{#posts}}
-  <a href="{{&distillPath}}" class="post-preview">
-    <div class="thumbnail"><img src="{{&distillPath}}/thumbnail.jpg"></div>
-    <div class="description">
-      <h2>{{title}}</h2>
-      <p>{{description}}</p>
-    </div>
-  </a>
-  {{/posts}}
-</main>
+<dt-article>
+  <div class="posts-list l-page">
+    <h1>Latest Articles</h1>
+    {{#posts}}
+      <a href="{{&distillPath}}" class="post-preview">
+        <div class="metadata">
+          <div>{{publishedMonth}}. {{publishedDay}}, {{publishedYear}}</div>
+        </div>
+        <div class="thumbnail"><img src="{{&distillPath}}/thumbnail.jpg"></div>
+        <div class="description">
+          <h2>{{title}}</h2>
+          <p>{{description}}</p>
+        </div>
+      </a>
+    {{/posts}}
+  </div>
+</dt-article>
