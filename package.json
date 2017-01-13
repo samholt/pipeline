@@ -5,7 +5,7 @@
   "scripts": {
     "init": "yarn install && git clone https://github.com/distillpub/distill-template.git",
     "clone": "node bin/clone",
-    "build": "(cd distill-template/; git pull; yarn build) && yarn build",
+    "build": "(cd distill-template/; git pull; yarn build) && node bin/build",
     "serve": "static docs/ -a localhost"
   },
   "dependencies": {
