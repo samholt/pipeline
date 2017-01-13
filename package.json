@@ -1,11 +1,11 @@
 {
-  "name": "distill-transformation-pipeline",
+  "name": "distill-pipeline",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "push": "git push --recurse-submodules=on-demand",
+    "init": "yarn install && git clone https://github.com/distillpub/distill-template.git",
     "clone": "node bin/clone",
-    "build": "node bin/build",
+    "build": "(cd distill-template/; git pull; yarn build) && yarn build",
     "serve": "static docs/ -a localhost"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "jsdom": "^9.8.3",
     "marked": "^0.3.6",
     "mustache": "^2.3.0",
+    "node-static": "^0.7.9",
     "xml": "^1.0.1",
     "xmlbuilder": "^8.2.2",
     "xss-filters": "^1.2.7"
