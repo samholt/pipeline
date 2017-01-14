@@ -7,8 +7,8 @@ description: Articles about Machine Learning
 
 <style>
 .posts-list {
-  margin-bottom: 60px;
-  margin-top: 48px;
+  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .posts-list .post-preview {
@@ -22,13 +22,12 @@ description: Articles about Machine Learning
 .posts-list .post-preview h2 {
   margin: 0 0 6px 0;
   line-height: 1.3em;
-  font-weight: 500;
 }
 
 .posts-list .post-preview p {
   margin: 0 0 12px 0;
-  line-height: 1.5em;
-  font-size: 18px;
+  line-height: 1.4em;
+  font-size: 16px;
 }
 
 .posts-list .post-preview .thumbnail {
@@ -50,7 +49,8 @@ description: Articles about Machine Learning
 
 @media(min-width: 768px) {
   .posts-list {
-    margin-top: 100px;
+    margin-top: 48px;
+    margin-bottom: 60px;
   }
   dt-article .posts-list h1 {
     margin-left: 15%;
@@ -69,6 +69,18 @@ description: Articles about Machine Learning
     float: left;
     width: 15%;
     margin-top: 8px;
+  }
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.5em;
+    font-size: 18px;
+  }
+}
+
+@media(min-width: 1025px) {
+  .posts-list {
+    margin-top: 80px;
+    margin-bottom: 60px;
   }
 }
 
