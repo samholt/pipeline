@@ -3,6 +3,8 @@
   "full_title": "Distill",
   "abbrev_title": "Distill",
   "url": "http://distill.pub",
-  "doi": "00.0000/dstl",
-  "issn": "0000-0000"
+  "doi": "10.23915/distill",
+  "publisherName" : "Distill Working Group",
+  "publisherEmail" : "admin@distill.pub",
+  "__issn": "0000-0000"
 }
