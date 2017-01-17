@@ -8,8 +8,8 @@ For urls that are not articles, we have a concept of `pages`. These are located 
 
 There are two main commands to know. 
 
-- `yarn clone` will copy the latest manifest file, then clone and pull the latest from each of the repositories.
+- *`yarn clone`* will copy the latest manifest file, then clone and pull the latest from each of the repositories.
 
-- `yarn build` will run all the transformations necessary to build the site, then place all the output in the `docs/` folder. The `docs/` folder is then served automatically by [github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/) when the changes are committed and pushed to Github.
+- *`yarn build`* will run all the transformations necessary to build the site, then place all the output in the `docs/` folder. The `docs/` folder is then served automatically by [github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/) when the changes are committed and pushed to Github.
 
 Happy building!
