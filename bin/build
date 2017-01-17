@@ -31,6 +31,9 @@ data.journal = JSON.parse(fs.readFileSync("journal.json", "utf8"));
 data.posts = JSON.parse(fs.readFileSync("posts/posts.json", "utf8"));
 data.posts.forEach((p) => {
   p.publishedDate = new Date(p.publishedDate);
+  p.journal = data.journal;
+  if (p.doiSuffix >= 1e5) console.error("DOI suffix overflow ", p.doiSuffix);
+  p.doi = data.journal.doi + "." + ("000000" + p.doiSuffix).slice(-5);
 });
 data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
 
