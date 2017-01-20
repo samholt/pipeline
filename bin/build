@@ -92,6 +92,7 @@ console.log("-----------");
 
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
 exec("cp distill-template/dist/template.js docs/template.js");
+exec("cp distill-template/dist/template.js.map docs/template.js.map");
 exec("cp pages/CNAME docs/");
 
 function renderPage(location, data) {
