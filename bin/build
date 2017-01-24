@@ -67,7 +67,6 @@ data.posts.forEach((post, i) => {
       // write out a archive page
       //todo, curl internet assets...?
       inlineAssets(dom, "img[src]", "src", publishedPath);
-      inlineAssets(dom, 'link[rel="import"][href]', "href", publishedPath);
       inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
       inlineAssets(dom, "script[src]", "src", publishedPath);
       inlineAssets(dom, "video[src]", "src", publishedPath);
