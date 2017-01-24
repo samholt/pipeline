@@ -24,10 +24,14 @@ module.exports = function(dom, selector, attribute, root) {
     let assetPath = el.getAttribute(attribute);
     // Check if it's already a data uri.
     if (assetPath.slice(0,5) !== "data:") {
-      let binary = fs.readFileSync(path.join(root, assetPath));
-      let base64 = new Buffer(binary).toString("base64");
-      let extension = path.extname(assetPath);
-      el.setAttribute(attribute, "data:" + mimetypeFromExtension[extension] + ";base64," + base64);
+      if (fs.existsSync(path.join(root, assetPath))) {
+        let binary = fs.readFileSync(path.join(root, assetPath));
+        let base64 = new Buffer(binary).toString("base64");
+        let extension = path.extname(assetPath);
+        el.setAttribute(attribute, "data:" + mimetypeFromExtension[extension] + ";base64," + base64);
+      } else {
+        //TODO curl for external assets?
+      }
     }
   });
 }

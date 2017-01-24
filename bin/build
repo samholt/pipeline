@@ -5,6 +5,7 @@ let fs = require("fs"),
     exec = require("child_process").execSync,
     mustache = require("mustache"),
     distill = require("../distill-template/dist/template.js"),
+    inlineAssets = require("./inline-assets"),
     analytics = require("./analytics");
 
 // d3
@@ -47,21 +48,34 @@ data.posts.forEach((post, i) => {
   // TODO: alert if we don't have a thumbnail?
 
   // Copy the contents of the repo's public folder to the new location.
-  let publishedPath = path.join("docs", post.distillPath)
+  let publishedPath = path.join("docs", post.distillPath);
+  let originalPath = path.join(repoPath, "public/");
   try {
-    exec("cp -r " + path.join(repoPath, "public/") + " " + publishedPath);
+    exec("cp -r " + originalPath + " " + publishedPath);
   } catch (e) {
     console.error("No public folder for " + repoPath);
   }
 
   //Transform and rewrite all the html files that are direct children of public/
-  fs.readdirSync(publishedPath).forEach((f) => {
+  fs.readdirSync(originalPath).forEach((f) => {
     if (path.extname(f) === ".html") {
-      let htmlString = fs.readFileSync(path.join(publishedPath, f), "utf8");
+      let htmlString = fs.readFileSync(path.join(originalPath, f), "utf8");
       var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
       distill.render(dom, post);
-      let transformedHtml =  serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
+      let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
       fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
+      // write out a archive page
+      //todo, curl internet assets...?
+      inlineAssets(dom, "img[src]", "src", publishedPath);
+      inlineAssets(dom, 'link[rel="import"][href]', "href", publishedPath);
+      inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
+      inlineAssets(dom, "script[src]", "src", publishedPath);
+      inlineAssets(dom, "video[src]", "src", publishedPath);
+      inlineAssets(dom, "video > source[src]", "src", publishedPath);
+      inlineAssets(dom, "audio[src]", "src", publishedPath);
+      inlineAssets(dom, "audio > source[src]", "src", publishedPath);
+      let archiveHtml = serializeDocument(dom)
+      fs.writeFileSync(path.join(publishedPath, f.replace(".html", ".archive.html")), archiveHtml, "utf8");
     }
   });
 
