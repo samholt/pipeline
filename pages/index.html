@@ -7,7 +7,7 @@ description: Articles about Machine Learning
 
 <style>
 .posts-list {
-  margin-top: 24px;
+  margin-top: 12px;
   margin-bottom: 24px;
 }
 
@@ -15,17 +15,18 @@ description: Articles about Machine Learning
   text-decoration: none;
   overflow: hidden;
   display: block;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 24px 0;
 }
 .posts-list .post-preview:hover {
-  border-bottom: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .posts-list .post-preview h2 {
   margin: 0 0 6px 0;
-  line-height: 1.3em;
+  line-height: 1.2em;
+  font-style: normal;
+  font-size: 24px;
 }
 
 .posts-list .post-preview p {
@@ -52,13 +53,12 @@ description: Articles about Machine Learning
 }
 
 @media(min-width: 768px) {
-  .posts-list {
-    margin-top: 48px;
-    margin-bottom: 60px;
+  .posts-list .post-preview h2 {
+    font-size: 30px;
   }
-  dt-article .posts-list h1 {
-    margin-left: 15%;
-    margin-bottom: 36px;
+  .posts-list {
+    margin-top: 24px;
+    margin-bottom: 60px;
   }
   .posts-list .post-preview .thumbnail {
     float: right;
@@ -83,7 +83,7 @@ description: Articles about Machine Learning
 
 @media(min-width: 1025px) {
   .posts-list {
-    margin-top: 80px;
+    margin-top: 24px;
     margin-bottom: 60px;
   }
 }
@@ -92,7 +92,6 @@ description: Articles about Machine Learning
 
 <dt-article>
   <div class="posts-list l-page">
-    <h1>Latest Articles</h1>
     {{#posts}}
       <a href="{{&distillPath}}" class="post-preview">
         <div class="metadata">
