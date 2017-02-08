@@ -21,8 +21,11 @@ request("https://raw.githubusercontent.com/distillpub/posts/master/posts.csv", f
         publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim())
       }
     });
-    fs.writeFileSync("posts/posts.json", JSON.stringify(posts), "utf8")
     clone(posts);
+    posts.forEach(function(p) {
+      p.updatedDate = exec("git -C posts/" + p.githubPath + " log -1 --pretty=format:%cI").toString("utf8");
+    });
+    fs.writeFileSync("posts/posts.json", JSON.stringify(posts), "utf8")
   } else {
     console.error(error);
   }
