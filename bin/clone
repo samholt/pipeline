@@ -21,8 +21,18 @@ request("https://raw.githubusercontent.com/distillpub/posts/master/posts.csv", f
         publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim())
       }
     });
-    fs.writeFileSync("posts/posts.json", JSON.stringify(posts), "utf8")
     clone(posts);
+    posts.forEach(function(p) {
+      p.updatedDate = exec("git -C posts/" + p.githubPath + " log -1 --pretty=format:%cI").toString("utf8");
+      // If we have a FIRST_PUBLISHED tag in git, use it
+      if(exec("git -C posts/" + p.githubPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
+        var tagDate = exec("git -C posts/" + p.githubPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED").toString("utf8");
+        var pubSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H FIRST_PUBLISHED").toString("utf8");
+        var headSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H HEAD").toString("utf8");
+        p.githubCompareUpdatesUrl = "https://github.com/" + p.githubPath + "/compare/" + pubSha + "..." + headSha;
+      }
+    });
+    fs.writeFileSync("posts/posts.json", JSON.stringify(posts, null, 2), "utf8")
   } else {
     console.error(error);
   }
@@ -35,10 +45,12 @@ function clone(posts) {
       // If repo already exists, just pull it
       fs.accessSync(repoPath, fs.F_OK);
       console.log("Pulling " + post.githubPath);
-      exec("git -C " + repoPath + " pull")
+      exec("git -C " + repoPath + " pull");
+      exec("git -C " + repoPath + " fetch --tags");
     } catch (e) {
       // Repo doesn't exist locally, so let's clone it
       exec("git clone --depth 1 " + "https://github.com/" + post.githubPath + ".git" + " " + repoPath);
+      exec("git -C " + repoPath + " fetch --tags");
     }
   });
 }
