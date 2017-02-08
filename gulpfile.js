@@ -24,7 +24,7 @@ gulp.task("pages", function() {
     .pipe(mustache({}))
     .pipe(distill({}))
     .pipe(replace("</body></html>", analytics + "</body></html>"))
-    .pipe(gulp.dest("./docs"))
+    .pipe(gulp.dest("./build"))
 });
 
 // serve
@@ -32,7 +32,7 @@ gulp.task("serve", ["pages"], function() {
 
   gulp.watch("pages/**/*.html", ["pages"]);
 
-  gulp.src("docs")
+  gulp.src("build")
     .pipe(webserver({
       livereload: true,
       directoryListing: true,
