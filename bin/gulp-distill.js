@@ -5,7 +5,7 @@ var through = require('through2'),
     serializeDocument = require("jsdom").serializeDocument,
     distill = require("distill-template");
 
-module.exports = function() {
+module.exports = function(data) {
   // creating a stream through which each file will pass
   var stream = through.obj(function(file, enc, cb) {
     if (file.isStream()) {
@@ -15,7 +15,7 @@ module.exports = function() {
     if (file.isBuffer()) {
       var htmlString = String(file.contents);
       var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-      distill.render(dom, {});
+      distill.render(dom, data);
       let transformedHtml = serializeDocument(dom);
       file.contents = Buffer(transformedHtml);
     }
