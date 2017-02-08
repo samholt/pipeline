@@ -65,7 +65,7 @@ data.posts.forEach((post, i) => {
       distill.render(dom, post);
       let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
       fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
-      // write out a archive page
+      // write out an archive page
       inlineAssets(dom, "img[src]", "src", publishedPath);
       inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
       inlineAssets(dom, "script[src]", "src", publishedPath);
