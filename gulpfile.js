@@ -1,8 +1,12 @@
 var gulp = require("gulp");
 var webserver = require("gulp-webserver");
+var mustache = require("gulp-mustache");
+var distill = require("./bin/gulp-distill.js");
+var analytics = require("./bin/analytics");
+var replace = require("gulp-replace");
 // var del = require("del");
 
-// // clean
+// clean
 // gulp.task("clean", function() {
 //   return del(["public"]);
 // });
@@ -13,18 +17,30 @@ var webserver = require("gulp-webserver");
 //       .pipe(gulp.dest("public"));
 // });
 
-// // serve
-// gulp.task("serve", function() {
 
-//   gulp.watch("*.html", ["html"]);
+//pages
+gulp.task("pages", function() {
+  return gulp.src("pages/**/*.html")
+    .pipe(mustache({}))
+    .pipe(distill({}))
+    .pipe(replace("</body></html>", analytics + "</body></html>"))
+    .pipe(gulp.dest("./docs"))
+});
 
-//   gulp.src("public")
-//     .pipe(webserver({
-//       livereload: true,
-//       directoryListing: true,
-//       open: false
-//     }));
-// });
+// serve
+gulp.task("serve", ["pages"], function() {
+
+  gulp.watch("pages/**/*.html", ["pages"]);
+
+  gulp.src("docs")
+    .pipe(webserver({
+      livereload: true,
+      directoryListing: true,
+      open: false
+    }));
+});
+
+
 
 // // default
 // gulp.task("default", ["html"]);
