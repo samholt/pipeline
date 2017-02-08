@@ -8,9 +8,6 @@ pids
 *.pid
 *.seed
 
-# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
-
 # Dependency directories
 node_modules
 
@@ -23,3 +20,4 @@ node_modules
 # Build
 posts/
 distill-template/
+build/

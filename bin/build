@@ -95,7 +95,7 @@ data.issues.forEach((issue) => {
   issue.issue = issue.values[0].issue;
 });
 
-let pages = ["index.html", "faq/index.html", "archive-info/index.html", "guide/index.html"];
+let pages = ["index.html", "faq/index.html", "archive-info/index.html", "about/guide/index.html"];
 console.log("PAGES -----------");
 pages.forEach(function(p, i) {
   console.log("Building page " + (i + 1) + " of " + pages.length + ": " + p);
