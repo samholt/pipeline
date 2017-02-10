@@ -17,6 +17,10 @@ var replace = require("gulp-replace");
 //       .pipe(gulp.dest("public"));
 // });
 
+gulp.task("svg", function() {
+  return gulp.src("pages/**/*.svg")
+    .pipe(gulp.dest("./build"))
+});
 
 //pages
 gulp.task("pages", function() {
@@ -24,13 +28,13 @@ gulp.task("pages", function() {
     .pipe(mustache({}))
     .pipe(distill({}))
     .pipe(replace("</body></html>", analytics + "</body></html>"))
-    .pipe(gulp.dest("./build"))
+    .pipe(gulp.dest("./build"));
 });
 
 // serve
-gulp.task("serve", ["pages"], function() {
+gulp.task("serve", ["pages", "svg"], function() {
 
-  gulp.watch("pages/**/*.html", ["pages"]);
+  gulp.watch("pages/**/*", ["pages"]);
 
   gulp.src("build")
     .pipe(webserver({

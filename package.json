@@ -15,7 +15,7 @@
     "d3-collection": "^1.0.2",
     "d3-dsv": "^1.0.3",
     "d3-time-format": "^2.0.3",
-    "distill-template": "^0.0.20",
+    "distill-template": "^0.0.21",
     "gulp": "^3.9.1",
     "gulp-mustache": "^2.3.0",
     "gulp-replace": "^0.5.4",
