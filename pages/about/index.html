@@ -1,27 +1,25 @@
 <!doctype html>
 <meta charset="utf-8">
-<script src="http://distill.pub/template.js"></script>
 
 <style>
   .hero {
     font-family: Georgia;
     text-align: center;
-    background: linear-gradient(hsl(223, 9%, 25%) 40%, hsl(203, 29%, 45%));
+    background: linear-gradient(hsl(200, 55%, 35%) 20%, hsl(200, 59%, 45%));
     color: white;
-    padding: 60px 0 40px;
+    padding: 40px 0 20px;
     margin: 0 0 80px 0;
-  }
-  .hero .container {
-    max-width: 680px;
-    margin: 0 auto;
   }
   .hero h1 {
     font-family: HoeflerText-Regular;
     font-weight: normal;
-    font-size: 50px;
     line-height: 1.2em;
+    font-size: 40px;
     margin-bottom: 8px;
     -webkit-font-smoothing: antialiased;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .hero p {
     font-size: 22px;
@@ -31,35 +29,44 @@
 
   /**/
   .actions {
-    margin: 80px 0;
+    margin: 20px 0 80px 0;
   }
   .actions .illustration {
-    height: 150px;
-    width: 200px;
-    border: 1px solid rgba(255, 255, 255, 0.8);
-    background: rgba(255, 255, 255, 0.3);
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0);
+    background-size: contain;
+  }
+  .actions .illustration.journal {
+    background-image: url(illustration-journal.svg);
+  }
+    .actions .illustration.prize {
+    background-image: url(illustration-prize.svg);
+  }
+    .actions .illustration.tools {
+    background-image: url(illustration-tools.svg);
   }
   .actions h3 {
     font-family: Georgia;
     font-size: 23px;
     -webkit-font-smoothing: antialiased;
-    font-style: normal;
-    text-align: left;
-    margin-bottom: 12px;
+    font-style: italic;
+    text-align: center;
+    margin-top: 4px;
+    margin-bottom: 8px;
   }
   .actions h3 span {
     /*font-weight: bold;*/
-
-    -webkit-font-smoothing: auto;
     display: block;
   }
   .actions p {
-     font-family: -apple-system, BlinkMacSystemFont, Helvetica, Roboto, sans-serif;
-    font-size: 14px;
-    line-height: 1.7em;
+    font-size: 16px;
+    line-height: 1.5em;
     text-align: left;
     opacity: 0.9;
-    margin: 0 0 36px 0;
+    margin: 0 0 24px 0;
   }
   .actions a.button {
     font-family: Helvetica, sans-serif;
@@ -72,7 +79,7 @@
     background: rgba(255, 255, 255, 0.2);
     color: white;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     border-radius: 4px;
   }
 
@@ -97,34 +104,34 @@
 
 
 </style>
+
+<dt-header></dt-header>
+
 <dt-article class="centered">
 
 <div class="hero l-screen">
-  <div class="container">
-    <h1>Distill is a Machine Learning Journal Dedicated to Clarity</h1>
-  </div>
+  <h1>An Independent Academic Publisher<br>Devoted to Clearly Explaining<br>Machine Learning</h1>
   <div class="row l-page actions">
     <div class="column">
-      <div class="illustration"></div>
+      <div class="illustration journal"></div>
       <h3><span>A Journal</span> Dedicated to the Reader</h3>
-      <p>We have created an academic journal native to the web that holds the needs of the readers paramount.</p>
-      <br>
-      <a class="button" href="/">Read the Latest Articles</a>
-      <a class="minor" href="authors/">How to Contribute</a>
+      <p>We have created a journal native to the web that holds the needs of its readers paramount.</p>
+      <a class="button" href="../authors/">Submit an Article</a>
+      <a class="minor" href="../">or, Read the Latest Articles</a>
     </div>
 
     <div class="column">
-      <div class="illustration"></div>
+      <div class="illustration prize"></div>
       <h3><span>A Prize</span> To Support Others</h3>
-      <p>There isn’t enough support for those making research clear, concise and approachable. We are offering a yearly cash award to help out.</p>
-      <a class="button" href="prize/">Details</a>
+      <p>We are giving away $10,000 prizes to outstanding work that makes research clear and approachable.</p>
+      <a class="button" href="../prize/">View Details</a>
     </div>
 
     <div class="column">
-      <div class="illustration"></div>
+      <div class="illustration tools"></div>
       <h3><span>Infrastructure</span> To Make it Easier</h3>
-      <p>There is untapped potential in using interactive documents to explain difficult concepts, but using them shouldn’t require <i>another</i> PhD. </p>
-      <a class="button" href="guide/">Get Started</a>
+      <p>Creating interactive documents to explain difficult concepts shouldn’t require <i>another</i> PhD. </p>
+      <a class="button" href="../guide/">Get Started</a>
     </div>
   </div>
 

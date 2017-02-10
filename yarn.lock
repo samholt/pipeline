@@ -584,9 +584,9 @@ detect-file@^0.1.0:
   dependencies:
     fs-exists-sync "^0.1.0"
 
-distill-template@^0.0.20:
-  version "0.0.20"
-  resolved "https://registry.yarnpkg.com/distill-template/-/distill-template-0.0.20.tgz#d02551f826b49bf7d377197e3fab6c26fdbf4e78"
+distill-template@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/distill-template/-/distill-template-0.0.21.tgz#135b2a7de83fffd6999372710376035260c4bc37"
   dependencies:
     commander "^2.9.0"
     d3-time-format "^2.0.3"
