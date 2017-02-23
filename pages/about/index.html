@@ -1,9 +1,9 @@
 <!doctype html>
 <meta charset="utf-8">
-
+<link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400|Open+Sans:400,400i" rel="stylesheet">
 <style>
   .hero {
-    font-family: Georgia;
+    font-family: "Libre Franklin", sans-serif;
     text-align: center;
     background: linear-gradient(hsl(200, 55%, 35%) 20%, hsl(200, 59%, 45%));
     color: white;
@@ -11,7 +11,7 @@
     margin: 0 0 80px 0;
   }
   .hero h1 {
-    font-family: HoeflerText-Regular;
+    font-family: "Libre Franklin";
     font-weight: normal;
     line-height: 1.2em;
     font-size: 40px;
@@ -22,6 +22,7 @@
     margin-right: auto;
   }
   .hero p {
+    font-family: "Open Sans";
     font-size: 22px;
     line-height: 1.7em;
     -webkit-font-smoothing: antialiased;
@@ -49,10 +50,10 @@
     background-image: url(illustration-tools.svg);
   }
   .actions h3 {
-    font-family: Georgia;
-    font-size: 23px;
+    font-family: "Libre Franklin";
+    font-size: 20px;
     -webkit-font-smoothing: antialiased;
-    font-style: italic;
+    font-style: normal;
     text-align: center;
     margin-top: 4px;
     margin-bottom: 8px;
@@ -62,6 +63,7 @@
     display: block;
   }
   .actions p {
+    font-family: "Libre Franklin";
     font-size: 16px;
     line-height: 1.5em;
     text-align: left;
@@ -99,6 +101,17 @@
      padding: 0 24px;
    }
 
+   dt-article .content h2 {
+    font-family: "Libre Franklin";
+
+   }
+
+   dt-article .content p {
+    font-family: "Libre Franklin", "Open Sans";
+    font-size: 18px;
+    line-height: 1.7em;
+   }
+
 
   /**/
 
@@ -110,7 +123,7 @@
 <dt-article class="centered">
 
 <div class="hero l-screen">
-  <h1>Distill is a Non-Profit<br>Devoted to Clearly Explaining<br>Machine Learning</h1>
+  <h1>Distill is an Organization<br>Devoted to Clearly Explaining<br>Machine Learning</h1>
   <div class="row l-page actions">
     <div class="column">
       <div class="illustration journal"></div>
@@ -123,7 +136,7 @@
     <div class="column">
       <div class="illustration prize"></div>
       <h3><span>A Prize</span> To Support Others</h3>
-      <p>We are giving away $10,000 prizes to outstanding work that makes research clear and approachable.</p>
+      <p>We're giving away $10,000 prizes to work that makes research clear and approachable.</p>
       <a class="button" href="../prize/">View Details</a>
     </div>
 
@@ -136,7 +149,7 @@
   </div>
 
 </div>
-
+<div class="content">
 
     <h2>Our Goals</h2>
     <p>Traditional academic publishing is rife with archaic publishing tools and byzantine incentives that ignore the needs of the reader. We think there’s a better way. By fostering a community that holds the needs of the readers above others, we aim to create research articles that are more accessible and more expressive.</p>
@@ -145,5 +158,5 @@
     <p>We also want to legitimize this work. It is hard work. We want to encourage others to participate by creating incentives and by giving it value.
     <p>Why Machine Learning? As machine learning changes how humans and computers interact, we think it is incredibly important to make those techniques transparent — not only so we can understand how they work, but also to make it accessible to more people.
 
-
+</div>
 </dt-article>
