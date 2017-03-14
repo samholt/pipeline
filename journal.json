@@ -6,5 +6,19 @@
   "doi": "10.23915/distill",
   "publisherName" : "Distill Working Group",
   "publisherEmail" : "admin@distill.pub",
-  "issn": "2476-0757"
+  "issn": "2476-0757",
+  "editors": [
+    { "name": "Chris Olah", "affiliation": "Google Brain" },
+    { "name": "Shan Carter", "affiliation": "Google Brain" }
+  ],
+  "committee": [
+    { "name": "Andrej Karpathy", "affiliation": "OpenAI" },
+    { "name": "Ian Goodfellow", "affiliation": "Google Brain" },
+    { "name": "Shakir Mohamad", "affiliation": "DeepMind" },
+    { "name": "Yoshua Bengio", "affiliation": "Université de Montréal" },
+    { "name": "Fernanda Viégas", "affiliation": "Google BigPicture" },
+    { "name": "Mike Bostock", "affiliation": "d3.js" },
+    { "name": "Amanda Cox", "affiliation": "The New York Times" },
+    { "name": "Michael Nielson", "affiliation": "YC Research" }
+  ]
 }
