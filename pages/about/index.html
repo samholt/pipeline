@@ -1,162 +1,212 @@
 <!doctype html>
 <meta charset="utf-8">
+<script src="../../docs/template.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400|Open+Sans:400,400i" rel="stylesheet">
 <style>
-  .hero {
-    font-family: "Libre Franklin", sans-serif;
-    text-align: center;
-    background: linear-gradient(hsl(200, 55%, 35%) 20%, hsl(200, 59%, 45%));
-    color: white;
-    padding: 40px 0 20px;
-    margin: 0 0 80px 0;
-  }
-  .hero h1 {
-    font-family: "Libre Franklin";
-    font-weight: normal;
-    line-height: 1.2em;
-    font-size: 40px;
-    margin-bottom: 8px;
-    -webkit-font-smoothing: antialiased;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .hero p {
-    font-family: "Open Sans";
-    font-size: 22px;
-    line-height: 1.7em;
-    -webkit-font-smoothing: antialiased;
-  }
+.hero {
+  font-family: "Libre Franklin", sans-serif;
+  background-color: hsl(200, 60%, 15%);
+  color: white;
+  padding: 40px 0 40px;
+}
+.hero h1 {
+  font-family: "Libre Franklin";
+  font-weight: normal;
+  line-height: 1.2em;
+  font-size: 44px;
+  -webkit-font-smoothing: antialiased;
+  padding: 80px 0 40px 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.actions {
+  background-color: hsl(200, 50%, 25%);
+  color: white;
+}
+.actions a {
+  padding: 60px 24px 60px 0;
+  color: white;
+  text-decoration: none;
+  position: relative;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+.actions a:last-of-type {
+  border: none;
+}
+.actions .illustration {
+  height: 140px;
+  width: 140px;
+  margin: 0;
+  background-size: contain;
+  position: absolute;
+  top: 30px;
+  left: -30px;
+}
+.actions .illustration.journal {
+  background-image: url(illustration-journal.svg);
+}
+.actions .illustration.prize {
+  background-image: url(illustration-prize.svg);
+}
+.actions .illustration.tools {
+  background-image: url(illustration-tools.svg);
+}
+.actions h3 {
+  -webkit-font-smoothing: antialiased;
+  font-family: "Libre Franklin";
+  font-size: 15px;
+  font-style: 600;
+  margin: 0 0 3px 120px;
+  text-transform: uppercase;
+}
+.actions p {
+  font-family: "Libre Franklin";
+  font-size: 15px;
+  line-height: 1.6em;
+  font-weight: 300;
+  opacity: 0.7;
+  margin: 0 0 0 120px;
 
-  /**/
-  .actions {
-    margin: 20px 0 80px 0;
-  }
-  .actions .illustration {
-    height: 180px;
-    width: 180px;
-    border-radius: 50%;
-    margin: 0 auto;
-    background: rgba(255, 255, 255, 0);
-    background-size: contain;
-  }
-  .actions .illustration.journal {
-    background-image: url(illustration-journal.svg);
-  }
-    .actions .illustration.prize {
-    background-image: url(illustration-prize.svg);
-  }
-    .actions .illustration.tools {
-    background-image: url(illustration-tools.svg);
-  }
-  .actions h3 {
-    font-family: "Libre Franklin";
-    font-size: 20px;
-    -webkit-font-smoothing: antialiased;
-    font-style: normal;
-    text-align: center;
-    margin-top: 4px;
-    margin-bottom: 8px;
-  }
-  .actions h3 span {
-    /*font-weight: bold;*/
-    display: block;
-  }
-  .actions p {
-    font-family: "Libre Franklin";
-    font-size: 16px;
-    line-height: 1.5em;
-    text-align: left;
-    opacity: 0.9;
-    margin: 0 0 24px 0;
-  }
-  .actions a.button {
-    font-family: Helvetica, sans-serif;
-    font-size: 12px;
-    line-height: 20px;
-    padding: 8px 0;
-    text-transform: uppercase;
-    display: block;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    margin-bottom: 12px;
-    border-radius: 4px;
-  }
+}
+.actions a.button {
+  font-family: Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  padding: 8px 0;
+  text-transform: uppercase;
+  display: block;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 12px;
+  border-radius: 4px;
+}
+section {
+  font-family: "Libre Franklin";
+  padding: 80px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  background: #f4f4f4;
 
-  .actions a.minor {
-    font-family: Helvetica, sans-serif;
-    font-size: 12px;
-    line-height: 20px;
-    padding: 8px 0;
-    text-transform: uppercase;
-    display: block;
-    width: 100%;
-    margin-bottom: 8px;
-    border: none;
-  }
-
-   .actions .column {
-     padding: 0 24px;
-   }
-
-   dt-article .content h2 {
-    font-family: "Libre Franklin";
-
-   }
-
-   dt-article .content p {
-    font-family: "Libre Franklin", "Open Sans";
-    font-size: 18px;
-    line-height: 1.7em;
-   }
-
-
-  /**/
-
-
+}
+section:nth-of-type(2n) {
+}
+section:nth-of-type(2n) h2,
+section:nth-of-type(2n) p {
+  clear: right;
+  float: right;
+}
+section h2 {
+  font-size: 34px;
+  line-height: 1.3em;
+  margin: 0;
+  font-weight: 400;
+  width: 400px;
+}
+section p {
+  font-family: "Libre Franklin", "Open Sans";
+  font-size: 18px;
+  line-height: 1.7em;
+  width: 400px;
+}
 </style>
 
 <dt-header></dt-header>
 
-<dt-article class="centered">
 
 <div class="hero l-screen">
-  <h1>Distill is an Organization<br>Devoted to Clearly Explaining<br>Machine Learning</h1>
-  <div class="row l-page actions">
-    <div class="column">
+  <h1 class="l-page">Distill is an Ecosystem<br>Supporting a New Approach<br>To Machine Learning Research</h1>
+</div>
+<div class="actions l-screen">
+  <div class="row l-page">
+
+    <a class="column" href="../authors/">
       <div class="illustration journal"></div>
-      <h3><span>A Journal</span> Dedicated to the Reader</h3>
-      <p>We have created a journal native to the web that holds the needs of its readers paramount.</p>
-      <a class="button" href="../authors/">Submit an Article</a>
-      <a class="minor" href="../">or, Read the Latest Articles</a>
-    </div>
+      <h3>Journal</h3>
+      <p>A new academic journal that is native to the Web.</p>
+    </a>
 
-    <div class="column">
+    <a class="column" href="../prize/">
       <div class="illustration prize"></div>
-      <h3><span>A Prize</span> To Support Others</h3>
-      <p>We're giving away $10,000 prizes to work that makes research clear and approachable.</p>
-      <a class="button" href="../prize/">View Details</a>
-    </div>
+      <h3>Prizes</h3>
+      <p>We're giving away $10,000 prizes to outstanding work.</p>
+    </a>
 
-    <div class="column">
+    <a class="column" href="../guide/">
       <div class="illustration tools"></div>
-      <h3><span>Infrastructure</span> To Make it Easier</h3>
-      <p>Creating interactive documents to explain difficult concepts shouldn’t require <i>another</i> PhD. </p>
-      <a class="button" href="../guide/">Get Started</a>
+      <h3>Tools</h3>
+      <p>Creating interactive documents shouldn’t require <i>another</i> PhD.</p>
+    </a>
+
+  </div>
+</div>
+
+<section>
+  <div class="l-page">
+    <h2>New discoveries require new ways of thinking</h2>
+    <p>New discoveries often require new ways of thinking to grow and flourish -- new notations, visualizations, or mental models. These mental user interfaces unlock our ability to truly engage with these ideas. Sadly, this is rarely even acknowledged. By nurturing the human dimension of research, Distill hopes to make ideas more approachable and to create fertile ground for making new discoveries. </p>
+  </div>
+</section>
+
+<section>
+  <div class="l-page">
+    <h2>An expressive medium for expressing ideas</h2>
+    <p>The modern Web gives us powerful tools to share new ways of thinking -- to create user interfaces for our ideas. Over the last few years we've seen many incredible demonstrations of this kind of work. PDFs are so last century.</p>
+  </div>
+</section>
+
+<section>
+  <div class="l-page">
+  <h2>Lending a helping hand</h2>
+  <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
+  </div>
+</section>
+
+<section>
+  <div class="l-page">
+    <h2>Why machine learning?</h2>
+    <p>Machine Learning is the biggest UI challenge -- and opportunity -- of the decade. The biggest advances in UI will be driven by problems challenges in Machine Learning. Conversely, deeply understanding machine learning, and solving problems like transparency, is deeply connected to user interface design.</p>
+  </div>
+</section>
+
+<section>
+  <div class="l-page">
+
+    <h2>The people behind Distill</h2>
+    <div class="editors">
+      <h3>Editors</h3>
+      {{#editors}}
+        <div class="person">
+          <div class="mug">
+            <img src="people/{{name}}.jpg"
+          </div>
+          <div class="name">{{name}}</div>
+          <div class="affiliation">{{affiliation}}</div>
+        </div>
+      {{/editors}}
+    </div>
+    <div class="committee">
+      <h3>Steering Committee</h3>
+      {{#committee}}
+        <div class="person">
+          <div class="mug">
+            <img src="people/{{name}}.jpg"
+          </div>
+          <div class="name">{{name}}</div>
+          <div class="affiliation">{{affiliation}}</div>
+        </div>
+      {{/committee}}
     </div>
   </div>
 
-</div>
-<div class="content">
+</section>
 
-    <h2>Our Goals</h2>
+
+
+    <!--<h2>Our Goals</h2>
     <p>Traditional academic publishing is rife with archaic publishing tools and byzantine incentives that ignore the needs of the reader. We think there’s a better way. By fostering a community that holds the needs of the readers above others, we aim to create research articles that are more accessible and more expressive.</p>
 
     <p>Most novel research is not digested or "distilled" in a way that makes it approachable. We aim to prove that there is a lot of value to the entire research community in explaining things in a way that makes them easier and faster to digest. Good explanations not only save everyone time, but we also hope to open new and deeper understanding of ideas that we think we already know.
     <p>We also want to legitimize this work. It is hard work. We want to encourage others to participate by creating incentives and by giving it value.
-    <p>Why Machine Learning? As machine learning changes how humans and computers interact, we think it is incredibly important to make those techniques transparent — not only so we can understand how they work, but also to make it accessible to more people.
-
-</div>
-</dt-article>
+    <p>Why Machine Learning? As machine learning changes how humans and computers interact, we think it is incredibly important to make those techniques transparent — not only so we can understand how they work, but also to make it accessible to more people.-->
