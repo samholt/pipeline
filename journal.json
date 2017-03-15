@@ -12,13 +12,13 @@
     { "name": "Shan Carter", "affiliation": "Google Brain" }
   ],
   "committee": [
-    { "name": "Andrej Karpathy", "affiliation": "OpenAI" },
-    { "name": "Ian Goodfellow", "affiliation": "Google Brain" },
-    { "name": "Shakir Mohamad", "affiliation": "DeepMind" },
     { "name": "Yoshua Bengio", "affiliation": "Université de Montréal" },
-    { "name": "Fernanda Viégas", "affiliation": "Google BigPicture" },
-    { "name": "Mike Bostock", "affiliation": "d3.js" },
+    { "name": "Mike Bostock", "affiliation": "Data-Driven Documents" },
     { "name": "Amanda Cox", "affiliation": "The New York Times" },
+    { "name": "Ian Goodfellow", "affiliation": "Google Brain" },
+    { "name": "Andrej Karpathy", "affiliation": "OpenAI" },
+    { "name": "Shakir Mohamed", "affiliation": "DeepMind" },
     { "name": "Michael Nielsen", "affiliation": "YC Research" }
+    { "name": "Fernanda Viégas", "affiliation": "Google BigPicture" },
   ]
 }

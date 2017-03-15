@@ -3,6 +3,9 @@
 <script src="../../docs/template.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,600|Open+Sans:400,400i" rel="stylesheet">
 <style>
+
+/* Hero */
+
 .hero {
   font-family: "Libre Franklin", sans-serif;
   background-color: hsl(200, 60%, 15%);
@@ -23,6 +26,9 @@
   /*color: white;*/
   font-weight: 600;
 }
+
+/* Actions */
+
 .actions {
   background-color: hsl(200, 50%, 25%);
   color: white;
@@ -86,6 +92,9 @@
   margin-bottom: 12px;
   border-radius: 4px;
 }
+
+/* Section */
+
 section {
   font-family: "Libre Franklin";
   padding: 80px 0;
@@ -114,13 +123,75 @@ section p {
   line-height: 1.7em;
   width: 400px;
 }
+
+/* People */
+
+.people {
+  overflow: hidden;
+}
+.people h2 {
+  margin-bottom: 18px;
+}
+.people .editors {
+  display: flex;
+  flex-direction: column;
+  width: 22.5%;
+  float: left;
+}
+.people .committee {
+  margin-left: 5%;
+  width: 72.5%;
+  float: left;
+}
+.people .committee .columns {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 200px;
+}
+.people .editors h3,
+.people .committee h3 {
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.person {
+  position: relative;
+  font-size: 14px;
+  line-height: 1.5em;
+  margin-bottom: 16px;
+}
+.person .mug {
+  position: absolute;
+  top: 4px;
+  left: 0;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+.person .mug img {
+  width: 100%;
+  position: absolute;
+}
+.person .name {
+  margin-top: 6px;
+  margin-left: 60px;
+  font-weight: 600;
+}
+.person .affiliation {
+  margin-left: 60px;
+}
 </style>
 
 <dt-header></dt-header>
 
-
 <div class="hero l-screen">
-  <h1 class="l-page"><b>Distill</b> is an Ecosystem<br>Supporting a New Approach<br>To Machine Learning Research</h1>
+  <h1 class="l-page"><b>Distill</b> is an Ecosystem<br>Supporting New Approaches<br>To Machine Learning Research</h1>
 </div>
 <div class="actions l-screen">
   <div class="row l-page">
@@ -155,62 +226,131 @@ section p {
 
 <section>
   <div class="l-page">
-    <h2>An expressive medium for expressing ideas</h2>
+    <h2>A modern medium for presenting research</h2>
     <p>The modern Web gives us powerful tools to share new ways of thinking -- to create user interfaces for our ideas. Over the last few years we've seen many incredible demonstrations of this kind of work. PDFs are so last century.</p>
   </div>
 </section>
 
 <section>
   <div class="l-page">
-  <h2>Lending a helping hand</h2>
-  <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
-  </div>
-</section>
-
-<section>
-  <div class="l-page">
-    <h2>Why machine learning?</h2>
+    <h2>How will machine learning benefit from Distill’s approach?</h2>
     <p>Machine Learning is the biggest UI challenge -- and opportunity -- of the decade. The biggest advances in UI will be driven by problems challenges in Machine Learning. Conversely, deeply understanding machine learning, and solving problems like transparency, is deeply connected to user interface design.</p>
   </div>
 </section>
 
 <section>
   <div class="l-page">
+  <h2>Legitimizing non-traditional research artifiacts</h2>
+  <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
+  </div>
+</section>
 
+<section class="people">
+  <div class="l-page">
     <h2>The people behind Distill</h2>
     <div class="editors">
+
       <h3>Editors</h3>
+      <div class="person">
+        <div class="mug">
+          <img src="people/chris-olah.jpg">
+        </div>
+        <div class="name">Chris Olah</div>
+        <div class="affiliation">Google Brain</div>
+      </div>
+      <div class="person">
+        <div class="mug">
+          <img src="people/shan-carter.jpg">
+        </div>
+        <div class="name">Shan Carter</div>
+        <div class="affiliation">Google Brain</div>
+      </div>
+      <!--
       {{#editors}}
         <div class="person">
           <div class="mug">
-            <img src="people/{{name}}.jpg"
+            <img src="people/{{id}}.jpg">
           </div>
           <div class="name">{{name}}</div>
           <div class="affiliation">{{affiliation}}</div>
         </div>
       {{/editors}}
+      -->
     </div>
+
     <div class="committee">
       <h3>Steering Committee</h3>
-      {{#committee}}
+      <div class="columns">
+
         <div class="person">
           <div class="mug">
-            <img src="people/{{name}}.jpg"
+            <img src="people/yoshua-bengio.jpg">
+          </div>
+          <div class="name">Yoshua Bengio</div>
+          <div class="affiliation">Université de Montréal</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/mike-bostock.jpg">
+          </div>
+          <div class="name">Mike Bostock</div>
+          <div class="affiliation">Data-Driven Documents</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/amanda-cox.jpg">
+          </div>
+          <div class="name">Amanda Cox</div>
+          <div class="affiliation">The New York Times</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/ian-goodfellow.jpg">
+          </div>
+          <div class="name">Ian Goodfellow</div>
+          <div class="affiliation">Google Brain</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/andrej-karpathy.jpg">
+          </div>
+          <div class="name">Andrej Karpathy</div>
+          <div class="affiliation">OpenAI</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/shakir-mohamed.jpg">
+          </div>
+          <div class="name">Shakir Mohamed</div>
+          <div class="affiliation">DeepMind</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/michael-nielsen.jpg">
+          </div>
+          <div class="name">Michael Nielsen</div>
+          <div class="affiliation">YC Research</div>
+        </div>
+        <div class="person">
+          <div class="mug">
+            <img src="people/fernanda-viégas.jpg">
+          </div>
+          <div class="name">Fernanda Viégas</div>
+          <div class="affiliation">Google BigPicture</div>
+        </div>
+      </div>
+      <!--
+        {{#committee}}
+        <div class="person">
+          <div class="mug">
+            <img src="people/{{id}.jpg">
           </div>
           <div class="name">{{name}}</div>
           <div class="affiliation">{{affiliation}}</div>
         </div>
       {{/committee}}
+      -->
+
     </div>
   </div>
-
 </section>
-
-
-
-    <!--<h2>Our Goals</h2>
-    <p>Traditional academic publishing is rife with archaic publishing tools and byzantine incentives that ignore the needs of the reader. We think there’s a better way. By fostering a community that holds the needs of the readers above others, we aim to create research articles that are more accessible and more expressive.</p>
-
-    <p>Most novel research is not digested or "distilled" in a way that makes it approachable. We aim to prove that there is a lot of value to the entire research community in explaining things in a way that makes them easier and faster to digest. Good explanations not only save everyone time, but we also hope to open new and deeper understanding of ideas that we think we already know.
-    <p>We also want to legitimize this work. It is hard work. We want to encourage others to participate by creating incentives and by giving it value.
-    <p>Why Machine Learning? As machine learning changes how humans and computers interact, we think it is incredibly important to make those techniques transparent — not only so we can understand how they work, but also to make it accessible to more people.-->
