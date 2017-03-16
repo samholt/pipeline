@@ -17,11 +17,28 @@
   font-family: "Libre Franklin";
   font-weight: 300;
   line-height: 1.2em;
-  font-size: 48px;
+  font-size: 30px;
   -webkit-font-smoothing: antialiased;
-  padding: 80px 0 40px 0;
   margin-top: 0;
   margin-bottom: 0;
+}
+@media(min-width: 768px) {
+  .hero h1 {
+    font-size: 40px;
+    padding: 40px 0 0 0;
+  }
+  .hero h1 span {
+    display: block;
+  }
+}
+@media(min-width: 1080px) {
+  .hero h1 {
+    font-size: 48px;
+    padding: 80px 0 40px 0;
+  }
+  .hero h1 span {
+    display: block;
+  }
 }
 .hero h1 b {
   /*color: white;*/
@@ -33,25 +50,58 @@
 .actions {
   background-color: hsl(200, 50%, 25%);
   color: white;
+  padding: 20px 0 30px;
+}
+@media(min-width: 1024px) {
+  .actions {
+    padding: 0;
+  }
+  .actions .content {
+    display: flex;
+  }
 }
 .actions a {
-  padding: 60px 24px 60px 0;
+  display: block;
   color: white;
   text-decoration: none;
   position: relative;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  /*margin: 0 0 20px;*/
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  /*padding: 0 0 24px;*/
+  padding: 30px 0;
 }
 .actions a:last-of-type {
   border: none;
 }
+
+@media(min-width: 1024px) {
+  .actions a {
+    padding: 40px 24px 40px 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom: none;
+    margin-right: 24px;
+  }
+  .actions a:last-of-type {
+    margin: 0;
+  }
+}
 .actions .illustration {
-  height: 140px;
-  width: 140px;
-  margin: 0;
+  height: 120px;
+  width: 120px;
   background-size: contain;
+  background-repeat: no-repeat;
   position: absolute;
-  top: 30px;
-  left: -30px;
+  top: 5px;
+  left: -20px;
+}
+@media(min-width: 1024px) {
+  .actions .illustration {
+    height: 130px;
+    width: 130px;
+    top: 15px;
+    left: -20px;
+  }
 }
 .actions .illustration.journal {
   background-image: url(illustration-journal.svg);
@@ -67,7 +117,7 @@
   font-family: "Libre Franklin";
   font-size: 15px;
   font-style: 600;
-  margin: 0 0 3px 120px;
+  margin: 0 0 3px 110px;
   text-transform: uppercase;
 }
 .actions p {
@@ -75,7 +125,7 @@
   font-size: 16px;
   line-height: 1.6em;
   font-weight: 400;
-  margin: 0 0 0 120px;
+  margin: 0 0 0 110px;
   -webkit-font-smoothing: antialiased;
 
 }
@@ -99,37 +149,48 @@
 section {
   position: relative;
   font-family: "Libre Franklin";
-  padding: 80px 0;
+  padding: 24px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background: #f4f4f4;
+}
+@media(min-width: 768px) {
+  section {
+    padding: 80px 0;
+  }
 }
 section figure {
   display: block;
   margin-bottom: 36px;
 }
-section figure .content {
-  box-sizing: border-box;
-  border: 18px solid #ccc;
-  border-radius: 12px;
-  width: 100%;
-}
 section figure figcaption {
   font-size: 13px;
   color: rgba(0, 0, 0, 0.5);
 }
+section figure .content {
+  box-sizing: border-box;
+  border: 1px solid #dfdfdf;
+  border-radius: 8px;
+  width: 100%;
+}
 section h2 {
-  font-size: 34px;
+  font-size: 26px;
   line-height: 1.3em;
   margin: 0;
   font-weight: 400;
+}
+@media(min-width: 768px) {
+  section h2 {
+    font-size: 34px;
+  }
 }
 section p {
   font-family: "Libre Franklin", "Open Sans";
   font-size: 18px;
   line-height: 1.7em;
+  margin-bottom: 0;
 }
-@media(min-width: 1080px) {
+@media(min-width: 768px) {
   section figure {
     margin-bottom: 0;
   }
@@ -152,8 +213,6 @@ section p {
 
 .people {
   overflow: hidden;
-}
-.people h2 {
 }
 .people .editors,
 .people .committee {
@@ -188,9 +247,14 @@ section p {
   text-transform: uppercase;
   padding-bottom: 6px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  margin-top: 22px;
+  margin-top: 12px;
 }
-
+@media(min-width: 1080px) {
+  .people .editors h3,
+  .people .committee h3 {
+    margin-top: 26px;
+  }
+}
 .person {
   width: 255px;
   padding-right: 10px;
@@ -228,24 +292,28 @@ section p {
 <dt-header></dt-header>
 
 <div class="hero l-screen">
-  <h1 class="l-page"><b>Distill</b> is an Ecosystem<br>Supporting New Approaches<br>To Machine Learning Research</h1>
+  <h1 class="l-page">
+    <span><b>Distill</b> is an Ecosystem</span>
+    <span>Supporting New Approaches</span>
+    <span>To Machine Learning Research</span>
+    </h1>
 </div>
 <div class="actions l-screen">
-  <div class="row l-page">
+  <div class="content l-page">
 
-    <a class="column" href="../authors/">
+    <a href="../authors/">
       <div class="illustration journal"></div>
       <h3>Journal</h3>
       <p>A new type of academic journal that is native to the Web.</p>
     </a>
 
-    <a class="column" href="../prize/">
+    <a href="../prize/">
       <div class="illustration prize"></div>
       <h3>Prizes</h3>
       <p>We're giving away $10,000 prizes to support non-traditional work.</p>
     </a>
 
-    <a class="column" href="../guide/">
+    <a href="../guide/">
       <div class="illustration tools"></div>
       <h3>Tools</h3>
       <p>Creating interactive documents shouldn’t require <i>another</i> PhD.</p>
@@ -257,7 +325,7 @@ section p {
 <section>
   <div class="l-page columns">
     <figure>
-      <img src="karpathy.gif" class="content">
+      <img src="tsne.png" class="content">
       <figcaption>A short caption explaining the image goes here.</figcaption>
     </figure>
     <div class="description">
@@ -270,7 +338,7 @@ section p {
 <section>
   <div class="l-page columns">
     <figure>
-      <img src="karpathy.gif" class="content">
+      <img src="tsne.png" class="content">
       <figcaption>A short caption explaining the image goes here.</figcaption>
     </figure>
     <div class="description">
@@ -283,7 +351,7 @@ section p {
 <section>
   <div class="l-page columns">
     <figure>
-      <img src="karpathy.gif" class="content">
+      <img src="tsne.png" class="content">
       <figcaption>A short caption explaining the image goes here.</figcaption>
     </figure>
     <div class="description">
@@ -296,7 +364,7 @@ section p {
 <section>
   <div class="l-page columns">
     <figure>
-      <img src="karpathy.gif" class="content">
+      <img src="tsne.png" class="content">
       <figcaption>A short caption explaining the image goes here.</figcaption>
     </figure>
     <div class="description">
