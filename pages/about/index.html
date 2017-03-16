@@ -72,7 +72,10 @@
   padding: 30px 0;
 }
 .actions a:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+.actions a:hover h3 {
+  text-decoration: underline;
 }
 .actions a:last-of-type {
   border: none;
@@ -82,36 +85,42 @@
     padding: 40px 12px 40px 12px;
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: none;
+    width: 400px;
   }
   .actions a:last-of-type {
     margin: 0;
   }
 }
 .actions .illustration {
-  height: 120px;
-  width: 120px;
+  height: 90px;
+  width: 90px;
   background-size: contain;
   background-repeat: no-repeat;
   position: absolute;
-  top: 5px;
-  left: -20px;
+  top: 15px;
+  left: 0px;
+}
+@media(min-width: 768px) {
+  .actions .illustration {
+    top: 10px;
+  }
 }
 @media(min-width: 1024px) {
   .actions .illustration {
-    height: 130px;
-    width: 130px;
-    top: 15px;
-    left: -10px;
+    height: 95px;
+    width: 95px;
+    top: 30px;
+    left: 10px;
   }
 }
 .actions .illustration.journal {
-  background-image: url(illustration-journal.svg);
+  background-image: url(images/icons-journal.svg);
 }
 .actions .illustration.prize {
-  background-image: url(illustration-prize.svg);
+  background-image: url(images/icons-prize.svg);
 }
 .actions .illustration.tools {
-  background-image: url(illustration-tools.svg);
+  background-image: url(images/icons-tool.svg);
 }
 .actions h3 {
   -webkit-font-smoothing: antialiased;
@@ -311,13 +320,13 @@ section p {
     <a href="../prize/">
       <div class="illustration prize"></div>
       <h3>Prizes</h3>
-      <p>We're giving away $10,000 prizes to support non-traditional work.</p>
+      <p>We're giving away $10,000 prizes for non-traditional work.</p>
     </a>
 
     <a href="../guide/">
       <div class="illustration tools"></div>
       <h3>Tools</h3>
-      <p>Creating interactive documents shouldn’t require <i>another</i> PhD.</p>
+      <p>Creating beautiful, interactive essays used to be hard. Not anymore.</p>
     </a>
 
   </div>
@@ -369,7 +378,7 @@ section p {
       <figcaption>A short caption explaining the image goes here.</figcaption>
     </figure>
     <div class="description">
-      <h2>Legitimizing non-traditional research artifiacts</h2>
+      <h2>Legitimizing non-traditional research artifacts</h2>
       <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
     </div>
   </div>
