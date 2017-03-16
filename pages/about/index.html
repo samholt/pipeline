@@ -97,32 +97,55 @@
 /* Section */
 
 section {
+  position: relative;
   font-family: "Libre Franklin";
   padding: 80px 0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background: #f4f4f4;
-
 }
-section:nth-of-type(2n) {
+section figure {
+  display: block;
+  margin-bottom: 36px;
 }
-section:nth-of-type(2n) h2,
-section:nth-of-type(2n) p {
-  clear: right;
-  float: right;
+section figure .content {
+  box-sizing: border-box;
+  border: 18px solid #ccc;
+  border-radius: 12px;
+  width: 100%;
+}
+section figure figcaption {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
 }
 section h2 {
   font-size: 34px;
   line-height: 1.3em;
   margin: 0;
   font-weight: 400;
-  width: 400px;
 }
 section p {
   font-family: "Libre Franklin", "Open Sans";
   font-size: 18px;
   line-height: 1.7em;
-  width: 400px;
+}
+@media(min-width: 1080px) {
+  section figure {
+    margin-bottom: 0;
+  }
+  section > .columns {
+    display: flex;
+    justify-content: space-between;
+  }
+  section:nth-of-type(2n - 1) > .columns {
+    flex-direction: row-reverse;
+  }
+  section figure {
+    width: 45%;
+  }
+  section .description {
+    width: 45%;
+  }
 }
 
 /* People */
@@ -232,30 +255,54 @@ section p {
 </div>
 
 <section>
-  <div class="l-page">
-    <h2>New discoveries require new ways of thinking</h2>
-    <p>New discoveries often require new ways of thinking to grow and flourish -- new notations, visualizations, or mental models. These mental user interfaces unlock our ability to truly engage with these ideas. Sadly, this is rarely acknowledged, let alone nurtured. By embracing this human dimension of research, Distill hopes to create fertile ground for making new discoveries.</p>
+  <div class="l-page columns">
+    <figure>
+      <img src="karpathy.gif" class="content">
+      <figcaption>A short caption explaining the image goes here.</figcaption>
+    </figure>
+    <div class="description">
+      <h2>New discoveries require new ways of thinking</h2>
+      <p>New discoveries often require new ways of thinking to grow and flourish -- new notations, visualizations, or mental models. These mental user interfaces unlock our ability to truly engage with these ideas. Sadly, this is rarely acknowledged, let alone nurtured. By embracing this human dimension of research, Distill hopes to create fertile ground for making new discoveries.</p>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="l-page">
-    <h2>A modern medium for presenting research</h2>
-    <p>The modern Web gives us powerful tools to share new ways of thinking -- to create user interfaces for our ideas. Over the last few years we've seen many incredible demonstrations of this kind of work. PDFs are so last century.</p>
+  <div class="l-page columns">
+    <figure>
+      <img src="karpathy.gif" class="content">
+      <figcaption>A short caption explaining the image goes here.</figcaption>
+    </figure>
+    <div class="description">
+      <h2>A modern medium for presenting research</h2>
+      <p>The modern Web gives us powerful tools to share new ways of thinking -- to create user interfaces for our ideas. Over the last few years we've seen many incredible demonstrations of this kind of work. PDFs are so last century.</p>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="l-page">
-    <h2>How will machine learning benefit from Distill’s approach?</h2>
-    <p>Machine learning will fundamentally change how humans and computers interact.  It’s important to make those techniques transparent, so we can understand and safely control how they work.  Distill will provide a platform for vividly illustrating these ideas.</p>
+  <div class="l-page columns">
+    <figure>
+      <img src="karpathy.gif" class="content">
+      <figcaption>A short caption explaining the image goes here.</figcaption>
+    </figure>
+    <div class="description">
+      <h2>How will machine learning benefit from Distill’s approach?</h2>
+      <p>Machine learning will fundamentally change how humans and computers interact.  It’s important to make those techniques transparent, so we can understand and safely control how they work.  Distill will provide a platform for vividly illustrating these ideas.</p>
+    </div>
   </div>
 </section>
 
 <section>
-  <div class="l-page">
-  <h2>Legitimizing non-traditional research artifiacts</h2>
-  <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
+  <div class="l-page columns">
+    <figure>
+      <img src="karpathy.gif" class="content">
+      <figcaption>A short caption explaining the image goes here.</figcaption>
+    </figure>
+    <div class="description">
+      <h2>Legitimizing non-traditional research artifiacts</h2>
+      <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
+    </div>
   </div>
 </section>
 
