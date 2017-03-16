@@ -1,5 +1,6 @@
 <!doctype html>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../../docs/template.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,600|Open+Sans:400,400i" rel="stylesheet">
 <style>
@@ -130,25 +131,32 @@ section p {
   overflow: hidden;
 }
 .people h2 {
-  margin-bottom: 18px;
 }
-.people .editors {
-  display: flex;
-  flex-direction: column;
-  width: 22.5%;
-  float: left;
-}
+.people .editors,
 .people .committee {
-  margin-left: 5%;
-  width: 72.5%;
-  float: left;
+  clear: both;
+  overflow: hidden;
 }
-.people .committee .columns {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  height: 200px;
+@media(min-width: 1080px) {
+  .people .editors {
+    display: flex;
+    flex-direction: column;
+    width: 22.5%;
+    float: left;
+  }
+  .people .committee {
+    clear: none;
+    margin-left: 5%;
+    width: 72.5%;
+    float: left;
+  }
+  .people .columns {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 200px;
+  }
 }
 .people .editors h3,
 .people .committee h3 {
@@ -157,12 +165,18 @@ section p {
   text-transform: uppercase;
   padding-bottom: 6px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-top: 22px;
 }
+
 .person {
+  width: 255px;
+  padding-right: 10px;
   position: relative;
   font-size: 14px;
   line-height: 1.5em;
   margin-bottom: 16px;
+  min-height: 50px;
+  float: left;
 }
 .person .mug {
   position: absolute;
@@ -199,13 +213,13 @@ section p {
     <a class="column" href="../authors/">
       <div class="illustration journal"></div>
       <h3>Journal</h3>
-      <p>A new academic journal that is native to the Web.</p>
+      <p>A new type of academic journal that is native to the Web.</p>
     </a>
 
     <a class="column" href="../prize/">
       <div class="illustration prize"></div>
       <h3>Prizes</h3>
-      <p>We're giving away $10,000 prizes to outstanding work.</p>
+      <p>We're giving away $10,000 prizes to support non-traditional work.</p>
     </a>
 
     <a class="column" href="../guide/">
@@ -220,7 +234,7 @@ section p {
 <section>
   <div class="l-page">
     <h2>New discoveries require new ways of thinking</h2>
-    <p>New discoveries often require new ways of thinking to grow and flourish -- new notations, visualizations, or mental models. These mental user interfaces unlock our ability to truly engage with these ideas. Sadly, this is rarely even acknowledged. By nurturing the human dimension of research, Distill hopes to make ideas more approachable and to create fertile ground for making new discoveries. </p>
+    <p>New discoveries often require new ways of thinking to grow and flourish -- new notations, visualizations, or mental models. These mental user interfaces unlock our ability to truly engage with these ideas. Sadly, this is rarely acknowledged, let alone nurtured. By embracing this human dimension of research, Distill hopes to create fertile ground for making new discoveries.</p>
   </div>
 </section>
 
@@ -234,7 +248,7 @@ section p {
 <section>
   <div class="l-page">
     <h2>How will machine learning benefit from Distill’s approach?</h2>
-    <p>Machine Learning is the biggest UI challenge -- and opportunity -- of the decade. The biggest advances in UI will be driven by problems challenges in Machine Learning. Conversely, deeply understanding machine learning, and solving problems like transparency, is deeply connected to user interface design.</p>
+    <p>Machine learning will fundamentally change how humans and computers interact.  It’s important to make those techniques transparent, so we can understand and safely control how they work.  Distill will provide a platform for vividly illustrating these ideas.</p>
   </div>
 </section>
 
@@ -251,19 +265,21 @@ section p {
     <div class="editors">
 
       <h3>Editors</h3>
-      <div class="person">
-        <div class="mug">
-          <img src="people/chris-olah.jpg">
+      <div class="columns">
+        <div class="person">
+          <div class="mug">
+            <img src="people/chris-olah.jpg">
+          </div>
+          <div class="name">Chris Olah</div>
+          <div class="affiliation">Google Brain</div>
         </div>
-        <div class="name">Chris Olah</div>
-        <div class="affiliation">Google Brain</div>
-      </div>
-      <div class="person">
-        <div class="mug">
-          <img src="people/shan-carter.jpg">
+        <div class="person">
+          <div class="mug">
+            <img src="people/shan-carter.jpg">
+          </div>
+          <div class="name">Shan Carter</div>
+          <div class="affiliation">Google Brain</div>
         </div>
-        <div class="name">Shan Carter</div>
-        <div class="affiliation">Google Brain</div>
       </div>
       <!--
       {{#editors}}
