@@ -16,7 +16,7 @@
 .hero h1 {
   font-family: "Libre Franklin";
   font-weight: 300;
-  line-height: 1.2em;
+  line-height: 1.3em;
   font-size: 30px;
   -webkit-font-smoothing: antialiased;
   margin-top: 0;
@@ -27,13 +27,10 @@
     font-size: 40px;
     padding: 40px 0;
   }
-  .hero h1 span {
-    display: block;
-  }
 }
 @media(min-width: 1080px) {
   .hero h1 {
-    font-size: 48px;
+    font-size: 46px;
     padding: 40px 0;
   }
   .hero h1 span {
@@ -197,10 +194,15 @@ section h2 {
   margin: 0;
   font-weight: 400;
 }
+
+@media(min-width: 375px) {
+  section h2 {
+    font-size: 30px;
+  }
+}
 @media(min-width: 768px) {
   section h2 {
     font-size: 34px;
-    margin-top: 40px;
   }
 }
 section p {
@@ -219,6 +221,7 @@ section p {
   section > .columns {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   section:nth-of-type(2n - 1) > .columns {
     flex-direction: row-reverse;
@@ -315,9 +318,14 @@ section p {
 
 <div class="hero l-screen">
   <h1 class="l-page">
-    <span><b>Distill</b> is an Ecosystem</span>
+    <!--<span><b>Distill</b> is an Ecosystem</span>
     <span>Supporting New Approaches</span>
-    <span>To Machine Learning Research</span>
+    <span>To Machine Learning Research</span>-->
+    <!--<span><b>Distill</b> is a Home for Clear and Beautiful </span>-->
+    <!--<span>Machine Learning Research</span>-->
+    <span>Machine Learning Research</span>
+    <span>Should Be Clear, Transparent and Vivid.</span>
+    <span><b>Distill</b> is here to help.</span>
     </h1>
 </div>
 <div class="actions l-screen">
@@ -373,7 +381,7 @@ section p {
 <section>
   <div class="l-page columns">
     <div class="description">
-      <h2>Machine Learning can benefit from Distill’s approach</h2>
+      <h2>Machine Learning needs more transparency</h2>
       <p>Machine learning will fundamentally change how humans and computers interact.  It’s important to make those techniques transparent, so we can understand and safely control how they work. Distill will provide a platform for vividly illustrating these ideas.</p>
     </div>
     <figure>
@@ -391,7 +399,7 @@ section p {
     </div>
     <figure>
       <img src="tsne.png" class="content">
-      <figcaption>A short caption explaining the image goes here.</figcaption>
+      <figcaption>Contributions that don't fit into the traditional academic buckets are often wrapped with hollow papers in order to participate in the ecosystem. This multiplies effort and divides attention.</figcaption>
     </figure>
   </div>
 </section>
