@@ -9,7 +9,7 @@
 
 .hero {
   font-family: "Libre Franklin", sans-serif;
-  background-color: hsl(200, 60%, 15%);
+  background-color: hsl(200, 60%, 20%);
   color: white;
   padding: 40px 0 40px;
 }
@@ -25,7 +25,7 @@
 @media(min-width: 768px) {
   .hero h1 {
     font-size: 40px;
-    padding: 40px 0 0 0;
+    padding: 40px 0;
   }
   .hero h1 span {
     display: block;
@@ -34,10 +34,16 @@
 @media(min-width: 1080px) {
   .hero h1 {
     font-size: 48px;
-    padding: 80px 0 40px 0;
+    padding: 40px 0;
   }
   .hero h1 span {
     display: block;
+  }
+}
+
+@media(min-width: 1200px) {
+  .hero h1 {
+    /*padding-top: 80px;*/
   }
 }
 .hero h1 b {
@@ -175,6 +181,8 @@ section figure {
 }
 section figure figcaption {
   font-size: 13px;
+  line-height: 1.5em;
+  margin-top: 8px;
   color: rgba(0, 0, 0, 0.5);
 }
 section figure .content {
@@ -192,15 +200,19 @@ section h2 {
 @media(min-width: 768px) {
   section h2 {
     font-size: 34px;
+    margin-top: 40px;
   }
 }
 section p {
   font-family: "Libre Franklin", "Open Sans";
   font-size: 18px;
   line-height: 1.7em;
-  margin-bottom: 0;
+  margin-bottom: 40px;
 }
 @media(min-width: 768px) {
+  section p {
+    margin-bottom: 0;
+  }
   section figure {
     margin-bottom: 0;
   }
@@ -334,53 +346,53 @@ section p {
 
 <section>
   <div class="l-page columns">
+    <div class="description">
+      <h2>A modern medium for presenting research</h2>
+      <p>The web is a powerful medium to share new ways of thinking. Over the last few years we’ve <a href="http://explorableexplanations.com/">seen</a> <a href="http://cs.stanford.edu/people/karpathy/convnetjs/">many</a> <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">imaginative</a> <a href="http://colah.github.io/">examples</a> <a href="https://acko.net/tv/toolsforthought/">of</a> <a href="http://cognitivemedium.com/tat/">such</a> <a href="http://worrydream.com/MediaForThinkingTheUnthinkable/">work</a>. But traditional academic publishing remains focused on the PDF. Distill will embrace modern media.</p>
+    </div>
     <figure>
-      <img src="tsne.png" class="content">
-      <figcaption>A short caption explaining the image goes here.</figcaption>
+      <img src="ntm.jpg" class="content">
+      <figcaption><a href="">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a nueral turing machine shifts its attention over its old memory values to create new values.</figcaption>
     </figure>
+  </div>
+</section>
+
+<section>
+  <div class="l-page columns">
     <div class="description">
       <h2>New ways of thinking enable new discoveries</h2>
       <p>New notations, visualizations, and mental models can deepen our understanding. By nurturing the development of such new ways of thinking, Distill will enable new discoveries.</p>
     </div>
+    <figure>
+      <img src="tsne.jpg" class="content">
+      <figcaption><a href="http://distill.pub/2016/misread-tsne/">A playground</a> for t-SNE dimensionality reduction technique helps readers develop a intuition for where it can best be applied.</figcaption>
+    </figure>
   </div>
 </section>
 
 <section>
   <div class="l-page columns">
-    <figure>
-      <img src="tsne.png" class="content">
-      <figcaption>A short caption explaining the image goes here.</figcaption>
-    </figure>
-    <div class="description">
-      <h2>A modern medium for presenting research</h2>
-      <p>The web is a powerful medium to share new ways of thinking. Over the last few years we’ve seen many imaginative examples of such work. But traditional academic publishing remains focused on the PDF. Distill will embrace modern media.</p>
-    </div>
-  </div>
-</section>
-
-<section>
-  <div class="l-page columns">
-    <figure>
-      <img src="tsne.png" class="content">
-      <figcaption>A short caption explaining the image goes here.</figcaption>
-    </figure>
     <div class="description">
       <h2>Machine Learning can benefit from Distill’s approach</h2>
       <p>Machine learning will fundamentally change how humans and computers interact.  It’s important to make those techniques transparent, so we can understand and safely control how they work. Distill will provide a platform for vividly illustrating these ideas.</p>
     </div>
+    <figure>
+      <img src="handwriting.jpg" class="content">
+      <figcaption><a href="http://distill.pub/2016/handwriting/">An inspectable RNN</a> handwriting model allows readers to feed in examples and see activations in real time.</figcaption>
+    </figure>
   </div>
 </section>
 
 <section>
   <div class="l-page columns">
-    <figure>
-      <img src="tsne.png" class="content">
-      <figcaption>A short caption explaining the image goes here.</figcaption>
-    </figure>
     <div class="description">
       <h2>Legitimizing non-traditional research artifacts</h2>
       <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
     </div>
+    <figure>
+      <img src="tsne.png" class="content">
+      <figcaption>A short caption explaining the image goes here.</figcaption>
+    </figure>
   </div>
 </section>
 
