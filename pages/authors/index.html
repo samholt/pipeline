@@ -7,11 +7,25 @@
 </script>
 
 <style>
-  p > span.doi {
+  p > span.doi, td > span.doi {
     display: block;
     color: grey;
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
+  }
+  .distill-table{
+    font-size: 100%;
+  }
+  .distill-table .normal-row:first-of-type td {
+    padding-top: 0px;
+  }
+  .distill-table .normal-row td {
+    padding-top: 20px;
+    vertical-align: top;
+  }
+  .distill-table .normal-row .property {
+    padding-right: 20px;
+    font-weight: bold;
   }
 </style>
 
@@ -19,9 +33,83 @@
 
   <h1>Publishing in the Distill Research Journal</h1>
 
-  <hr>
+<br>
 
   <h2>Why Publish in Distill?</h2>
+  
+  <div>
+    <table class="distill-table">
+      <tr class="normal-row">
+        <td class="property">Validation</td>
+        <td class="reason">Distill articles are "real" scientific publications. Distill is registered with the Library of Congress and CrossRef. &nbsp;&nbsp;<span class="doi">ISSN: <a href="https://lccn.loc.gov/2017201669">2476-0757</a>&nbsp;&nbsp;&nbsp;&nbsp;DOI: <a href="http://doi.org/10.23915/distill">http://doi.org/10.23915/distill</a></span></td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Flexibility </td>
+        <td class="reason"> We do not expect you to conform to traditional academic style. The goal should be to best serve your readers.</td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Neutrality</td>
+        <td class="reason">Distill provides a neutral platform for multiple authors to jointly publish. This is in contrast to a personal blog, where it may feel like the outside contributor gets less credit.</td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Impact</td>
+        <td class="reason">Distill articles are read by tens of thousands of people.</td>
+      </tr>
+    </table>
+  </div>  
+
+
+  <h2>Writing a Distill Article</h2>
+  
+  <p>Distill articles must be prepared using our lightweight web framework -- see our <a href="distill.pub/guide/">guide</a>. Articles must also be released under the <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution license</a>.</p>
+  
+  <p>To submit an article, first create a github repository for your article. You can keep it private during the review process if you would like -- just share it with <a href="https://github.com/shancarter">@colah</a> and <a href="https://github.com/shancarter">@shancarter</a>. Then email <a href="mailto:review@distill.pub">review@distill.pub</a> to begin the process.
+    
+  <p>Distill handles all reviews and editing through GitHub issues. Upon publication, the repository is made public and transferred to the <a href="https://github.com/distillpub">@distillpub</a> organization for preservation. This means that the reviews of published work are always public. (It is at the authors discretion whether they share reviews of unpublished work, either during the process or if it gets rejected.)
+    
+
+  <h2>The Distill Review Process</h2>
+  
+  <p>Academic review is a trade-off between lots of interests. Costs are paid by the editors, the reviewers, and even the authors. The situation is further complicated by the fact that most review service is a chore, reluctantly done out of a sense of obligation.
+
+  <p>As a young journal treading into new ground, Distill doesn’t know what the best way to handle review is. Instead of committing to a detailed policy a priori, we commit to taking the interests of all parties extremely seriously and continually seeking the best compromise.
+    
+  <p>In general, we expect this to mean publishing a smaller number of articles and working very hard to handle those well. In order to focus our effort on a small number of articles, we divide our review process into two stages. A faster initial review narrows down articles to a smaller number for us to focus on, saving all parties time. These two stages are supplemented by the possibility of further post-publication review by interested parties.
+
+  <div class="l-middle-outset" style="margin-top:30px; margin-bottom:30px"><img src="Journal_ReviewProcess.svg" style="width:100%"></img></div>
+
+  <p>(These time estimates depend a lot on how responsive the authors are.)
+  
+  <p>Both stages or review are led by an editor. The editor will bring in external peer reviewers based on their discretion as to what perspectives are needed. Traditionally, journals handle research articles differently from that of a review or tutorial. As Distill publishes academic artifacts that don't clearly fit within these lines, we expect to need to think carefully about what kind of review process makes sense.
+    
+  <p>For all publications, Distill will review for outstanding communication and design, in addition scientific quality and integrity. Distill provides expert editing to help authors improve their writing and diagrams.
+
+  <div class="l-middle-outset" style="margin-top:40px; margin-bottom:30px"><img src="Journal_DesignEditing.svg" style="width:100%"></img></div>  
+
+  <p>While our review process does take time and energy, we strive to ensure it is well worth your effort.
+
+  <h2>Conflicts of Interest</h2>
+
+  <p>Like many young journals, Distill has a small number of editors who are deeply involved in the journals domain. As such, it is common to see many papers where one or more editors have a conflict of interest.
+    
+  <p>To address this, Distill does not allow any editor to lead the review process for a paper on which they are an author or where they feel unable to be objective for another reason. If no editors are available to review an article, a member of the steering committee may lead the review process, or deputize someone to do so on their behalf.
+    
+  <p>More broadly, there will be many cases where Distill's editors have some kind of relationship with an author. While most relationships do not amount to a conflict of interest, they should be disclosed in the review process.
+  
+  <h2>Ethics Concerns (eg. Plagiarism, Misconduct, etc.)</h2>
+
+  <p>Distill takes ethics concerns very seriously. Please email <a href="mailto:ethics@distill.pub">ethics@distill.pub</a> to raise a concern, or reach out to Distill's editors or steering committee members individually if that feels more comfortable.</p>
+
+  <p>As a young journal, Distill does not have established policies or procedures for every issue we may run into. As issues arise we’ll give consideration to the policies of journals we respect (eg. <a href="https://www.plos.org/">PLOS</a>), the recommendations of the <a href="http://publicationethics.org/">Committee on Publication Ethics</a>, community norms, and the philosophy of the Open Science movement.</p>
+
+
+  
+  
+
+
+
+<!--
+  
   <p><b>Flexibility</b> -- We do not expect you to conform to traditional academic style. The goal should be to best serve your readers.</p>
 
   <p><b>Validation</b> -- Publication in Distill is external validation that your work is a serious academic publication, even if it is an non-traditional. Distill is registered as a journal with the Library of Congress and CrossRef. &nbsp;&nbsp;<span class="doi">ISSN: <a href="https://lccn.loc.gov/2017201669">2476-0757</a>&nbsp;&nbsp;DOI: <a href="http://doi.org/10.23915/distill">http://doi.org/10.23915/distill</a></span></p>
@@ -61,7 +149,7 @@
   <p>Distill takes ethics concerns very seriously. Please email <a href="mailto:ethics@distill.pub">ethics@distill.pub</a> to raise a concern, or reach out to any of Distill's editors individually if that feels more comfortable.</p>
 
   <p>As a young journal, Distill does not have established policies or procedures for every issue we may run into. As issues arise we’ll give consideration to the policies of journals we respect (eg. <a href="https://www.plos.org/">PLOS</a>), the recommendations of the <a href="http://publicationethics.org/">Committee on Publication Ethics</a>, community norms, and the philosophy of the Open Science movement.</p>
-
+-->
 
 
 </dt-article>
