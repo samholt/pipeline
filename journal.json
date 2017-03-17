@@ -8,14 +8,14 @@
   "publisherEmail" : "admin@distill.pub",
   "issn": "2476-0757",
   "editors": [
-    { "name": "Shan Carter", "affiliation": "Google Brain" },
-    { "name": "Chris Olah", "affiliation": "Google Brain" }
+    { "name": "Shan Carter", "affiliation": "Google Brain Team" },
+    { "name": "Chris Olah", "affiliation": "Google Brain Team" }
   ],
   "committee": [
     { "name": "Yoshua Bengio", "affiliation": "Université de Montréal" },
     { "name": "Mike Bostock", "affiliation": "Data-Driven Documents" },
     { "name": "Amanda Cox", "affiliation": "The New York Times" },
-    { "name": "Ian Goodfellow", "affiliation": "Google Brain" },
+    { "name": "Ian Goodfellow", "affiliation": "Google Brain Team" },
     { "name": "Andrej Karpathy", "affiliation": "OpenAI" },
     { "name": "Shakir Mohamed", "affiliation": "DeepMind" },
     { "name": "Michael Nielsen", "affiliation": "YC Research" },
