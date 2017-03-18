@@ -182,11 +182,13 @@ section figure figcaption {
   margin-top: 8px;
   color: rgba(0, 0, 0, 0.5);
 }
-section figure .content {
+section figure > img {
   box-sizing: border-box;
+  width: 100%;
+}
+section figure .content {
   border: 1px solid #dfdfdf;
   border-radius: 8px;
-  width: 100%;
 }
 section h2 {
   font-size: 26px;
@@ -194,7 +196,6 @@ section h2 {
   margin: 0;
   font-weight: 400;
 }
-
 @media(min-width: 375px) {
   section h2 {
     font-size: 30px;
@@ -207,8 +208,9 @@ section h2 {
 }
 section p {
   font-family: "Libre Franklin", "Open Sans";
-  font-size: 18px;
-  line-height: 1.7em;
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 17px;
+  line-height: 1.6em;
   margin-bottom: 40px;
 }
 @media(min-width: 768px) {
@@ -223,7 +225,7 @@ section p {
     justify-content: space-between;
     align-items: center;
   }
-  section:nth-of-type(2n - 1) > .columns {
+  section:nth-of-type(2n) > .columns {
     flex-direction: row-reverse;
   }
   section figure {
@@ -318,11 +320,6 @@ section p {
 
 <div class="hero l-screen">
   <h1 class="l-page">
-    <!--<span><b>Distill</b> is an Ecosystem</span>
-    <span>Supporting New Approaches</span>
-    <span>To Machine Learning Research</span>-->
-    <!--<span><b>Distill</b> is a Home for Clear and Beautiful </span>-->
-    <!--<span>Machine Learning Research</span>-->
     <span>Machine Learning Research</span>
     <span>Should Be Clear, Transparent and Vivid.</span>
     <span><b>Distill</b> is here to help.</span>
@@ -330,25 +327,21 @@ section p {
 </div>
 <div class="actions l-screen">
   <div class="content l-page">
-
     <a href="../authors/">
       <div class="illustration journal"></div>
-      <h3>Journal</h3>
-      <p>A new type of academic journal that is native to the Web.</p>
+      <h3>A Journal</h3>
+      <p>Devoted to clear explanations and is native to the Web.</p>
     </a>
-
     <a href="../prize/">
       <div class="illustration prize"></div>
-      <h3>Prizes</h3>
-      <p>We're giving away $10,000 prizes for non-traditional work.</p>
+      <h3>$10,000 Prizes</h3>
+      <p>For outstanding work communicating and refining ideas.</p>
     </a>
-
     <a href="../guide/">
       <div class="illustration tools"></div>
       <h3>Tools</h3>
-      <p>Creating beautiful, interactive essays used to be hard. Not anymore.</p>
+      <p>To minimize the difficulty of creating beautiful, interactive essays.</p>
     </a>
-
   </div>
 </div>
 
@@ -358,9 +351,174 @@ section p {
       <h2>A modern medium for presenting research</h2>
       <p>The web is a powerful medium to share new ways of thinking. Over the last few years we’ve <a href="http://explorableexplanations.com/">seen</a> <a href="http://cs.stanford.edu/people/karpathy/convnetjs/">many</a> <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">imaginative</a> <a href="http://colah.github.io/">examples</a> <a href="https://acko.net/tv/toolsforthought/">of</a> <a href="http://cognitivemedium.com/tat/">such</a> <a href="http://worrydream.com/MediaForThinkingTheUnthinkable/">work</a>. But traditional academic publishing remains focused on the PDF. Distill will embrace modern media.</p>
     </div>
-    <figure>
-      <img src="ntm.jpg" class="content">
-      <figcaption><a href="">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a nueral turing machine shifts its attention over its old memory values to create new values.</figcaption>
+    <figure id="rnn-write">
+      <svg version="1.1" id="edges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="303px" height="287.7px" viewBox="0 0 303 287.7" style="enable-background:new 0 0 303 287.7;" xml:space="preserve">
+      <symbol  id="array-1" viewBox="-18.8 -18.8 37.5 37.5">
+        <path style="fill:#FFFFFF;stroke:#8C8C8C;stroke-width:1.5;stroke-miterlimit:10;" d="M12-18h-24c-3.3,0-6,2.7-6,6v24
+          c0,3.3,2.7,6,6,6h24c3.3,0,6-2.7,6-6v-24C18-15.3,15.3-18,12-18z"/>
+      </symbol>
+      <symbol  id="array-7" viewBox="-126.8 -18.8 253.5 37.5">
+        <path style="fill:#FFFFFF;stroke:#8C8C8C;stroke-width:1.5;stroke-miterlimit:10;" d="M120-18h-240c-3.3,0-6,2.7-6,6v24
+          c0,3.3,2.7,6,6,6h240c3.3,0,6-2.7,6-6v-24C126-15.3,123.3-18,120-18z"/>
+        <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-90.5" y1="-18" x2="-90.5" y2="18"/>
+        <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-54.5" y1="-18" x2="-54.5" y2="18"/>
+        <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-18.5" y1="-18" x2="-18.5" y2="18"/>
+        <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="17.5" y1="-18" x2="17.5" y2="18"/>
+        <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="53.5" y1="-18" x2="53.5" y2="18"/>
+        <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="89.5" y1="-18" x2="89.5" y2="18"/>
+      </symbol>
+      <symbol  id="array-positive-value" viewBox="-18 -18 36 36">
+        <polygon style="opacity:0;fill:#0080F7;" points="18,-18 -18,-18 -18,18 18,18 	"/>
+        <path style="opacity:0.8;fill:#3A5EDD;" d="M7.6-13.6H-7.6c-3.3,0-6,2.7-6,6V7.6c0,3.3,2.7,6,6,6H7.6c3.3,0,6-2.7,6-6V-7.6
+          C13.6-10.9,10.9-13.6,7.6-13.6z"/>
+      </symbol>
+      <symbol  id="array-vector" viewBox="0 -36 36 36">
+        <polygon style="opacity:0;fill:#D8C2F2;" points="36,-36 0,-36 0,0 36,0 	"/>
+        <g style="opacity:0.5;">
+          <g>
+            <line style="fill:none;stroke:#000000;stroke-miterlimit:10;" x1="18" y1="-24" x2="18" y2="-13.1"/>
+            <g>
+              <polygon points="22.1,-16.4 21.4,-17.1 18,-13.5 14.6,-17.1 13.9,-16.4 18,-12 				"/>
+            </g>
+          </g>
+        </g>
+      </symbol>
+      <symbol  id="pointer" viewBox="-6.7 -23.4 26.9 26.9">
+        <path style="fill:none;stroke:#FFDC8C;stroke-miterlimit:10;" d="M19.7-10c0-7.1-5.8-12.9-12.9-12.9S-6.2-17.1-6.2-10S-0.4,3,6.8,3
+          S19.7-2.8,19.7-10z"/>
+        <path style="fill:#FFB200;" d="M17.1-10c0-5.7-4.6-10.4-10.4-10.4S-3.6-15.7-3.6-10S1,0.4,6.8,0.4S17.1-4.2,17.1-10z"/>
+        <polygon style="opacity:0.2;fill:#FFFFFF;" points="4.7,-15.8 4.7,-14 4.1,-14 4,-12.7 3.4,-12.7 3.4,-11.5 2.9,-11.5 2.8,-10.3
+          2.2,-10.3 2.2,-9.7 1.6,-9.7 1.6,-7.9 3.4,-7.9 3.5,-8.5 4.1,-8.5 4.1,-3 4.7,-3 4.7,-2.4 5.9,-2.4 5.9,-3 6.5,-3 6.5,-5.4
+          7.7,-5.4 7.7,-6 9.5,-6 9.6,-6.6 10.8,-6.6 10.8,-7.3 11.4,-7.3 11.4,-7.9 12,-7.9 12,-12.1 11.4,-12 11.3,-14 10.8,-14
+          10.8,-15.8 	"/>
+        <g>
+          <path style="fill:#FFFFFF;" d="M3.5-8.5c0,0.1,0,0.2,0,0.3c0,0.1,0,0.2,0,0.3c-0.6,0-1.2,0-1.8,0c0-0.6,0-1.2,0-1.8
+            c0.2,0,0.4,0,0.6,0c0,0.4,0,0.8,0,1.2c0,0,0.1,0,0.1,0c0.3,0,0.5,0,0.8,0C3.2-8.5,3.3-8.5,3.5-8.5c0-0.2,0-0.4,0-0.6
+            c0.2,0,0.4,0,0.6,0c0-0.2,0-0.4,0-0.6c0.2,0,0.4,0,0.6,0c0,0,0,0,0,0.1c0,1.6,0,3.2,0,4.8c0,0.6,0,1.2,0,1.8c0,0,0,0,0.1,0
+            c0.3,0,0.7,0,1,0c0.1,0,0.1,0,0.2,0c0,0.2,0,0.4,0,0.6c-0.4,0-0.8,0-1.2,0c0-0.2,0-0.4,0-0.6c0,0,0,0-0.1,0C4.4-3,4.3-3,4.1-3
+            c0,0,0,0-0.1,0c0-1.8,0-3.6,0-5.5c-0.2,0-0.3,0-0.4,0C3.6-8.5,3.5-8.5,3.5-8.5z M7.7-6C7.7-6,7.7-6,7.7-6c0,0.2,0,0.4,0,0.5
+            c0,0,0,0,0,0.1c-0.4,0-0.8,0-1.2,0c0,0.8,0,1.6,0,2.4C6.3-3,6.1-3,5.9-3c0-1.8,0-3.6,0-5.5c0.2,0,0.4,0,0.6,0c0,0.8,0,1.6,0,2.4
+            c0,0,0.1,0,0.1,0C6.9-6,7.3-6,7.7-6C7.7-6,7.7-6,7.7-6C7.7-6,7.7-6.1,7.7-6c0-0.8,0-1.6,0-2.3c0,0,0-0.1,0-0.1c0.2,0,0.4,0,0.6,0
+            c0,0.6,0,1.2,0,1.8c0.4,0,0.8,0,1.2,0c0-0.8,0-1.6,0-2.4c0.2,0,0.4,0,0.6,0c0,0.6,0,1.2,0,1.8c0.2,0,0.4,0,0.6,0c0,0,0,0,0-0.1
+            c0-0.1,0-0.3,0-0.4c0,0,0-0.1,0-0.1c0.2,0,0.4,0,0.5,0c0,0,0.1,0,0.1-0.1c0-0.2,0-0.5,0-0.7c0-1.1,0-2.3,0-3.4c0,0,0,0,0-0.1
+            c-0.2,0-0.4,0-0.6,0c0,0,0,0,0,0c0-0.6,0-1.1,0-1.7c0,0,0,0,0-0.1c-0.2,0-0.4,0-0.6,0c0-0.4,0-0.8,0-1.2c-1.6,0-3.2,0-4.9,0
+            c0,0.4,0,0.8,0,1.2c-0.2,0-0.4,0-0.6,0c0,0.4,0,0.8,0,1.2c-0.2,0-0.4,0-0.6,0c0-0.4,0-0.8,0-1.2c0.2,0,0.4,0,0.6,0
+            c0-0.6,0-1.2,0-1.8c2,0,4.1,0,6.1,0c0,0.1,0,0.2,0,0.3c0,0.5,0,0.9,0,1.4c0,0.1,0,0.1,0,0.2c0.2,0,0.4,0,0.5,0
+            c0.1,0,0.1,0,0.1,0.1c0,0.4,0,0.9,0,1.3c0,0.1,0,0.3,0,0.4c0.1,0,0.2,0,0.3,0c0.1,0,0.2,0,0.3,0c0,1.4,0,2.8,0,4.3
+            c-0.2,0-0.4,0-0.6,0c0,0.2,0,0.4,0,0.6c-0.2,0-0.4,0-0.6,0c0,0.2,0,0.4,0,0.6c-0.4,0-0.8,0-1.2,0c0,0.2,0,0.4,0,0.6
+            C9.5-6,9.4-6,9.3-6C8.9-6,8.4-6,8-6C7.9-6,7.8-6,7.7-6z M3.4-11.5c0-0.4,0-0.8,0-1.2c0.2,0,0.4,0,0.5,0c0.1,0,0.1,0,0.1,0.1
+            c0,0.3,0,0.6,0,1c0,0.1,0,0.1,0,0.2C3.9-11.5,3.7-11.5,3.4-11.5c0,0.4,0,0.8,0,1.2c-0.2,0-0.4,0-0.6,0c0,0.2,0,0.4,0,0.6
+            c-0.2,0-0.4,0-0.6,0c0-0.2,0-0.4,0-0.6c0.2,0,0.4,0,0.6,0c0,0,0,0,0-0.1c0-0.1,0-0.3,0-0.4c0-0.2,0-0.5,0-0.7c0,0,0-0.1,0.1-0.1
+            c0.1,0,0.2,0,0.3,0C3.3-11.5,3.3-11.5,3.4-11.5z"/>
+          <path style="fill:#FFFFFF;" d="M10.8-14C10.8-13.9,10.8-13.9,10.8-14c0,0.6,0,1.2,0,1.8c0,0,0,0,0,0c0.2,0,0.4,0,0.6,0
+            c0,0,0,0.1,0,0.1c0,1.1,0,2.3,0,3.4c0,0.2,0,0.5,0,0.7c0,0,0,0.1-0.1,0.1c-0.2,0-0.4,0-0.5,0c0,0,0,0.1,0,0.1c0,0.1,0,0.3,0,0.4
+            c0,0,0,0.1,0,0.1c-0.2,0-0.4,0-0.6,0c0-0.6,0-1.2,0-1.8c-0.2,0-0.4,0-0.6,0c0,0.8,0,1.6,0,2.4c-0.4,0-0.8,0-1.2,0
+            c0-0.6,0-1.2,0-1.8c-0.2,0-0.4,0-0.6,0c0,0,0,0.1,0,0.1c0,0.7,0,1.5,0,2.2c0,0,0,0.1,0,0.1l0,0C7.8-6,7.9-6,8-6c0.4,0,0.9,0,1.3,0
+            c0.1,0,0.2,0,0.3,0c0-0.2,0-0.4,0-0.6c0.4,0,0.8,0,1.2,0c0-0.2,0-0.4,0-0.6c0.2,0,0.4,0,0.6,0c0-0.2,0-0.4,0-0.6
+            c0.2,0,0.4,0,0.6,0c0-1.4,0-2.8,0-4.3c-0.1,0-0.2,0-0.3,0c-0.1,0-0.2,0-0.3,0c0-0.1,0-0.3,0-0.4c0-0.4,0-0.9,0-1.3
+            c0-0.1,0-0.1-0.1-0.1C11.1-14,11-14,10.8-14L10.8-14z"/>
+          <path style="fill:#FFFFFF;" d="M10.8-14c0-0.1,0-0.1,0-0.2c0-0.5,0-0.9,0-1.4c0-0.1,0-0.2,0-0.3c-2,0-4.1,0-6.1,0
+            c0,0.6,0,1.2,0,1.8c-0.2,0-0.4,0-0.6,0c0,0.4,0,0.8,0,1.2c0.2,0,0.4,0,0.6,0c0-0.4,0-0.8,0-1.2c0.2,0,0.4,0,0.6,0
+            c0-0.4,0-0.8,0-1.2c1.6,0,3.2,0,4.9,0c0,0.4,0,0.8,0,1.2C10.4-14,10.6-14,10.8-14L10.8-14z"/>
+          <path style="fill:#FFFFFF;" d="M4.7-3c0-0.6,0-1.2,0-1.8c0-1.6,0-3.2,0-4.8c0,0,0,0,0-0.1c-0.2,0-0.4,0-0.6,0c0,0.2,0,0.4,0,0.6
+            c-0.2,0-0.4,0-0.6,0c0,0.2,0,0.4,0,0.6l0,0c0.1,0,0.1,0,0.2,0c0.1,0,0.3,0,0.4,0c0,1.8,0,3.6,0,5.5c0,0,0.1,0,0.1,0
+            C4.3-3,4.4-3,4.7-3C4.6-3,4.6-3,4.7-3L4.7-3z"/>
+          <path style="fill:#FFFFFF;" d="M7.7-6C7.7-6,7.7-6,7.7-6C7.3-6,6.9-6,6.6-6c0,0,0,0-0.1,0c0-0.8,0-1.6,0-2.4c-0.2,0-0.4,0-0.6,0
+            c0,1.8,0,3.6,0,5.5c0.2,0,0.4,0,0.6,0c0-0.8,0-1.6,0-2.4c0.4,0,0.8,0,1.2,0c0,0,0-0.1,0-0.1C7.7-5.6,7.7-5.8,7.7-6
+            C7.7-6,7.7-6,7.7-6L7.7-6z"/>
+          <path style="fill:#FFFFFF;" d="M3.4-11.5c-0.1,0-0.2,0-0.3,0c-0.1,0-0.2,0-0.3,0c0,0-0.1,0-0.1,0.1c0,0.2,0,0.5,0,0.7
+            c0,0.1,0,0.3,0,0.4c0,0,0,0,0,0.1c-0.2,0-0.4,0-0.6,0c0,0.2,0,0.4,0,0.6c0.2,0,0.4,0,0.6,0c0-0.2,0-0.4,0-0.6c0.2,0,0.4,0,0.6,0
+            C3.4-10.7,3.4-11.1,3.4-11.5c0.2,0,0.4,0,0.6,0c0-0.1,0-0.1,0-0.2c0-0.3,0-0.6,0-1c0-0.1,0-0.1-0.1-0.1c-0.2,0-0.3,0-0.5,0
+            C3.4-12.3,3.4-11.9,3.4-11.5z"/>
+          <path style="fill:#FFFFFF;" d="M3.5-8.5c-0.1,0-0.2,0-0.3,0c-0.3,0-0.5,0-0.8,0c0,0,0,0-0.1,0c0-0.4,0-0.8,0-1.2
+            c-0.2,0-0.4,0-0.6,0c0,0.6,0,1.2,0,1.8c0.6,0,1.2,0,1.8,0c0-0.1,0-0.2,0-0.3C3.4-8.3,3.5-8.4,3.5-8.5C3.5-8.5,3.5-8.5,3.5-8.5z"/>
+          <path style="fill:#FFFFFF;" d="M4.7-3c0,0.2,0,0.4,0,0.6c0.4,0,0.8,0,1.2,0c0-0.2,0-0.4,0-0.6C5.8-3,5.8-3,5.7-3C5.4-3,5-3,4.7-3
+            C4.7-3,4.7-3,4.7-3L4.7-3z"/>
+        </g>
+      </symbol>
+      <g id="paths">
+
+          <path id="path24182_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M125.3,39.8c0,52.7-101.4,52.9-102,76.9v125.4"/>
+
+          <path id="path24184_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M127.3,39.8c0,52.7-67.4,52.9-68,76.9v125.4"/>
+
+          <path id="path24186_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M129.3,39.8c0,52.7-33.4,52.9-34,76.9v125.4"/>
+
+          <path id="path24249_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M131.3,39.2c0,0,0,50.3,0,67c0,33.2,0,136,0,136"/>
+
+          <path id="path24264_1_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M133.3,39.8c0,52.7,33.4,52.9,33.9,76.9v125.4"/>
+
+          <path id="path24262_1_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M135.3,39.8c0,52.7,67.4,52.9,68,76.9v125.4"/>
+
+          <path id="path24260_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="
+          M137.3,39.8c0,52.7,101.4,52.9,102,76.9v125.4"/>
+      </g>
+      <use xlink:href="#array-1"  width="37.5" height="37.5" id="XMLID_83_" x="-18.8" y="-18.8" transform="matrix(1 0 0 -1 130.7939 21.6541)" style="overflow:visible;"/>
+      <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_76_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 141.6541)" style="overflow:visible;"/>
+      <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_130_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 200.6541)" style="overflow:visible;"/>
+      <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_60_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 260.6541)" style="overflow:visible;"/>
+      <g id="attention">
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_128_" x="-18" y="-18" transform="matrix(1 0 0 -1 23.2939 141.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_127_" x="-18" y="-18" transform="matrix(1 0 0 -1 59.2939 141.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_126_" x="-18" y="-18" transform="matrix(1 0 0 -1 95.2939 141.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_125_" x="-18" y="-18" transform="matrix(1 0 0 -1 131.2939 141.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_124_" x="-18" y="-18" transform="matrix(1 0 0 -1 167.2939 141.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_123_" x="-18" y="-18" transform="matrix(1 0 0 -1 203.2939 141.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_122_" x="-18" y="-18" transform="matrix(1 0 0 -1 239.2939 141.1541)" style="overflow:visible;"/>
+      </g>
+      <g id="write-result">
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_109_" y="-36" transform="matrix(1 0 0 -1 113.2939 3.1541)" style="overflow:visible;"/>
+      </g>
+      <g id="memory">
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_108_" y="-36" transform="matrix(1 0 0 -1 5.2939 183.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_107_" y="-36" transform="matrix(1 0 0 -1 41.2939 183.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_106_" y="-36" transform="matrix(1 0 0 -1 77.2939 183.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_105_" y="-36" transform="matrix(1 0 0 -1 113.2939 183.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_104_" y="-36" transform="matrix(1 0 0 -1 149.2939 183.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_103_" y="-36" transform="matrix(1 0 0 -1 185.2939 183.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_102_" y="-36" transform="matrix(1 0 0 -1 221.2939 183.1541)" style="overflow:visible;"/>
+      </g>
+      <g id="new-memory">
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_101_" y="-36" transform="matrix(1 0 0 -1 5.2939 243.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_100_" y="-36" transform="matrix(1 0 0 -1 41.2939 243.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_99_" y="-36" transform="matrix(1 0 0 -1 77.2939 243.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_98_" y="-36" transform="matrix(1 0 0 -1 113.2939 243.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_97_" y="-36" transform="matrix(1 0 0 -1 149.2939 243.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_96_" y="-36" transform="matrix(1 0 0 -1 185.2939 243.1541)" style="overflow:visible;"/>
+
+          <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_95_" y="-36" transform="matrix(1 0 0 -1 221.2939 243.1541)" style="overflow:visible;"/>
+      </g>
+      <use xlink:href="#pointer"  width="26.9" height="26.9" id="XMLID_94_" x="-6.7" y="-23.4" transform="matrix(1 0 0 -1 272.3271 131.1715)" style="overflow:visible;"/>
+      </svg>
+
+      <figcaption><a href="">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a neural turing machine shifts its attention over its old memory values to create new values.</figcaption>
     </figure>
   </div>
 </section>
@@ -394,12 +552,12 @@ section p {
 <section>
   <div class="l-page columns">
     <div class="description">
-      <h2>Legitimizing non-traditional research artifacts</h2>
+      <h2>Recognition of non-traditional research artifacts</h2>
       <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
     </div>
     <figure>
-      <img src="tsne.png" class="content">
-      <figcaption>Contributions that don't fit into the traditional academic buckets are often wrapped with hollow papers in order to participate in the ecosystem. This multiplies effort and divides attention.</figcaption>
+      <img src="playground-paper.png">
+      <figcaption>In order to get credit for <a href="http://playground.tensorflow.org/">non-traditional contributions</a>, authors are often forced to wrap them with <a href="http://poloclub.gatech.edu/idea2016/papers/p115-smilkov.pdf">proxy papers</a>. This multiplies effort and divides attention.</figcaption>
     </figure>
   </div>
 </section>
@@ -407,8 +565,10 @@ section p {
 <section>
   <div class="l-page columns">
     <div class="description">
-      <h2>Taking the time to explain things well benefits the community</h2>
-      <p>As we rush papers out the door to meet conference deadlines without taking the time to really refine and edit them well for our audience, we are piling onto the amount of work our audience has to do to keep current in the field. This piling up of “research debt” is a drag on the community. We believe that doing the hard work of refining and editing before publishing will have a huge impact on the work we do as a community to understand each others results.</p>
+      <h2>Clear writing benefits everyone</h2>
+      <!--<p>When we rush papers out the door to meet conference deadlines, something suffers. Often it is the readability and clarity of our communication. These . This piling up of <a href="#">research debt</a> is a severe drag on the entire community. We believe that doing the hard work of refining and editing will have a huge impact on thecommunity.</p>-->
+
+      <p>Clarity and readability are not often prioritized in academic research. This is unfortunate -- difficult to understand documents create unnecessary work for our colleagues and adds severe drag to the entire community. We think this <a href="#">type of debt</a> can be avoided.
     </div>
     <figure>
       <img src="publish-one-few.jpg" class="content">
@@ -528,3 +688,138 @@ section p {
     </div>
   </div>
 </section>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script>
+"use strict";
+(function() {
+
+  function appendArrowhead(selection) {
+    selection.append("marker")
+        .attr("id", "arrowhead")
+        .attr("viewBox", "0 -5 10 10")
+        .attr("refX", 5)
+        .attr("refY", 0)
+        .attr("markerWidth", 10)
+        .attr("markerHeight", 10)
+        .attr("orient", "auto")
+      .append("path")
+        .attr("d", "M0,-5L5,0L0,5")
+        .style("fill", "none")
+        .style("stroke", "grey");
+  }
+
+  var vectorScale = d3.scaleLinear()
+      .domain([0, 1])
+      .range([-14, 14]);
+
+  var memoryData = [
+    {x: 0.9, y: 0.9},
+    {x: 0.8, y: 0.8},
+    {x: 0.1, y: 0.9},
+    {x: 0.4, y: 0.2},
+    {x: 0.2, y: 0.2},
+    {x: 0.4, y: 0.3},
+    {x: 0.1, y: 0.5}
+  ];
+
+  var writeData = {x: 0.9, y: 0};
+  var nodeWidth = 36;
+
+  //
+  // Write
+  //
+
+  var writeHtml = d3.selectAll("#rnn-write");
+  var writeSvg = writeHtml.select("svg");
+  var writeMemory = writeSvg.selectAll("#memory use");
+  var writeMemoryBBox = writeSvg.select("#memory").node().getBBox();
+  var writeNewMemory = writeSvg.selectAll("#new-memory use");
+  var writeNewMemoryBBox = writeSvg.select("#new-memory").node().getBBox();
+  var writeAttention = writeSvg.selectAll("#attention use");
+  var writeAttentionBBox = writeSvg.select("#attention").node().getBBox();
+  var writePath = writeSvg.selectAll("#paths path");
+  var writeResult = writeSvg.select("#write-result").style("opacity", 0);
+  var writeResultBBox = writeResult.node().getBBox();
+  var newMemoryData = memoryData.map(function(){ return {}; });
+
+  appendArrowhead(writeSvg);
+  var writeArrow = writeSvg.append("line")
+      .attr("class", "write-line")
+      .attr("marker-end", "url(#arrowhead)")
+      .style("stroke", "grey")
+      .attr("transform", "translate(" + (writeResultBBox.x + writeResultBBox.width / 2 - vectorScale(writeData.x) / 2) + ", " + (writeResultBBox.y + writeResultBBox.width / 2 - vectorScale(writeData.y) / 2) + ")")
+      .attr("x2", vectorScale(writeData.x))
+      .attr("y2", vectorScale(writeData.y));
+
+  writeMemory.data(memoryData)
+    .each(function(d, i) {
+      this.style.opacity = 0;
+      d.top = writeMemoryBBox.y;
+      d.left = writeMemoryBBox.x + i * nodeWidth;
+      d.width = nodeWidth;
+    });
+
+  var writeMemoryVectors = writeSvg.selectAll(".vector")
+      .data(memoryData)
+    .enter().append("line")
+      .attr("class", "vector")
+      .attr("transform", function(d) {
+        return "translate(" + (d.left + d.width / 2 - vectorScale(d.x) / 2) + ", " + (d.top + d.width / 2 - vectorScale(d.y) / 2) + ")";
+      })
+      .attr("x2", function(d) { return  vectorScale(d.x); })
+      .attr("y2", function(d) { return  vectorScale(d.y); })
+      .attr("marker-end", "url(#arrowhead)")
+      .style("stroke", "grey");
+
+  writeNewMemory.data(newMemoryData)
+    .each(function(d, i) {
+      this.style.opacity = 0;
+      d.top = writeNewMemoryBBox.y;
+      d.left = writeNewMemoryBBox.x + i * nodeWidth;
+      d.width = nodeWidth;
+    });
+
+  var writeNewMemoryVectors = writeSvg.selectAll(".new-vector")
+      .data(newMemoryData)
+    .enter().append("line")
+      .attr("class", "new-vector")
+      .attr("marker-end", "url(#arrowhead)")
+      .style("stroke", "grey");
+
+  function updateWriteAttention(data) {
+    newMemoryData.forEach(function(d, i) {
+      d.x = (memoryData[i].x + writeData.x * data[i]) / (1 + data[i]);
+      d.y = (memoryData[i].y + writeData.y * data[i]) / (1 + data[i]);
+    });
+    writeNewMemoryVectors
+        .attr("transform", function(d) {
+          return "translate(" + (d.left + d.width / 2 - vectorScale(d.x) / 2) + ", " + (d.top + d.width / 2 - vectorScale(d.y) / 2) + ")";
+        })
+        .attr("x2", function(d) { return  vectorScale(d.x); })
+        .attr("y2", function(d) { return  vectorScale(d.y); });
+
+    writeAttention.data(data)
+        .style("opacity", function(d) { return  d + 0.05; });
+
+    writePath.data(data)
+        .style("stroke-opacity", function(d) { return  d + 0.1; });
+  }
+
+  writeHtml.on("mousemove", function() {
+    var data = [];
+    writeAttention.each(function() {
+      var bbox = this.getBoundingClientRect()
+      var distance = Math.abs(bbox.left - d3.event.clientX + bbox.width / 2);
+      data.push(Math.exp(-distance / 25));
+    });
+    data = data.map(function(d) { return  d / d3.sum(data); });
+    updateWriteAttention(data);
+  });
+
+  var initWriteData = d3.range(writeAttention.size()).map(function(d) { return  Math.exp(-d); });
+  initWriteData = initWriteData.map(function(d) { return  d / d3.sum(initWriteData); });
+  updateWriteAttention(initWriteData);
+
+})();
+</script>
