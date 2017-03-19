@@ -96,11 +96,23 @@ data.issues.forEach((issue) => {
   issue.issue = issue.values[0].issue;
 });
 
-["about", "authors"].forEach(p => {
+let pageAssets = [
+  "about",
+  "journal"
+].forEach(p => {
   exec(path.join("cp -rf pages/", p) + " docs/");
 });
-let pages = ["index.html", "faq/index.html", "archive-info/index.html", "guide/index.html", "about/index.html"];
+
 console.log("PAGES -----------");
+let pages = [
+  "about/index.html",
+  "archive-info/index.html",
+  "faq/index.html",
+  "guide/index.html",
+  "index.html",
+  "journal/index.html",
+  "prize/index.html"
+];
 pages.forEach(function(p, i) {
   console.log("Building page " + (i + 1) + " of " + pages.length + ": " + p);
   renderPage(p, data);
