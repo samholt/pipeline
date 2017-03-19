@@ -63,6 +63,7 @@ data.posts.forEach((post, i) => {
       let htmlString = fs.readFileSync(path.join(originalPath, f), "utf8");
       var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
       distill.render(dom, post);
+      distill.distillify(dom, post);
       let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
       fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
       // write out an archive page
@@ -95,7 +96,10 @@ data.issues.forEach((issue) => {
   issue.issue = issue.values[0].issue;
 });
 
-let pages = ["index.html", "faq/index.html", "archive-info/index.html", "guide/index.html"];
+["about", "authors"].forEach(p => {
+  exec(path.join("cp -rf pages/", p) + " docs/");
+});
+let pages = ["index.html", "faq/index.html", "archive-info/index.html", "guide/index.html", "about/index.html"];
 console.log("PAGES -----------");
 pages.forEach(function(p, i) {
   console.log("Building page " + (i + 1) + " of " + pages.length + ": " + p);
@@ -104,14 +108,15 @@ pages.forEach(function(p, i) {
 console.log("-----------");
 
 fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
-exec("cp distill-template/dist/template.js docs/template.js");
-exec("cp distill-template/dist/template.js.map docs/template.js.map");
+exec("cp distill-template/dist/template.js docs/template.v1.js");
+exec("cp distill-template/dist/template.js.map docs/template.v1.js.map");
 exec("cp pages/CNAME docs/");
 
 function renderPage(location, data) {
   let indexString = mustache.render(fs.readFileSync(path.join("pages/",location), "utf8") + analytics, data);
   var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-  distill.render(indexDom, {});
+  distill.render(indexDom, data);
+  distill.distillify(indexDom, data);
   exec("mkdir -p " + path.dirname(path.join("docs", location)));
   fs.writeFileSync(path.join("docs/", location), serializeDocument(indexDom));
 }
