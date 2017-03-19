@@ -18,7 +18,8 @@ request("https://raw.githubusercontent.com/distillpub/posts/master/posts.csv", f
         doiSuffix: +r.doiSuffix,
         distillPath: r.distillPath.trim(),
         githubPath: r.githubPath.trim(),
-        publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim())
+        publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim()),
+        tags: r.tags.trim().split(" ")
       }
     });
     clone(posts);

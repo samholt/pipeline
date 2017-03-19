@@ -6,6 +6,10 @@ description: Articles about Machine Learning
 </script>
 
 <style>
+h2.post-tag {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  padding-bottom: 12px;
+}
 .posts-list {
   margin-top: 12px;
   margin-bottom: 24px;
@@ -92,7 +96,8 @@ description: Articles about Machine Learning
 
 <dt-article>
   <div class="posts-list l-page">
-    {{#posts}}
+    <h2 class="post-tag">Latest Articles</h2>
+    {{#articles}}
       <a href="{{&distillPath}}" class="post-preview">
         <div class="metadata">
           <div>{{publishedMonth}}. {{publishedDay}}, {{publishedYear}}</div>
@@ -103,6 +108,19 @@ description: Articles about Machine Learning
           <p>{{description}}</p>
         </div>
       </a>
-    {{/posts}}
+    {{/articles}}
+    <h2 class="post-tag">Commentary</h2>
+    {{#commentaries}}
+      <a href="{{&distillPath}}" class="post-preview">
+        <div class="metadata">
+          <div>{{publishedMonth}}. {{publishedDay}}, {{publishedYear}}</div>
+        </div>
+        <div class="thumbnail"><img src="{{&distillPath}}/thumbnail.jpg"></div>
+        <div class="description">
+          <h2>{{title}}</h2>
+          <p>{{description}}</p>
+        </div>
+      </a>
+    {{/commentaries}}
   </div>
 </dt-article>

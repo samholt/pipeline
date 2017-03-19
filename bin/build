@@ -85,6 +85,16 @@ data.posts.forEach((post, i) => {
 
 });
 
+// Commentary
+data.commentaries = data.posts.filter(p => {
+  return p.tags.indexOf("commentary") !== -1;
+});
+
+// Articles
+data.articles = data.posts.filter(p => {
+  return p.tags.indexOf("commentary") === -1;
+});
+
 // Nest the articles into volume/issues
 data.issues = d3.nest()
     .key((d) => d.volume * 100 + d.issue)
