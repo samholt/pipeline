@@ -1,7 +1,7 @@
 <!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="../../docs/template.js"></script>
+<script src="../../docs/template.v1.js"></script>
 <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,600|Open+Sans:400,400i" rel="stylesheet">
 <style>
 
@@ -182,7 +182,7 @@ section figcaption {
   margin-top: 8px;
   color: rgba(0, 0, 0, 0.5);
 }
-section figure > img {
+section figure img {
   box-sizing: border-box;
   width: 100%;
 }
@@ -373,83 +373,85 @@ section p {
       <p>The web is a powerful medium to share new ways of thinking. Over the last few years we’ve <a href="http://explorableexplanations.com/">seen</a> <a href="http://cs.stanford.edu/people/karpathy/convnetjs/">many</a> <a href="http://www.r2d3.us/visual-intro-to-machine-learning-part-1/">imaginative</a> <a href="http://colah.github.io/">examples</a> <a href="https://acko.net/tv/toolsforthought/">of</a> <a href="http://cognitivemedium.com/tat/">such</a> <a href="http://worrydream.com/MediaForThinkingTheUnthinkable/">work</a>. But traditional academic publishing remains focused on the PDF, which prevents this sort of communication.</p>
     </div>
     <figure id="rnn-write">
-      <div class="content">
-        <svg version="1.1" id="edges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 265 280" style="enable-background:new 0 0 303 287.7;" xml:space="preserve">
-          <symbol  id="array-1" viewBox="-18.8 -18.8 37.5 37.5">
-            <path style="fill:#FFFFFF;stroke:#8C8C8C;stroke-width:1.5;stroke-miterlimit:10;" d="M12-18h-24c-3.3,0-6,2.7-6,6v24c0,3.3,2.7,6,6,6h24c3.3,0,6-2.7,6-6v-24C18-15.3,15.3-18,12-18z"/>
-          </symbol>
-          <symbol  id="array-7" viewBox="-126.8 -18.8 253.5 37.5">
-            <path style="fill:#FFFFFF;stroke:#8C8C8C;stroke-width:1.5;stroke-miterlimit:10;" d="M120-18h-240c-3.3,0-6,2.7-6,6v24c0,3.3,2.7,6,6,6h240c3.3,0,6-2.7,6-6v-24C126-15.3,123.3-18,120-18z"/>
-            <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-90.5" y1="-18" x2="-90.5" y2="18"/>
-            <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-54.5" y1="-18" x2="-54.5" y2="18"/>
-            <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-18.5" y1="-18" x2="-18.5" y2="18"/>
-            <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="17.5" y1="-18" x2="17.5" y2="18"/>
-            <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="53.5" y1="-18" x2="53.5" y2="18"/>
-            <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="89.5" y1="-18" x2="89.5" y2="18"/>
-          </symbol>
-          <symbol  id="array-positive-value" viewBox="-18 -18 36 36">
-            <polygon style="opacity:0;fill:#0080F7;" points="18,-18 -18,-18 -18,18 18,18 	"/>
-            <path style="opacity:0.8;fill:#3A5EDD;" d="M7.6-13.6H-7.6c-3.3,0-6,2.7-6,6V7.6c0,3.3,2.7,6,6,6H7.6c3.3,0,6-2.7,6-6V-7.6C13.6-10.9,10.9-13.6,7.6-13.6z"/>
-          </symbol>
-          <symbol  id="array-vector" viewBox="0 -36 36 36">
-            <polygon style="opacity:0;fill:#D8C2F2;" points="36,-36 0,-36 0,0 36,0 	"/>
-            <g style="opacity:0.5;">
-              <g>
-                <line style="fill:none;stroke:#000000;stroke-miterlimit:10;" x1="18" y1="-24" x2="18" y2="-13.1"/>
+      <a href="http://distill.pub/2016/augmented-rnns/">
+        <div class="content">
+          <svg version="1.1" id="edges" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 265 280" style="enable-background:new 0 0 303 287.7;" xml:space="preserve">
+            <symbol  id="array-1" viewBox="-18.8 -18.8 37.5 37.5">
+              <path style="fill:#FFFFFF;stroke:#8C8C8C;stroke-width:1.5;stroke-miterlimit:10;" d="M12-18h-24c-3.3,0-6,2.7-6,6v24c0,3.3,2.7,6,6,6h24c3.3,0,6-2.7,6-6v-24C18-15.3,15.3-18,12-18z"/>
+            </symbol>
+            <symbol  id="array-7" viewBox="-126.8 -18.8 253.5 37.5">
+              <path style="fill:#FFFFFF;stroke:#8C8C8C;stroke-width:1.5;stroke-miterlimit:10;" d="M120-18h-240c-3.3,0-6,2.7-6,6v24c0,3.3,2.7,6,6,6h240c3.3,0,6-2.7,6-6v-24C126-15.3,123.3-18,120-18z"/>
+              <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-90.5" y1="-18" x2="-90.5" y2="18"/>
+              <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-54.5" y1="-18" x2="-54.5" y2="18"/>
+              <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="-18.5" y1="-18" x2="-18.5" y2="18"/>
+              <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="17.5" y1="-18" x2="17.5" y2="18"/>
+              <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="53.5" y1="-18" x2="53.5" y2="18"/>
+              <line style="fill:none;stroke:#8C8C8C;stroke-miterlimit:10;" x1="89.5" y1="-18" x2="89.5" y2="18"/>
+            </symbol>
+            <symbol  id="array-positive-value" viewBox="-18 -18 36 36">
+              <polygon style="opacity:0;fill:#0080F7;" points="18,-18 -18,-18 -18,18 18,18 	"/>
+              <path style="opacity:0.8;fill:#3A5EDD;" d="M7.6-13.6H-7.6c-3.3,0-6,2.7-6,6V7.6c0,3.3,2.7,6,6,6H7.6c3.3,0,6-2.7,6-6V-7.6C13.6-10.9,10.9-13.6,7.6-13.6z"/>
+            </symbol>
+            <symbol  id="array-vector" viewBox="0 -36 36 36">
+              <polygon style="opacity:0;fill:#D8C2F2;" points="36,-36 0,-36 0,0 36,0 	"/>
+              <g style="opacity:0.5;">
                 <g>
-                  <polygon points="22.1,-16.4 21.4,-17.1 18,-13.5 14.6,-17.1 13.9,-16.4 18,-12"/>
+                  <line style="fill:none;stroke:#000000;stroke-miterlimit:10;" x1="18" y1="-24" x2="18" y2="-13.1"/>
+                  <g>
+                    <polygon points="22.1,-16.4 21.4,-17.1 18,-13.5 14.6,-17.1 13.9,-16.4 18,-12"/>
+                  </g>
                 </g>
               </g>
+            </symbol>
+            <g id="paths">
+              <path id="path24182_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M125.3,39.8c0,52.7-101.4,52.9-102,76.9v125.4"/>
+              <path id="path24184_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M127.3,39.8c0,52.7-67.4,52.9-68,76.9v125.4"/>
+              <path id="path24186_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M129.3,39.8c0,52.7-33.4,52.9-34,76.9v125.4"/>
+              <path id="path24249_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M131.3,39.2c0,0,0,50.3,0,67c0,33.2,0,136,0,136"/>
+              <path id="path24264_1_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M133.3,39.8c0,52.7,33.4,52.9,33.9,76.9v125.4"/>
+              <path id="path24262_1_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M135.3,39.8c0,52.7,67.4,52.9,68,76.9v125.4"/>
+              <path id="path24260_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M137.3,39.8c0,52.7,101.4,52.9,102,76.9v125.4"/>
             </g>
-          </symbol>
-          <g id="paths">
-            <path id="path24182_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M125.3,39.8c0,52.7-101.4,52.9-102,76.9v125.4"/>
-            <path id="path24184_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M127.3,39.8c0,52.7-67.4,52.9-68,76.9v125.4"/>
-            <path id="path24186_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M129.3,39.8c0,52.7-33.4,52.9-34,76.9v125.4"/>
-            <path id="path24249_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M131.3,39.2c0,0,0,50.3,0,67c0,33.2,0,136,0,136"/>
-            <path id="path24264_1_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M133.3,39.8c0,52.7,33.4,52.9,33.9,76.9v125.4"/>
-            <path id="path24262_1_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M135.3,39.8c0,52.7,67.4,52.9,68,76.9v125.4"/>
-            <path id="path24260_2_" style="fill:none;stroke:#2A71D8;stroke-width:1.5;stroke-miterlimit:10;" d="M137.3,39.8c0,52.7,101.4,52.9,102,76.9v125.4"/>
-          </g>
-          <use xlink:href="#array-1"  width="37.5" height="37.5" id="XMLID_83_" x="-18.8" y="-18.8" transform="matrix(1 0 0 -1 130.7939 21.6541)" style="overflow:visible;"/>
-          <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_76_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 141.6541)" style="overflow:visible;"/>
-          <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_130_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 200.6541)" style="overflow:visible;"/>
-          <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_60_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 260.6541)" style="overflow:visible;"/>
-          <g id="attention">
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_128_" x="-18" y="-18" transform="matrix(1 0 0 -1 23.2939 141.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_127_" x="-18" y="-18" transform="matrix(1 0 0 -1 59.2939 141.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_126_" x="-18" y="-18" transform="matrix(1 0 0 -1 95.2939 141.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_125_" x="-18" y="-18" transform="matrix(1 0 0 -1 131.2939 141.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_124_" x="-18" y="-18" transform="matrix(1 0 0 -1 167.2939 141.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_123_" x="-18" y="-18" transform="matrix(1 0 0 -1 203.2939 141.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_122_" x="-18" y="-18" transform="matrix(1 0 0 -1 239.2939 141.1541)" style="overflow:visible;"/>
-          </g>
-          <g id="write-result">
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_109_" y="-36" transform="matrix(1 0 0 -1 113.2939 3.1541)" style="overflow:visible;"/>
-          </g>
-          <g id="memory">
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_108_" y="-36" transform="matrix(1 0 0 -1 5.2939 183.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_107_" y="-36" transform="matrix(1 0 0 -1 41.2939 183.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_106_" y="-36" transform="matrix(1 0 0 -1 77.2939 183.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_105_" y="-36" transform="matrix(1 0 0 -1 113.2939 183.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_104_" y="-36" transform="matrix(1 0 0 -1 149.2939 183.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_103_" y="-36" transform="matrix(1 0 0 -1 185.2939 183.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_102_" y="-36" transform="matrix(1 0 0 -1 221.2939 183.1541)" style="overflow:visible;"/>
-          </g>
-          <g id="new-memory">
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_101_" y="-36" transform="matrix(1 0 0 -1 5.2939 243.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_100_" y="-36" transform="matrix(1 0 0 -1 41.2939 243.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_99_" y="-36" transform="matrix(1 0 0 -1 77.2939 243.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_98_" y="-36" transform="matrix(1 0 0 -1 113.2939 243.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_97_" y="-36" transform="matrix(1 0 0 -1 149.2939 243.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_96_" y="-36" transform="matrix(1 0 0 -1 185.2939 243.1541)" style="overflow:visible;"/>
-            <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_95_" y="-36" transform="matrix(1 0 0 -1 221.2939 243.1541)" style="overflow:visible;"/>
-          </g>
-          <use xlink:href="#pointer"  width="26.9" height="26.9" id="XMLID_94_" x="-6.7" y="-23.4" transform="matrix(1 0 0 -1 272.3271 131.1715)" style="overflow:visible;"/>
-        </svg>
-      </div>
+            <use xlink:href="#array-1"  width="37.5" height="37.5" id="XMLID_83_" x="-18.8" y="-18.8" transform="matrix(1 0 0 -1 130.7939 21.6541)" style="overflow:visible;"/>
+            <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_76_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 141.6541)" style="overflow:visible;"/>
+            <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_130_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 200.6541)" style="overflow:visible;"/>
+            <use xlink:href="#array-7"  width="253.5" height="37.5" id="XMLID_60_" x="-126.8" y="-18.8" transform="matrix(1 0 0 -1 131.7939 260.6541)" style="overflow:visible;"/>
+            <g id="attention">
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_128_" x="-18" y="-18" transform="matrix(1 0 0 -1 23.2939 141.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_127_" x="-18" y="-18" transform="matrix(1 0 0 -1 59.2939 141.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_126_" x="-18" y="-18" transform="matrix(1 0 0 -1 95.2939 141.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_125_" x="-18" y="-18" transform="matrix(1 0 0 -1 131.2939 141.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_124_" x="-18" y="-18" transform="matrix(1 0 0 -1 167.2939 141.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_123_" x="-18" y="-18" transform="matrix(1 0 0 -1 203.2939 141.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-positive-value"  width="36" height="36" id="XMLID_122_" x="-18" y="-18" transform="matrix(1 0 0 -1 239.2939 141.1541)" style="overflow:visible;"/>
+            </g>
+            <g id="write-result">
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_109_" y="-36" transform="matrix(1 0 0 -1 113.2939 3.1541)" style="overflow:visible;"/>
+            </g>
+            <g id="memory">
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_108_" y="-36" transform="matrix(1 0 0 -1 5.2939 183.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_107_" y="-36" transform="matrix(1 0 0 -1 41.2939 183.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_106_" y="-36" transform="matrix(1 0 0 -1 77.2939 183.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_105_" y="-36" transform="matrix(1 0 0 -1 113.2939 183.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_104_" y="-36" transform="matrix(1 0 0 -1 149.2939 183.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_103_" y="-36" transform="matrix(1 0 0 -1 185.2939 183.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_102_" y="-36" transform="matrix(1 0 0 -1 221.2939 183.1541)" style="overflow:visible;"/>
+            </g>
+            <g id="new-memory">
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_101_" y="-36" transform="matrix(1 0 0 -1 5.2939 243.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_100_" y="-36" transform="matrix(1 0 0 -1 41.2939 243.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_99_" y="-36" transform="matrix(1 0 0 -1 77.2939 243.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_98_" y="-36" transform="matrix(1 0 0 -1 113.2939 243.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_97_" y="-36" transform="matrix(1 0 0 -1 149.2939 243.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_96_" y="-36" transform="matrix(1 0 0 -1 185.2939 243.1541)" style="overflow:visible;"/>
+              <use xlink:href="#array-vector"  width="36" height="36" id="XMLID_95_" y="-36" transform="matrix(1 0 0 -1 221.2939 243.1541)" style="overflow:visible;"/>
+            </g>
+            <use xlink:href="#pointer"  width="26.9" height="26.9" id="XMLID_94_" x="-6.7" y="-23.4" transform="matrix(1 0 0 -1 272.3271 131.1715)" style="overflow:visible;"/>
+          </svg>
+        </div>
+      </a>
     </figure>
-    <figcaption><a href="">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a neural turing machine shifts its attention over its old memory values to create new values.</figcaption>
+    <figcaption><a href="http://distill.pub/2016/augmented-rnns/">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a neural turing machine shifts its attention over its old memory values to create new values.</figcaption>
   </div>
 </section>
 
@@ -460,7 +462,9 @@ section p {
       <p>New notations, visualizations, and mental models can deepen our understanding. By nurturing the development of such new ways of thinking, Distill will enable new discoveries.</p>
     </div>
     <figure>
-      <img src="tsne.jpg" class="content">
+      <a href="http://distill.pub/2016/misread-tsne/">
+        <img src="tsne.jpg" class="content">
+      </a>
       <figcaption><a href="http://distill.pub/2016/misread-tsne/">An interactive playground</a> for t-SNE dimensionality reduction helps readers develop a intuition for technique and where it is best applied.</figcaption>
     </figure>
   </div>
@@ -473,7 +477,9 @@ section p {
       <p>Machine learning will fundamentally change how humans and computers interact.  It’s important to make those techniques transparent, so we can understand and safely control how they work. Distill will provide a platform for vividly illustrating these ideas.</p>
     </div>
     <figure>
-      <img src="handwriting.jpg" class="content">
+      <a href="http://distill.pub/2016/handwriting/">
+        <img src="handwriting.jpg" class="content">
+      </a>
       <figcaption><a href="http://distill.pub/2016/handwriting/">An inspectable RNN</a> handwriting model allows readers to feed in examples and see activations in real time.</figcaption>
     </figure>
   </div>
@@ -486,7 +492,9 @@ section p {
       <p>Many researchers want to do this kind of work, but can’t get the support they need to pursue it. We, as the research community, are failing them. We don’t treat their wonderful, non-traditional research artifacts as “real” academic contributions.</p>
     </div>
     <figure>
-      <img src="playground-paper.png">
+      <a href="http://playground.tensorflow.org/">
+        <img src="playground-paper.png">
+      </a>
       <figcaption><a href="http://playground.tensorflow.org/">Non-traditional contributions</a> often don't get credit unless authors wrap them with <a href="http://poloclub.gatech.edu/idea2016/papers/p115-smilkov.pdf">proxy papers</a>. Unfortunately, this multiplies effort and divides attention.
       </figcaption>
     </figure>
@@ -502,7 +510,9 @@ section p {
       <p>Clarity and readability generally aren't prioritized in academic research. This is unfortunate -- difficult to understand documents create unnecessary work for our colleagues and adds severe drag to the entire community. We think this <a href="#">"research debt"</a> can be avoided.
     </div>
     <figure>
-      <img src="publish-one-few.jpg" class="content">
+      <a href="#">
+        <img src="publish-one-few.jpg" class="content">
+      </a>
       <figcaption></figcaption>
     </figure>
   </div>
