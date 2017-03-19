@@ -96,7 +96,9 @@ h2.post-tag {
 
 <dt-article>
   <div class="posts-list l-page">
+    {{#articlesLength}}
     <h2 class="post-tag">Latest Articles</h2>
+    {{/articlesLength}}
     {{#articles}}
       <a href="{{&distillPath}}" class="post-preview">
         <div class="metadata">
@@ -109,7 +111,9 @@ h2.post-tag {
         </div>
       </a>
     {{/articles}}
+    {{#commentariesLength}}
     <h2 class="post-tag">Commentary</h2>
+    {{/commentariesLength}}
     {{#commentaries}}
       <a href="{{&distillPath}}" class="post-preview">
         <div class="metadata">
