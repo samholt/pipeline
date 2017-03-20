@@ -8,17 +8,17 @@
   "publisherEmail" : "admin@distill.pub",
   "issn": "2476-0757",
   "editors": [
-    { "name": "Shan Carter", "affiliation": "Google Brain Team" },
-    { "name": "Chris Olah", "affiliation": "Google Brain Team" }
+    { "name": "Shan Carter", "nameURL": "http://shancarter.com", "affiliation": "Google Brain Team", "affiliationURL": "//g.co/brain" },
+    { "name": "Chris Olah", "nameURL": "//colah.github.io", "affiliation": "Google Brain Team", "affiliationURL": "//g.co/brain" }
   ],
   "committee": [
-    { "name": "Yoshua Bengio", "affiliation": "Université de Montréal" },
-    { "name": "Mike Bostock", "affiliation": "Data-Driven Documents" },
-    { "name": "Amanda Cox", "affiliation": "The New York Times" },
-    { "name": "Ian Goodfellow", "affiliation": "Google Brain Team" },
-    { "name": "Andrej Karpathy", "affiliation": "OpenAI" },
-    { "name": "Shakir Mohamed", "affiliation": "DeepMind" },
-    { "name": "Michael Nielsen", "affiliation": "YC Research" },
-    { "name": "Fernanda Viégas", "affiliation": "Google BigPicture" }
+    { "name": "Yoshua Bengio", "nameURL": "http://www.iro.umontreal.ca/~bengioy/yoshua_en/index.html", "affiliation": "Université de Montréal", "affiliationURL": "" },
+    { "name": "Mike Bostock", "nameURL": "//bost.ocks.org/mike/", "affiliation": "Data-Driven Documents", "affiliationURL": "//d3js.org" },
+    { "name": "Amanda Cox", "nameURL": "//www.nytimes.com/by/amanda-cox", "affiliation": "The New York Times", "affiliationURL": "//www.nytimes.com/section/upshot" },
+    { "name": "Ian Goodfellow", "nameURL": "http://www.iangoodfellow.com", "affiliation": "Google Brain Team", "affiliationURL": "//g.co/brain" },
+    { "name": "Andrej Karpathy", "nameURL": "http://cs.stanford.edu/people/karpathy/", "affiliation": "OpenAI", "affiliationURL": "//openai.com/blog/" },
+    { "name": "Shakir Mohamed", "nameURL": "http://shakirm.com", "affiliation": "DeepMind", "affiliationURL": "//deepmind.com" },
+    { "name": "Michael Nielsen", "nameURL": "http://michaelnielsen.org", "affiliation": "YC Research", "affiliationURL": "//ycr.org" },
+    { "name": "Fernanda Viégas", "nameURL": "http://fernandaviegas.com", "affiliation": "Google Big Picture Group", "affiliationURL": "https://research.google.com/bigpicture/" }
   ]
 }
