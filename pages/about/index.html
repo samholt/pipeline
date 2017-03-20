@@ -2,6 +2,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="../../docs/template.v1.js"></script>
+<title>Distill is dedicated to making machine learning clear and dynamic</title>
 <link href="https://fonts.googleapis.com/css?family=Libre+Franklin:300,400,600|Open+Sans:400,400i" rel="stylesheet">
 <style>
 
@@ -353,6 +354,15 @@ section p {
   .modern-medium figcaption {
     width: 14%;
     align-self: flex-end;
+  }
+  .modern-medium figcaption::before {
+    content: " ";
+    background-image: url(pointer.svg);
+    width: 26px;
+    height: 26px;
+    display: block;
+    position: relative;
+    top: -15px;
   }
   .modern-medium .content {
     margin-bottom: 0px;
