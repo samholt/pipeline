@@ -314,6 +314,9 @@ section p {
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
+.person .mug:hover .name {
+  text-decoration: underline;
+}
 .person .mug img {
   width: 100%;
   position: absolute;
@@ -322,9 +325,18 @@ section p {
   margin-top: 6px;
   margin-left: 60px;
   font-weight: 600;
+  display: block;
+  color: black;
+  text-decoration: none;
 }
 .person .affiliation {
   margin-left: 60px;
+  display: block;
+  color: black;
+  text-decoration: none;
+}
+.person .name:hover, .person .affiliation:hover {
+  text-decoration: underline;
 }
 
 /* Specific sections */
@@ -614,110 +626,30 @@ section p {
   <div class="l-page">
     <h2>The people behind Distill</h2>
     <div class="editors">
-
       <h3>Editors</h3>
-      <div class="columns">
+      {{#journal.editors}}
         <div class="person">
-          <div class="mug">
-            <img src="people/chris-olah.jpg">
-          </div>
-          <div class="name">Chris Olah</div>
-          <div class="affiliation">Google Brain Team</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/shan-carter.jpg">
-          </div>
-          <div class="name">Shan Carter</div>
-          <div class="affiliation">Google Brain Team</div>
-        </div>
-      </div>
-      <!--
-      {{#editors}}
-        <div class="person">
-          <div class="mug">
+          <a href="{{nameURL}}" class="mug">
             <img src="people/{{id}}.jpg">
-          </div>
-          <div class="name">{{name}}</div>
-          <div class="affiliation">{{affiliation}}</div>
+          </a>
+          <a href="{{nameURL}}" class="name">{{name}}</a>
+          <a href="{{affiliationURL}}" class="affiliation">{{affiliation}}</a>
         </div>
-      {{/editors}}
-      -->
+      {{/journal.editors}}
     </div>
-
     <div class="committee">
       <h3>Steering Committee</h3>
       <div class="columns">
-
+        {{#journal.committee}}
         <div class="person">
-          <div class="mug">
-            <img src="people/yoshua-bengio.jpg">
-          </div>
-          <div class="name">Yoshua Bengio</div>
-          <div class="affiliation">Université de Montréal</div>
+          <a href="{{nameURL}}" class="mug">
+            <img src="people/{{id}}.jpg">
+          </a>
+          <a href="{{nameURL}}" class="name">{{name}}</a>
+          <a href="{{affiliationURL}}" class="affiliation">{{affiliation}}</a>
         </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/mike-bostock.jpg">
-          </div>
-          <div class="name">Mike Bostock</div>
-          <div class="affiliation">Data-Driven Documents</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/amanda-cox.jpg">
-          </div>
-          <div class="name">Amanda Cox</div>
-          <div class="affiliation">The New York Times</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/ian-goodfellow.jpg">
-          </div>
-          <div class="name">Ian Goodfellow</div>
-          <div class="affiliation">Google Brain Team</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/andrej-karpathy.jpg">
-          </div>
-          <div class="name">Andrej Karpathy</div>
-          <div class="affiliation">OpenAI</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/shakir-mohamed.jpg">
-          </div>
-          <div class="name">Shakir Mohamed</div>
-          <div class="affiliation">DeepMind</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/michael-nielsen.jpg">
-          </div>
-          <div class="name">Michael Nielsen</div>
-          <div class="affiliation">YC Research</div>
-        </div>
-        <div class="person">
-          <div class="mug">
-            <img src="people/fernanda-viégas.jpg">
-          </div>
-          <div class="name">Fernanda Viégas</div>
-          <div class="affiliation">Google BigPicture</div>
-        </div>
+        {{/journal.committee}}
       </div>
-      <!--
-        {{#committee}}
-        <div class="person">
-          <div class="mug">
-            <img src="people/{{id}.jpg">
-          </div>
-          <div class="name">{{name}}</div>
-          <div class="affiliation">{{affiliation}}</div>
-        </div>
-      {{/committee}}
-      -->
-
     </div>
   </div>
 </section>

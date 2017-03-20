@@ -85,6 +85,13 @@ data.posts.forEach((post, i) => {
 
 });
 
+// Adding an id field to all people in masthead
+let toID = function(p) {
+  p.id = p.name.toLowerCase().replace(" ", "-")
+}
+data.journal.editors.forEach(toID);
+data.journal.committee.forEach(toID);
+
 // Commentary
 data.commentaries = data.posts.filter(p => {
   return p.tags.indexOf("commentary") !== -1;
