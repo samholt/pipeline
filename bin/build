@@ -142,12 +142,17 @@ fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml"
 exec("cp distill-template/dist/template.js docs/template.v1.js");
 exec("cp distill-template/dist/template.js.map docs/template.v1.js.map");
 exec("cp pages/CNAME docs/");
+exec("cp pages/preview.jpg docs/preview.jpg");
 
 function renderPage(location, data) {
   let indexString = mustache.render(fs.readFileSync(path.join("pages/",location), "utf8") + analytics, data);
-  var indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-  distill.render(indexDom, data);
-  distill.distillify(indexDom, data);
+  let indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+  let pageData = {
+    url: "http://distill.pub/" + location.replace("index.html", ""),
+    previewURL: "http://distill.pub/preview.jpg"
+  }
+  distill.render(indexDom, pageData);
+  distill.distillify(indexDom, pageData);
   exec("mkdir -p " + path.dirname(path.join("docs", location)));
   fs.writeFileSync(path.join("docs/", location), serializeDocument(indexDom));
 }
