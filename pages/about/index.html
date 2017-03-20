@@ -38,7 +38,6 @@
     display: block;
   }
 }
-
 @media(min-width: 1200px) {
   .hero h1 {
     /*padding-top: 80px;*/
@@ -331,8 +330,9 @@ section p {
 /* Specific sections */
 .modern-medium .content {
   background: white;
-  padding: 50px 20px;
+  padding: 30px;
   margin-bottom: 24px;
+  box-sizing: border-box;
 }
 .modern-medium figure {
   width: 280px;
@@ -341,19 +341,31 @@ section p {
 }
 .modern-medium figcaption {
   width: 280px;
-  margin: 0 auto;
+  margin: 24px auto 0;
 }
+
 @media(min-width: 768px) {
   .modern-medium .description {
     align-self: flex-start;
-    width: 35%;
+    width: 50%;
   }
   .modern-medium figure {
-    margin-left: 9%;
+    margin: 0 0 0 20px;
+  }
+  .modern-medium figure .content {
+    width: 300px;
   }
   .modern-medium figcaption {
-    width: 14%;
-    align-self: flex-end;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .modern-medium .content {
+    margin-bottom: 0px;
+  }
+}
+@media(min-width: 960px) {
+  .modern-medium .description {
+    width: 45%;
   }
   .modern-medium figcaption::before {
     content: " ";
@@ -364,10 +376,25 @@ section p {
     position: relative;
     top: -15px;
   }
-  .modern-medium .content {
-    margin-bottom: 0px;
+  .modern-medium figure {
+    display: flex;
+    width: 470px;
+  }
+  .modern-medium figcaption {
+    margin-left: 24px;
+    align-self: flex-end;
+    /*width: 14%;*/
   }
 }
+/*@media(min-width: 1080px) {
+  .modern-medium .description {
+    width: 45%;
+  }
+  .modern-medium figure {
+    margin-left: 8%;
+  }
+}*/
+/**/
 .clear-writing {
   padding-bottom: 0;
 }
@@ -375,14 +402,6 @@ section p {
   width: 100%;
   position: relative;
   z-index: 1;
-}
-@media(min-width: 1080px) {
-  .modern-medium .description {
-    width: 45%;
-  }
-  .modern-medium figure {
-    margin-left: 8%;
-  }
 }
 @media(min-width: 960px) {
   .clear-writing .description {
@@ -436,7 +455,7 @@ section p {
     <a href="../guide/">
       <div class="illustration tools"></div>
       <h3>Tools</h3>
-      <p>To ease the creation of beautiful, interactive essays.</p>
+      <p>For creating beautiful, interactive articles.</p>
     </a>
   </div>
 </div>
@@ -525,8 +544,8 @@ section p {
           </svg>
         </div>
       </a>
+      <figcaption><a href="http://distill.pub/2016/augmented-rnns/">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a neural turing machine shifts its attention over its old memory values to create new values.</figcaption>
     </figure>
-    <figcaption><a href="http://distill.pub/2016/augmented-rnns/">Reactive diagrams</a> allow for a type of communication not possible in static mediums. Hover over this diagram to see how a neural turing machine shifts its attention over its old memory values to create new values.</figcaption>
   </div>
 </section>
 
@@ -580,7 +599,7 @@ section p {
   <div class="l-page">
     <div class="description">
       <h2>Clear writing benefits everyone</h2>
-      <p>When we rush papers out the door to meet conference deadlines, something suffers -- often it is the readability and clarity of our communication. This can add severe drag to the entire community as our readers struggle to understand our ideas. We think this <a href="#">"research debt"</a> can be avoided.</p>
+      <p>When we rush papers out the door to meet conference deadlines, something suffers -- often it is the readability and clarity of our communication. This can add severe drag to the entire community as our readers struggle to understand our ideas. We think this "research debt" can be avoided.</p>
     </div>
     <figure>
       <a href="#">
