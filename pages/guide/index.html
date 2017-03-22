@@ -188,10 +188,16 @@
     &lt;/dt-code&gt;
   </dt-code>
 
-  <!--
   <hr>
-  <h2>Math</h2>
-   -->
+  <h2>Equations</h2>
+  <p>Please use <a href="https://www.mathjax.org/">MathJax</a> or <a href="https://github.com/Khan/KaTeX">KaTeX</a> for equations.</p>
+  <p>In the future, we may provide a more structured way to handle equations so we can pre-render them on the server side.</p>
+  
+  <hr>
+  <h2>Diagrams</h2>
+  <p>For static diagrams, we recommend using a vector graphics tool, like <a href="http://www.adobe.com/products/illustrator.html">Adobe Illustrator</a>, <a href="https://www.sketchapp.com/">Sketch</a> or <a href="https://inkscape.org/en/">Inkscape</a>. For equations in diagrams, inkscape has a plugin to support LaTeX equations, while Illustrator integrates well with tools like Equation Maker.</p>
+  <p> For dynamic diagrams we recommend <a href="https://d3js.org/">D3.js</a>. For complex diagrams where you only want to animate part of them, you can draw a static diagram, tag elements of your diagram with classes or ids, and then manipulate them with D3.</p>
+  
   <hr>
   <h2>Layouts</h2>
   <p>The main text column is referred to as the body. It is the assumed layout of any direct descendents of the <code>dt-article</code> element.</p>
