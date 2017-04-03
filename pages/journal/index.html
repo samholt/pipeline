@@ -14,6 +14,13 @@
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
   }
+  .minor-details {
+    display: block;
+    color: grey;
+    font-family: "Open Sans", sans-serif;
+    font-size: 14px;
+    line-height: normal;
+  }
   .distill-table{
     font-size: 100%;
   }
@@ -21,12 +28,15 @@
     padding-top: 0px;
   }
   .distill-table .normal-row td {
-    padding-top: 20px;
+    padding-top: 30px;
     vertical-align: top;
   }
   .distill-table .normal-row .property {
     padding-right: 20px;
     font-weight: bold;
+  }
+  .distill-table .normal-row td p {
+    margin-bottom: 0px;
   }
 </style>
 
@@ -58,7 +68,80 @@
       </tr>
     </table>
   </div>
+  
+  <hr>
 
+
+  <h2>Journal Scope</h2>
+
+  <p>Distill is an academic journal in the area of Machine Learning. The distinguishing trait of a Distill article is outstanding communication and a dedication to human understanding. Distill articles often, but not always, use interactive media.</p>
+
+  <p>One good test for whether your article is a fit for Distill is whether your collaborators and you are willing to put in whatever time is necessary to write and illustrate an outstanding article. In our experience, this often takes 100+ hours. Typically, we expect this to mean that there is at least one collaborator who is very enthusiastic about explaining things well.</p>
+
+  <hr>
+
+  <h2>Article Types</h2>
+
+  <p>Distill is open to publishing a wide range of academic artifacts, provided they meet our editorial standards:</p>
+
+  <div>
+    <table class="distill-table">
+      <tr class="normal-row">
+        <td class="property">Research </td>
+        <td class="reason"> Distill publishes novel research results of significant interest to the community. </td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Exposition</td>
+        <td class="reason">Distill publishes articles explaining, synthesizing and reviewing existing research. This includes Reviews, Tutorials, Primers, and Perspective articles.
+        <p class="minor-details">We are especially interested in <a href="http://explorableexplanations.com/">explorable explanations</a>.</p>
+        <p class="minor-details"><b>Examples:</b> <a href="http://distill.pub/2016/augmented-rnns/">Attention and Augmented Recurrent Neural Networks</a></p> </td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Commentary</td>
+        <td class="reason">Distill occasionally publishes non-technical essays on topics ranging from public policy to meta-discussion of science.
+        <p class="minor-details">Please discuss intentions with <a href="mailto:editors@distill.pub">editors@distill.pub</a> prior to submission.</p>
+        <p class="minor-details"><b>Examples:</b> <a href="http://distill.pub/2017/research-debt/">Research Debt</a></p></td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Resources <br>& Artifacts</td>
+        <td class="reason">Distill is willing to publish non-traditional academic artifacts. This includes resources such as datasets and tools, but also more unusual artifacts.
+        <p class="minor-details">Please discuss intentions with <a href="mailto:editors@distill.pub">editors@distill.pub</a> prior to submission.</p></td>
+      </tr>
+    </table>
+  </div>
+
+  <p>There are no word count limits for any article type. Articles should be whatever length best serves the reader -- just be aware that rambling is an easy failure mode.</p>
+
+
+  <hr>
+
+  <h2>What Distill Reviews For</h2>
+
+  <p>Distill primarily reviews for three things:<p>
+
+  <div>
+    <table class="distill-table">
+      <tr class="normal-row">
+        <td class="property">Advancing <br> Dialogue</td>
+        <td class="reason">All Distill articles must significantly advance the research community’s dialogue.
+          <p class="minor-details">This could mean presenting significant novel results, giving a new perspective on known results, or even commentary on public policy.</p></td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Outstanding<br>Communication</td>
+        <td class="reason">Distill holds itself to an extremely high standard for communication.
+          <p class="minor-details">This often, but not always, means that articles will use interactive media.</p></td>
+      </tr>
+      <tr class="normal-row">
+        <td class="property">Scientific<br>Integrity </td>
+        <td class="reason">Articles should not only accurately report results, but also make sure high-level description of work matches the results, and be transparent about any weaknesses.</td>
+      </tr>
+    </table>
+  </div>
+
+  <p>In order for Distill to best serve the community, and to create a respected space for non-traditional contributions, it’s critical for Distill to hold high publication standards. Unfortunately, this means we have to reject many articles, including good articles that may be publishable elsewhere.</p>
+
+
+  <hr>
 
   <h2>Writing a Distill Article</h2>
 
@@ -66,10 +149,12 @@
 
   <p>Distill articles must be released under the <a href="https://creativecommons.org/licenses/by/3.0/us/">Creative Commons Attribution license</a>. Distill is a primary publication and will not publish content which is identical or substantially similar to content published elsewhere.</p>
 
-  <p>To submit an article, first create a GitHub repository for your article. You can keep it private during the review process if you would like -- just share it with <a href="https://github.com/colah">@colah</a> and <a href="https://github.com/shancarter">@shancarter</a>. Then email <a href="mailto:review@distill.pub">review@distill.pub</a> to begin the process.</p>
+  <p>To submit an article, first create a GitHub repository for your article. You can keep it private during the review process if you would like -- just share it with <a href="https://github.com/colah">@colah</a> and <a href="https://github.com/shancarter">@shancarter</a>. Then email <a href="mailto:editors@distill.pub">editors@distill.pub</a> to begin the process.</p>
 
   <p>Distill handles all reviews and editing through GitHub issues. Upon publication, the repository is made public and transferred to the <a href="https://github.com/distillpub">@distillpub</a> organization for preservation. This means that reviews of published work are always public. It is at the author's discretion whether they share reviews of unpublished work.</p>
 
+
+  <hr>
 
   <h2>The Distill Review Process</h2>
 
@@ -161,11 +246,16 @@
 
   <p><i>Distill's review policy is still developing and we expect to learn a great deal as we review papers. We will publish a more detailed, revised version of this policy by March 2018.</i></p>
 
+
+  <hr>
+
   <h2>Conflicts of Interest</h2>
 
   <p>Distill editors can not be involved in the review process for a paper on which they are an author or where they are unable to be objective. If no editors are available to review an article, a member of the steering committee may lead the review process or have someone independent do so.</p>
 
   <p>Machine learning is a small field and Distill's editors will inevitably have prior relationships with some authors. Such relationships must be disclosed in the review process.</p>
+
+  <hr>
 
   <h2>Ethics Concerns (eg. Plagiarism, Misconduct, etc.)</h2>
 
