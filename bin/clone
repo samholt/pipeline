@@ -29,9 +29,9 @@ request("https://raw.githubusercontent.com/distillpub/posts/master/posts.csv", f
       p.updatedDate = exec("git -C posts/" + p.githubPath + " log -1 --pretty=format:%cI").toString("utf8");
       // If we have a FIRST_PUBLISHED tag in git, use it
       if(exec("git -C posts/" + p.githubPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
-        var tagDate = exec("git -C posts/" + p.githubPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED").toString("utf8");
-        var pubSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H FIRST_PUBLISHED").toString("utf8");
-        var headSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H HEAD").toString("utf8");
+        var tagDate = exec("git -C posts/" + p.githubPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED -n 1").toString("utf8");
+        var pubSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H FIRST_PUBLISHED -n 1").toString("utf8");
+        var headSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H HEAD -n 1").toString("utf8");
         p.githubCompareUpdatesUrl = "https://github.com/" + p.githubPath + "/compare/" + pubSha + "..." + headSha;
       }
     });
