@@ -1,0 +1,49 @@
+<!doctype html>
+<meta charset="utf-8">
+<script type="text/front-matter">
+  title: Archive
+</script>
+
+<style>
+  .issues ul {
+    margin-top: 12px;
+  }
+  .issues li {
+    margin-bottom: 12px;
+  }
+  .issues li div,
+  .doi {
+    font-family: sans-serif;
+    color: grey;
+    font-size: 13px;
+    line-height: 20px;
+    border-bottom: none;
+  }
+</style>
+
+<dt-article>
+  <h1>Distill Archive</h1>
+  <div class="issues">
+  {{#issues}}
+    <strong>Vol {{volume}}, Issue {{issue}}</strong>
+    <ul>
+    {{#values}}
+      <li>
+        <a href="{{url}}">{{title}}</a>
+        <div><a class="doi" href="http://doi.org/{{doi}}">http://doi.org/{{doi}}</a></div>
+        <div
+          data-published-date="{{publishedDate}}"
+          data-updated-date="{{updatedDate}}"
+          >{{publishedMonth}}. {{publishedDay}}, {{publishedYear}}</div>
+        <div>{{bibtexAuthors}}</div>
+      </li>
+    {{/values}}
+    {{^values}}
+      <li><em>(empty issue)</em></li>
+    {{/values}}
+    </ul>
+  {{/issues}}
+
+  </div>
+
+</dt-article>
