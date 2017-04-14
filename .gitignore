@@ -21,3 +21,4 @@ node_modules
 posts/
 distill-template/
 build/
+bower_components/

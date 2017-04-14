@@ -3,31 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "init": "yarn install && git clone https://github.com/distillpub/distill-template.git",
+    "init": "yarn install && bower install && git clone https://github.com/distillpub/distill-template.git",
     "clone": "node bin/clone",
     "build": "(cd distill-template/; git pull; yarn build) && yarn clone && node bin/build",
     "serve": "static docs/ -a localhost"
   },
   "dependencies": {
-    "bibtex-parse-js": "0.0.23",
-    "crossref": "^1.1.0",
     "d3": "^4.4.1",
     "d3-collection": "^1.0.2",
     "d3-dsv": "^1.0.3",
     "d3-time-format": "^2.0.3",
     "distill-template": "^0.0.21",
-    "gulp": "^3.9.1",
-    "gulp-mustache": "^2.3.0",
-    "gulp-replace": "^0.5.4",
-    "gulp-webserver": "^0.9.1",
-    "js-beautify": "^1.6.4",
     "jsdom": "^9.8.3",
-    "marked": "^0.3.6",
-    "mustache": "^2.3.0",
-    "node-static": "^0.7.9",
-    "xml": "^1.0.1",
-    "xmlbuilder": "^8.2.2",
-    "xss-filters": "^1.2.7"
+    "mustache": "^2.3.0"
   },
   "devDependencies": {}
 }
