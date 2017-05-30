@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "init": "yarn install && bower install && git clone https://github.com/distillpub/distill-template.git",
+    "initialize": "yarn install && git clone https://github.com/distillpub/distill-template.git",
     "clone": "node bin/clone",
-    "build": "(cd distill-template/; git pull; yarn build) && yarn clone && node bin/build",
-    "serve": "static docs/ -a localhost"
+    "build": "(cd distill-template/; git pull; yarn; yarn build) && yarn clone && node bin/build",
+    "serve": "python -m SimpleHTTPServer"
   },
   "dependencies": {
     "d3": "^4.4.1",
