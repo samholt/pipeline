@@ -8,12 +8,14 @@ For urls that are not articles, we have a concept of `pages`. These are located 
 
 There are four main commands to know.
 
-- **`yarn init`** installs all dependencies.
-
-- **`yarn clone`** will copy the latest manifest file, then clone and pull the latest from each of the repositories.
+- **`yarn initialize`** installs all dependencies.
 
 - **`yarn build`** will run all the transformations necessary to build the site, then place all the output in the `docs/` folder. The `docs/` folder is then served automatically by [github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/) when the changes are committed and pushed to Github.
 
-- **`yarn serve`** Starts a static file server to view website.
+(Note: `yarn build` runs `yarn clone` as a subprocess. `yarn clone`** will copy the latest manifest file, then clone and pull the latest from each of the repositories.)
+
+- **`yarn serve`** Starts a static file server to view website. To view the site, navigate to `localhost:8000/docs`.
+
+(The above commands require using `bash`.)
 
 Happy building!
