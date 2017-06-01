@@ -1,11 +1,17 @@
-var gulp = require("gulp");
-var del = require("del");
+
 // var webserver = require("gulp-webserver");
 // var mustache = require("gulp-mustache");
 // var distill = require("./bin/gulp-distill.js");
 // var analytics = require("./bin/analytics");
 // var replace = require("gulp-replace");
 
+//
+// Imports
+//
+
+var gulp = require("gulp");
+var del = require("del");
+var rename = require('gulp-rename');
 
 let fs = require("fs"),
     path = require("path"),
@@ -32,6 +38,10 @@ let data = {
   nowRFC: RFC(Date.now())
 }
 
+const paths = {
+  dest: "docs/"
+};
+
 //
 // Tasks
 //
@@ -40,8 +50,24 @@ gulp.task("clean",  function() {
   return del(["docs"]);
 });
 
-gulp.task("build", function(done) {
 
+gulp.task("template", function() {
+  return gulp.src("distill-template/dist/template.js")
+    .pipe(rename("template.v1.js"))
+    .pipe(gulp.dest(paths.dest));
+});
+gulp.task("template-map", function() {
+  return gulp.src("distill-template/dist/template.js.map")
+    .pipe(rename("template.v1.js.map"))
+    .pipe(gulp.dest(paths.dest));
+});
+gulp.task("cname", function() { return gulp.src("pages/CNAME").pipe(gulp.dest(paths.dest)); });
+gulp.task("preview", function() { return gulp.src("pages/preview.jpg").pipe(gulp.dest(paths.dest)); });
+gulp.task("admin", gulp.parallel("template", "template-map", "cname", "preview"), function(done) {
+  done();
+});
+
+gulp.task("data", function(done) {
   // The journal data contains information about the distill journal:
   data.journal = JSON.parse(fs.readFileSync("journal.json", "utf8"));
 
@@ -56,8 +82,11 @@ gulp.task("build", function(done) {
   });
   data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
 
-  // TODO: should we nuke the docs/ folder prior to rebuilding?
-  console.log("POSTS -----------");
+  done();
+})
+
+gulp.task("posts", function(done) {
+
   data.posts.forEach((post, i) => {
     console.log("Building post " + (i + 1) + " of " + data.posts.length + ": " + post.githubPath);
     let repoPath = path.join("posts", post.githubPath);
@@ -131,6 +160,10 @@ gulp.task("build", function(done) {
     issue.volume = issue.values[0].volume;
     issue.issue = issue.values[0].issue;
   });
+  done();
+});
+
+gulp.task("pages", function(done) {
 
   let pageAssets = [
     "about",
@@ -139,7 +172,6 @@ gulp.task("build", function(done) {
     exec(path.join("cp -rf pages/", p) + " docs/");
   });
 
-  console.log("PAGES -----------");
   let pages = [
     "about/index.html",
     "archive/index.html",
@@ -154,13 +186,6 @@ gulp.task("build", function(done) {
     console.log("Building page " + (i + 1) + " of " + pages.length + ": " + p);
     renderPage(p, data);
   });
-  console.log("-----------");
-
-  fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
-  exec("cp distill-template/dist/template.js docs/template.v1.js");
-  exec("cp distill-template/dist/template.js.map docs/template.v1.js.map");
-  exec("cp pages/CNAME docs/");
-  exec("cp pages/preview.jpg docs/preview.jpg");
 
   function renderPage(location, data) {
     let indexString = mustache.render(fs.readFileSync(path.join("pages/",location), "utf8") + analytics, data);
@@ -177,3 +202,12 @@ gulp.task("build", function(done) {
 
   done();
 });
+
+gulp.task("feeds", function(done) {
+  fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
+  done();
+})
+
+gulp.task("default", gulp.series("clean", "admin", "data", "posts", "pages", "feeds", function(done) {
+  done();
+}))
