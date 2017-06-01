@@ -5,7 +5,7 @@
   "scripts": {
     "initialize": "yarn install && git clone https://github.com/distillpub/distill-template.git",
     "clone": "node bin/clone",
-    "build": "(cd distill-template/; git pull; yarn; yarn build) && yarn clone && node bin/build",
+    "build": "(cd distill-template/; git pull; yarn; yarn build) && yarn clone && gulp",
     "serve": "python -m SimpleHTTPServer"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "del": "^2.2.2",
     "distill-template": "^0.0.21",
     "gulp": "gulpjs/gulp#4.0",
+    "gulp-rename": "^1.2.2",
     "jsdom": "^9.8.3",
     "mustache": "^2.3.0"
   },
