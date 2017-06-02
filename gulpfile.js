@@ -6,7 +6,7 @@ const fs = require("fs");
 const fse = require("fs-extra");
 const gulp = require("gulp");
 const inlineAssets = require("./bin/inline-assets");
-const jsdom = require("jsdom").jsdom;
+const jsd = require("jsdom");
 const mustache = require("mustache");
 const path = require("path");
 const rename = require("gulp-rename");
@@ -18,7 +18,8 @@ const d3 = Object.assign({},
     require("d3-collection")
 );
 
-const serializeDocument = jsdom.serializeDocument;
+const serializeDocument = jsd.serializeDocument;
+const jsdom = jsd.jsdom;
 const RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
 
 const paths = {
