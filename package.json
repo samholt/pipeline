@@ -11,14 +11,14 @@
   "dependencies": {
     "d3": "^4.4.1",
     "d3-collection": "^1.0.2",
-    "d3-dsv": "^1.0.3",
     "d3-time-format": "^2.0.3",
     "del": "^2.2.2",
     "distill-template": "^0.0.21",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-rename": "^1.2.2",
     "jsdom": "^9.8.3",
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "through2": "^2.0.3"
   },
   "devDependencies": {}
 }
