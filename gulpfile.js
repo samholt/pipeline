@@ -1,49 +1,49 @@
-//
-// Imports
-//
+const analytics = require("./bin/analytics");
+const del = require("del");
+const distill = require("./distill-template/dist/template.js");
+const exec = require("child_process").execSync;
+const fs = require("fs");
+const fse = require("fs-extra");
+const gulp = require("gulp");
+const inlineAssets = require("./bin/inline-assets");
+const mustache = require("mustache");
+const path = require("path");
+const rename = require("gulp-rename");
+const through = require("through2");
+const webserver = require("gulp-webserver");
 
-// var webserver = require("gulp-webserver");
-var gulp = require("gulp");
-var del = require("del");
-var rename = require("gulp-rename");
-var through = require("through2");
-
-let fs = require("fs"),
-    fse = require("fs-extra"),
-    path = require("path"),
-    exec = require("child_process").execSync,
-    mustache = require("mustache"),
-    distill = require("./distill-template/dist/template.js"),
-    inlineAssets = require("./bin/inline-assets"),
-    analytics = require("./bin/analytics");
-
-// d3
-let d3 = Object.assign({},
+const d3 = Object.assign({},
     require("d3-time-format"),
     require("d3-collection")
 );
 
-let jsdom = require("jsdom").jsdom,
-    serializeDocument = require("jsdom").serializeDocument;
+const jsdom = require("jsdom").jsdom;
+const serializeDocument = require("jsdom").serializeDocument;
 
-let RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
-
-let data = {
-  now: Date.now(),
-  nowRFC: RFC(Date.now())
-}
+const RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
 
 const paths = {
   dest: "docs/"
 };
 
-//
-// Tasks
-//
 
+//
+// This is our global data object.
+//
+let data = {
+  now: Date.now(),
+  nowRFC: RFC(Date.now())
+}
+
+
+//
+// Delete entire build folder
 //
 gulp.task("clean", function() { return del([paths.dest]); });
 
+
+//
+// Copy the distill template javascript file so it is publically available
 //
 gulp.task("copyTemplate", function() {
   return gulp.src(["distill-template/dist/template.js", "distill-template/dist/template.js.map"])
@@ -55,7 +55,10 @@ gulp.task("copyTemplate", function() {
     .pipe(gulp.dest(paths.dest));
 });
 
-// Merge the journal.json data and the posts data
+
+//
+// Suck in the journal.json data and the posts.json data
+//
 gulp.task("beforePostData", gulp.series(loadJournalData, loadPostsData));
 function loadJournalData(done) {
   fs.readFile("journal.json", (err, fileData) => {
@@ -80,6 +83,9 @@ function loadPostsData(done) {
   });
 }
 
+
+//
+// Copy and render all the posts, including archive versions and crossref files.
 //
 gulp.task("posts", gulp.series(copyPosts, renderPosts, renderArchive, renderCrossref));
 
@@ -97,38 +103,6 @@ function copyPosts(done) {
   });
   done();
 }
-
-
-// function render(post, i, callback) {
-//   console.log("Rendering post " + (i + 1) + " of " + data.posts.length + ": " + post.githubPath);
-//   let publishedPath = path.join(paths.dest, post.distillPath);
-//   //Transform and rewrite all the html files that are direct children of public/
-//   let files = fs.readdirSync(publishedPath).filter(f => path.extname(f) === ".html");
-//   files.forEach(f => {
-//     let htmlString = fs.readFileSync(path.join(publishedPath, f), "utf8");
-//     var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-//     distill.render(dom, post);
-//     distill.distillify(dom, post);
-//     let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
-//     fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
-//     // write out an archive page
-//     inlineAssets(dom, "img[src]", "src", publishedPath);
-//     inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
-//     inlineAssets(dom, "script[src]", "src", publishedPath);
-//     inlineAssets(dom, "video[src]", "src", publishedPath);
-//     inlineAssets(dom, "video > source[src]", "src", publishedPath);
-//     inlineAssets(dom, "audio[src]", "src", publishedPath);
-//     inlineAssets(dom, "audio > source[src]", "src", publishedPath);
-//     let archiveHtml = serializeDocument(dom)
-//     fs.writeFileSync(path.join(publishedPath, f.replace(".html", ".archive.html")), archiveHtml, "utf8");
-//   });
-//   // Generate crossref
-//   let crossrefXml = distill.generateCrossref(post);
-//   fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
-//   callback(null);
-// }
-  // data.posts.forEach(render);
-
 
 function renderPosts() {
     return gulp.src("docs/+([0-9])/*/index.html")
@@ -182,9 +156,12 @@ function renderArchive(done) {
     }))
     .pipe(rename({basename: "index.archive"}))
     .pipe(gulp.dest("docs/"));
-
 }
 
+
+//
+// Cleanup the data after we've rendered all the posts.
+//
 gulp.task("afterPostData", function(done) {
   // Adding an id field to all people in masthead
   let toID = function(p) {
@@ -218,6 +195,9 @@ gulp.task("afterPostData", function(done) {
   done();
 });
 
+
+//
+// Copy and render all the static pages for the site.
 //
 gulp.task("pages", gulp.series(copyPages, renderPages));
 function copyPages() {
@@ -244,6 +224,9 @@ function renderPages() {
     .pipe(gulp.dest(paths.dest));
 }
 
+
+//
+// Render all the feeds.
 //
 gulp.task("feeds", function(done) {
   fs.writeFileSync(paths.dest + "rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
@@ -252,9 +235,20 @@ gulp.task("feeds", function(done) {
 
 
 //
+// Run a webserver for previewing the site.
+//
+gulp.task("serve", function() {
+  // gulp.watch("pages/**/*.html", gulp.series("default"))
+  gulp.src("docs")
+    .pipe(webserver({
+      directoryListing: false
+    }));
+});
+
+
+//
 // Default Task
 //
-
 gulp.task("default", gulp.series(
   "clean",
   "copyTemplate",
