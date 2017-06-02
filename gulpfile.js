@@ -105,7 +105,7 @@ function copyPosts(done) {
 }
 
 function renderPosts() {
-    return gulp.src("docs/+([0-9])/*/index.html")
+  return gulp.src("docs/+([0-9])/*/index.html")
     .pipe(through.obj(function (file, enc, cb) {
       if (file.isStream()) console.error("No streams in renderPosts");
       let post = data.posts.find(p => file.path.includes(p.distillPath));
@@ -133,7 +133,7 @@ function renderCrossref(done) {
 }
 
 function renderArchive(done) {
-    return gulp.src("docs/+([0-9])/*/index.html")
+  return gulp.src("docs/+([0-9])/*/index.html")
     .pipe(through.obj(function (file, enc, cb) {
       if (file.isStream()) console.error("No streams in renderPosts");
       let post = data.posts.find(p => file.path.includes(p.distillPath));
