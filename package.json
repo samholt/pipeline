@@ -17,6 +17,7 @@
     "fs-extra": "^3.0.1",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-rename": "^1.2.2",
+    "gulp-webserver": "^0.9.1",
     "jsdom": "^9.8.3",
     "mustache": "^2.3.0",
     "through2": "^2.0.3"
