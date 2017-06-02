@@ -11,7 +11,7 @@
 
 var gulp = require("gulp");
 var del = require("del");
-var rename = require('gulp-rename');
+var rename = require("gulp-rename");
 
 let fs = require("fs"),
     path = require("path"),
@@ -66,6 +66,7 @@ gulp.task("preview", function() { return gulp.src("pages/preview.jpg").pipe(gulp
 gulp.task("admin", gulp.parallel("template", "template-map", "cname", "preview"), function(done) {
   done();
 });
+
 
 gulp.task("data", function(done) {
   // The journal data contains information about the distill journal:
