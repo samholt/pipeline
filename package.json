@@ -6,7 +6,7 @@
     "initialize": "yarn install && git clone https://github.com/distillpub/distill-template.git",
     "clone": "node bin/clone",
     "build": "(cd distill-template/; git pull; yarn; yarn build) && yarn clone && gulp",
-    "serve": "python -m SimpleHTTPServer"
+    "serve": "gulp serve"
   },
   "dependencies": {
     "d3": "^4.4.1",
