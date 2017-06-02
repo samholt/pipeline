@@ -9,6 +9,7 @@ var rename = require("gulp-rename");
 var through = require("through2");
 
 let fs = require("fs"),
+    fse = require("fs-extra"),
     path = require("path"),
     exec = require("child_process").execSync,
     mustache = require("mustache"),
@@ -80,53 +81,108 @@ function loadPostsData(done) {
 }
 
 //
-gulp.task("posts", gulp.series(addPostTasks));
+gulp.task("posts", gulp.series(copyPosts, renderPosts, renderArchive, renderCrossref));
 
-function addPostTasks(done) {
+function copyPosts(done) {
   data.posts.forEach((post, i) => {
-    console.log("Building post " + (i + 1) + " of " + data.posts.length + ": " + post.githubPath);
-    let repoPath = path.join("posts", post.githubPath);
-    exec("mkdir -p " + path.join(paths.dest, post.distillPath));
-
     // TODO: alert if we don't have a thumbnail?
-
-    // Copy the contents of the repo's public folder to the new location.
-    let publishedPath = path.join(paths.dest, post.distillPath);
+    let repoPath = path.join("posts", post.githubPath);
     let originalPath = path.join(repoPath, "public/");
+    let publishedPath = path.join(paths.dest, post.distillPath);
     try {
-      exec("cp -r " + originalPath + " " + publishedPath);
+      fse.copySync(originalPath, publishedPath)
     } catch (e) {
       console.error("No public folder for " + repoPath);
     }
-
-    //Transform and rewrite all the html files that are direct children of public/
-    fs.readdirSync(originalPath).forEach((f) => {
-      if (path.extname(f) === ".html") {
-        let htmlString = fs.readFileSync(path.join(originalPath, f), "utf8");
-        var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-        distill.render(dom, post);
-        distill.distillify(dom, post);
-        let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
-        fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
-        // write out an archive page
-        inlineAssets(dom, "img[src]", "src", publishedPath);
-        inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
-        inlineAssets(dom, "script[src]", "src", publishedPath);
-        inlineAssets(dom, "video[src]", "src", publishedPath);
-        inlineAssets(dom, "video > source[src]", "src", publishedPath);
-        inlineAssets(dom, "audio[src]", "src", publishedPath);
-        inlineAssets(dom, "audio > source[src]", "src", publishedPath);
-        let archiveHtml = serializeDocument(dom)
-        fs.writeFileSync(path.join(publishedPath, f.replace(".html", ".archive.html")), archiveHtml, "utf8");
-      }
-    });
-
-    // Generate crossref
-    let crossrefXml = distill.generateCrossref(post);
-    fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
-
   });
   done();
+}
+
+
+// function render(post, i, callback) {
+//   console.log("Rendering post " + (i + 1) + " of " + data.posts.length + ": " + post.githubPath);
+//   let publishedPath = path.join(paths.dest, post.distillPath);
+//   //Transform and rewrite all the html files that are direct children of public/
+//   let files = fs.readdirSync(publishedPath).filter(f => path.extname(f) === ".html");
+//   files.forEach(f => {
+//     let htmlString = fs.readFileSync(path.join(publishedPath, f), "utf8");
+//     var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+//     distill.render(dom, post);
+//     distill.distillify(dom, post);
+//     let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
+//     fs.writeFileSync(path.join(publishedPath, f), transformedHtml, "utf8");
+//     // write out an archive page
+//     inlineAssets(dom, "img[src]", "src", publishedPath);
+//     inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
+//     inlineAssets(dom, "script[src]", "src", publishedPath);
+//     inlineAssets(dom, "video[src]", "src", publishedPath);
+//     inlineAssets(dom, "video > source[src]", "src", publishedPath);
+//     inlineAssets(dom, "audio[src]", "src", publishedPath);
+//     inlineAssets(dom, "audio > source[src]", "src", publishedPath);
+//     let archiveHtml = serializeDocument(dom)
+//     fs.writeFileSync(path.join(publishedPath, f.replace(".html", ".archive.html")), archiveHtml, "utf8");
+//   });
+//   // Generate crossref
+//   let crossrefXml = distill.generateCrossref(post);
+//   fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
+//   callback(null);
+// }
+  // data.posts.forEach(render);
+
+
+function renderPosts() {
+    return gulp.src("docs/+([0-9])/*/index.html")
+    .pipe(through.obj(function (file, enc, cb) {
+      if (file.isStream()) console.error("No streams in renderPosts");
+      let post = data.posts.find(p => file.path.includes(p.distillPath));
+      console.log(post.distillPath)
+      let htmlString = String(file.contents);
+      var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+      distill.render(dom, post);
+      distill.distillify(dom, post);
+      let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
+      file.contents = Buffer(transformedHtml);
+      cb(null, file);
+    }))
+    .pipe(gulp.dest("docs/"));
+}
+
+function renderCrossref(done) {
+  data.posts.forEach(post => {
+    let publishedPath = path.join(paths.dest, post.distillPath);
+    let crossrefXml = distill.generateCrossref(post);
+    fs.writeFile(path.join(publishedPath, "crossref.xml"), crossrefXml, error => {
+      if (error) done(error);
+      done()
+    });
+  });
+}
+
+function renderArchive(done) {
+    return gulp.src("docs/+([0-9])/*/index.html")
+    .pipe(through.obj(function (file, enc, cb) {
+      if (file.isStream()) console.error("No streams in renderPosts");
+      let post = data.posts.find(p => file.path.includes(p.distillPath));
+      let publishedPath = path.join(paths.dest, post.distillPath);
+      console.log(post.distillPath)
+      let htmlString = String(file.contents);
+      var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+      inlineAssets(dom, "img[src]", "src", publishedPath);
+      inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
+      inlineAssets(dom, "script[src]", "src", publishedPath);
+      inlineAssets(dom, "video[src]", "src", publishedPath);
+      inlineAssets(dom, "video > source[src]", "src", publishedPath);
+      inlineAssets(dom, "audio[src]", "src", publishedPath);
+      inlineAssets(dom, "audio > source[src]", "src", publishedPath);
+      let archiveHtml = serializeDocument(dom);
+      //Remove analytics
+      archiveHtml = archiveHtml.replace(analytics, "");
+      file.contents = Buffer(archiveHtml);
+      cb(null, file);
+    }))
+    .pipe(rename({basename: "index.archive"}))
+    .pipe(gulp.dest("docs/"));
+
 }
 
 gulp.task("afterPostData", function(done) {
