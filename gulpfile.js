@@ -1,17 +1,12 @@
-
-// var webserver = require("gulp-webserver");
-// var mustache = require("gulp-mustache");
-// var distill = require("./bin/gulp-distill.js");
-// var analytics = require("./bin/analytics");
-// var replace = require("gulp-replace");
-
 //
 // Imports
 //
 
+// var webserver = require("gulp-webserver");
 var gulp = require("gulp");
 var del = require("del");
 var rename = require("gulp-rename");
+var through = require("through2");
 
 let fs = require("fs"),
     path = require("path"),
@@ -23,7 +18,6 @@ let fs = require("fs"),
 
 // d3
 let d3 = Object.assign({},
-    require("d3-dsv"),
     require("d3-time-format"),
     require("d3-collection")
 );
@@ -46,57 +40,58 @@ const paths = {
 // Tasks
 //
 
-gulp.task("clean",  function() {
-  return del(["docs"]);
-});
+//
+gulp.task("clean", function() { return del([paths.dest]); });
 
-
-gulp.task("template", function() {
-  return gulp.src("distill-template/dist/template.js")
-    .pipe(rename("template.v1.js"))
+//
+gulp.task("copyTemplate", function() {
+  return gulp.src(["distill-template/dist/template.js", "distill-template/dist/template.js.map"])
+    .pipe(rename(path => {
+      let b = path.basename.split(".")
+      b.splice(1, 0, "v1");
+      path.basename = b.join(".");
+    }))
     .pipe(gulp.dest(paths.dest));
 });
-gulp.task("template-map", function() {
-  return gulp.src("distill-template/dist/template.js.map")
-    .pipe(rename("template.v1.js.map"))
-    .pipe(gulp.dest(paths.dest));
-});
-gulp.task("cname", function() { return gulp.src("pages/CNAME").pipe(gulp.dest(paths.dest)); });
-gulp.task("preview", function() { return gulp.src("pages/preview.jpg").pipe(gulp.dest(paths.dest)); });
-gulp.task("admin", gulp.parallel("template", "template-map", "cname", "preview"), function(done) {
-  done();
-});
 
-
-gulp.task("data", function(done) {
-  // The journal data contains information about the distill journal:
-  data.journal = JSON.parse(fs.readFileSync("journal.json", "utf8"));
-
-  // Merge the posts data with the data housed in the local package.json files in each repo
-  data.posts = JSON.parse(fs.readFileSync("posts/posts.json", "utf8"));
-  data.posts.forEach((p) => {
-    p.publishedDate = new Date(p.publishedDate);
-    p.updatedDate = new Date(p.updatedDate);
-    p.journal = data.journal;
-    if (p.doiSuffix >= 1e5) console.error("DOI suffix overflow ", p.doiSuffix);
-    p.doi = data.journal.doi + "." + ("000000" + p.doiSuffix).slice(-5);
+// Merge the journal.json data and the posts data
+gulp.task("beforePostData", gulp.series(loadJournalData, loadPostsData));
+function loadJournalData(done) {
+  fs.readFile("journal.json", (err, fileData) => {
+    if (err) done(err);
+    data.journal = JSON.parse(fileData);
+    done();
   });
-  data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
+}
+function loadPostsData(done) {
+  fs.readFile("posts/posts.json", (err, fileData) => {
+    if (err) done(err);
+    data.posts = JSON.parse(fileData);
+    data.posts.forEach(p => {
+      p.publishedDate = new Date(p.publishedDate);
+      p.updatedDate = new Date(p.updatedDate);
+      p.journal = data.journal;
+      if (p.doiSuffix >= 1e5) console.error("DOI suffix overflow ", p.doiSuffix);
+      p.doi = data.journal.doi + "." + ("000000" + p.doiSuffix).slice(-5);
+    });
+    data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
+    done();
+  });
+}
 
-  done();
-})
+//
+gulp.task("posts", gulp.series(addPostTasks));
 
-gulp.task("posts", function(done) {
-
+function addPostTasks(done) {
   data.posts.forEach((post, i) => {
     console.log("Building post " + (i + 1) + " of " + data.posts.length + ": " + post.githubPath);
     let repoPath = path.join("posts", post.githubPath);
-    exec("mkdir -p " + path.join("docs", post.distillPath));
+    exec("mkdir -p " + path.join(paths.dest, post.distillPath));
 
     // TODO: alert if we don't have a thumbnail?
 
     // Copy the contents of the repo's public folder to the new location.
-    let publishedPath = path.join("docs", post.distillPath);
+    let publishedPath = path.join(paths.dest, post.distillPath);
     let originalPath = path.join(repoPath, "public/");
     try {
       exec("cp -r " + originalPath + " " + publishedPath);
@@ -131,7 +126,10 @@ gulp.task("posts", function(done) {
     fs.writeFileSync(path.join(publishedPath, "crossref.xml"), crossrefXml, "utf8");
 
   });
+  done();
+}
 
+gulp.task("afterPostData", function(done) {
   // Adding an id field to all people in masthead
   let toID = function(p) {
     p.id = p.name.toLowerCase().replace(" ", "-")
@@ -164,51 +162,49 @@ gulp.task("posts", function(done) {
   done();
 });
 
-gulp.task("pages", function(done) {
+//
+gulp.task("pages", gulp.series(copyPages, renderPages));
+function copyPages() {
+  return gulp.src("pages/**/*").pipe(gulp.dest(paths.dest));
+}
+function renderPages() {
+  return gulp.src(["pages/index.html", "pages/**/*.html"])
+    .pipe(through.obj(function (file, enc, cb) {
+      if (file.isStream()) console.error("No streams in renderPages");
+      let htmlString = String(file.contents);
+      htmlString += analytics;
+      let indexString = mustache.render(htmlString, data);
+      let indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+      let pageData = {
+        url: "http://distill.pub/" + file.relative.replace("index.html", ""),
+        previewURL: "http://distill.pub/preview.jpg"
+      };
+      distill.render(indexDom, pageData);
+      distill.distillify(indexDom, pageData);
+      let transformedHtml = serializeDocument(indexDom);
+      file.contents = Buffer(transformedHtml);
+      cb(null, file);
+    }))
+    .pipe(gulp.dest(paths.dest));
+}
 
-  let pageAssets = [
-    "about",
-    "journal"
-  ].forEach(p => {
-    exec(path.join("cp -rf pages/", p) + " docs/");
-  });
-
-  let pages = [
-    "about/index.html",
-    "archive/index.html",
-    "archive-info/index.html",
-    "faq/index.html",
-    "guide/index.html",
-    "index.html",
-    "journal/index.html",
-    "prize/index.html"
-  ];
-  pages.forEach(function(p, i) {
-    console.log("Building page " + (i + 1) + " of " + pages.length + ": " + p);
-    renderPage(p, data);
-  });
-
-  function renderPage(location, data) {
-    let indexString = mustache.render(fs.readFileSync(path.join("pages/",location), "utf8") + analytics, data);
-    let indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-    let pageData = {
-      url: "http://distill.pub/" + location.replace("index.html", ""),
-      previewURL: "http://distill.pub/preview.jpg"
-    }
-    distill.render(indexDom, pageData);
-    distill.distillify(indexDom, pageData);
-    exec("mkdir -p " + path.dirname(path.join("docs", location)));
-    fs.writeFileSync(path.join("docs/", location), serializeDocument(indexDom));
-  }
-
+//
+gulp.task("feeds", function(done) {
+  fs.writeFileSync(paths.dest + "rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
   done();
 });
 
-gulp.task("feeds", function(done) {
-  fs.writeFileSync("docs/rss.xml", mustache.render(fs.readFileSync("pages/rss.xml", "utf8"), data));
-  done();
-})
 
-gulp.task("default", gulp.series("clean", "admin", "data", "posts", "pages", "feeds", function(done) {
-  done();
-}))
+//
+// Default Task
+//
+
+gulp.task("default", gulp.series(
+  "clean",
+  "copyTemplate",
+  "beforePostData",
+  "posts",
+  "afterPostData",
+  "pages",
+  "feeds"
+))
