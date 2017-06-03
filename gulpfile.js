@@ -63,7 +63,13 @@ gulp.task("beforePostData", gulp.series(loadJournalData, loadPostsData));
 function loadJournalData(done) {
   fs.readFile("journal.json", (err, fileData) => {
     if (err) done(err);
+      // Adding an id field to all people in masthead
     data.journal = JSON.parse(fileData);
+    let toID = function(p) {
+      p.id = p.name.toLowerCase().replace(" ", "-")
+    }
+    data.journal.editors.forEach(toID);
+    data.journal.committee.forEach(toID);
     done();
   });
 }
@@ -163,12 +169,6 @@ function renderArchive(done) {
 // Cleanup the data after we've rendered all the posts.
 //
 gulp.task("afterPostData", function(done) {
-  // Adding an id field to all people in masthead
-  let toID = function(p) {
-    p.id = p.name.toLowerCase().replace(" ", "-")
-  }
-  data.journal.editors.forEach(toID);
-  data.journal.committee.forEach(toID);
 
   // Commentary
   data.commentaries = data.posts.filter(p => {

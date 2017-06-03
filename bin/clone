@@ -2,52 +2,38 @@
 
 var fs = require("fs"),
     exec = require("child_process").execSync,
-    d3 = require("d3"),
-    request = require("request");
+    d3 = require("d3");
 
-try {
-  fs.mkdirSync("posts");
-} catch (e) {
-  // posts folder already exists
-}
-
-exec("git -C distill-template/ pull");
-
-request("https://raw.githubusercontent.com/distillpub/posts/master/posts.csv", function(error, response, body) {
-  if (!error && response.statusCode == 200) {
-    let posts = d3.csvParse(body, (r) => {
-      return {
-        doiSuffix: +r.doiSuffix,
-        distillPath: r.distillPath.trim(),
-        githubPath: r.githubPath.trim(),
-        publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim()),
-        tags: r.tags.trim().split(" ")
-      }
-    });
-    clone(posts);
-    posts.forEach(function(p) {
-      p.updatedDate = exec("git -C posts/" + p.githubPath + " log -1 --pretty=format:%cI").toString("utf8");
-      // If we have a FIRST_PUBLISHED tag in git, use it
-      if(exec("git -C posts/" + p.githubPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
-        var tagDate = exec("git -C posts/" + p.githubPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED -n 1").toString("utf8");
-        var pubSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H FIRST_PUBLISHED -n 1").toString("utf8");
-        var headSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H HEAD -n 1").toString("utf8");
-        p.githubCompareUpdatesUrl = "https://github.com/" + p.githubPath + "/compare/" + pubSha + "..." + headSha;
-      }
-    });
-    fs.writeFileSync("posts/posts.json", JSON.stringify(posts, null, 2), "utf8")
-  } else {
-    console.error(error);
+let csv = "";
+process.stdin.setEncoding('utf8');
+process.stdin.on('readable', () => {
+  var chunk = process.stdin.read();
+  if (chunk !== null) {
+    csv += chunk.toString();
   }
 });
+process.stdin.on('end', () => {
+  let posts = d3.csvParse(csv, (r) => {
+    return {
+      doiSuffix: +r.doiSuffix,
+      distillPath: r.distillPath.trim(),
+      githubPath: r.githubPath.trim(),
+      publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim()),
+      tags: r.tags.trim().split(" ")
+    }
+  });
+  exec("git -C distill-template/ pull");
+  posts = ready(posts);
+  process.stdout.write(JSON.stringify(posts, null, 2));
+});
 
-function clone(posts) {
+
+function ready(posts) {
   posts.forEach(function(post) {
     var repoPath = "posts/" + post.githubPath;
     try {
       // If repo already exists, just pull it
       fs.accessSync(repoPath, fs.F_OK);
-      console.log("Pulling " + post.githubPath);
       exec("git -C " + repoPath + " pull");
       exec("git -C " + repoPath + " fetch --tags");
     } catch (e) {
@@ -56,4 +42,17 @@ function clone(posts) {
       exec("git -C " + repoPath + " fetch --tags");
     }
   });
+
+  posts.forEach(function(p) {
+    p.updatedDate = exec("git -C posts/" + p.githubPath + " log -1 --pretty=format:%cI").toString("utf8");
+    // If we have a FIRST_PUBLISHED tag in git, use it
+    if(exec("git -C posts/" + p.githubPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
+      var tagDate = exec("git -C posts/" + p.githubPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED -n 1").toString("utf8");
+      var pubSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H FIRST_PUBLISHED -n 1").toString("utf8");
+      var headSha = exec("git -C posts/" + p.githubPath + " show --quiet --format=format:%H HEAD -n 1").toString("utf8");
+      p.githubCompareUpdatesUrl = "https://github.com/" + p.githubPath + "/compare/" + pubSha + "..." + headSha;
+    }
+  });
+  return posts;
 }
+
