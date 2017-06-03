@@ -17,6 +17,9 @@ $(build)/posts.json: $(build)/posts.csv
 $(build)/journal.json: journal.json
 	cat $^ | bin/journal > $@
 
+$(build)/data.json: $(build)/journal.json $(build)/posts.json
+	bin/data $^ > $@
+
 .PHONY: clean all
 
 all: $(final_files)
