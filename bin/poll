@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+
+var fs = require("fs"),
+    execSync = require("child_process").execSync,
+    d3 = require("d3"),
+    request = require("request");
+
+// Poll github for changes to:
+// https://github.com/distillpub/template
+pull("build/distill-template", "https://github.com/distillpub/template");
+
+// Poll github for changes to:
+// https://github.com/distillpub/posts
+pull("build/distill-posts", "https://github.com/distillpub/posts")
+
+// Poll github for changes to all the repos listed in
+// build/distill-posts/posts.csv
+let posts = d3.csvParse(fs.readFileSync("build/distill-posts/posts.csv", "utf8"));
+posts.forEach(function(post) {
+  var path = "build/posts/" + post.distillPath.trim();
+  var remote = "https://github.com/" + post.githubPath.trim() + ".git";
+  pull(path, remote)
+  execSync("git -C " + path + " fetch --tags");
+});
+
+
+function pull(path, remote) {
+  console.log("polling: " + remote);
+  try {
+    // If repo already exists, just pull it
+    fs.accessSync(path, fs.F_OK);
+    execSync("git -C " + path + " pull");
+  } catch (e) {
+    // Repo doesn't exist locally, so let's clone it
+    execSync("git clone --depth 1 " + remote + " " + path);
+  }
+}
+
+//  let posts = d3.csvParse(body, (r) => {
+//       return {
+//         doiSuffix: +r.doiSuffix,
+//         distillPath: r.distillPath.trim(),
+//         githubPath: r.githubPath.trim(),
+//         publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim()),
+//         tags: r.tags.trim().split(" ")
+//       }
+//     });
+
+//  posts.forEach(function(p) {
+//     p.updatedDate = execSync("git -C posts/" + p.githubPath + " log -1 --pretty=format:%cI").toString("utf8");
+//     // If we have a FIRST_PUBLISHED tag in git, use it
+//     if(execSync("git -C posts/" + p.githubPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
+//       var tagDate = execSync("git -C posts/" + p.githubPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED -n 1").toString("utf8");
+//       var pubSha = execSync("git -C posts/" + p.githubPath + " show --quiet --format=format:%H FIRST_PUBLISHED -n 1").toString("utf8");
+//       var headSha = execSync("git -C posts/" + p.githubPath + " show --quiet --format=format:%H HEAD -n 1").toString("utf8");
+//       p.githubCompareUpdatesUrl = "https://github.com/" + p.githubPath + "/compare/" + pubSha + "..." + headSha;
+//     }
+//   });
