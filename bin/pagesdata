@@ -1,0 +1,32 @@
+#!/usr/bin/env node
+const d3 = require("d3-collection");
+const fs = require("fs");
+
+const path = process.argv[2];
+let json = fs.readFileSync(path);
+let data = JSON.parse(json);
+
+data.posts.forEach(p => delete p.journal);
+data.commentaries = data.posts.filter(p => {
+  return p.tags.indexOf("commentary") !== -1;
+});
+data.commentariesLength = data.commentaries.length;
+
+// Articles
+data.articles = data.posts.filter(p => {
+  return p.tags.indexOf("commentary") === -1;
+});
+data.articlesLength = data.articles.length;
+
+// Nest the articles into volume/issues
+data.issues = d3.nest()
+    .key((d) => d.volume * 100 + d.issue)
+    .sortKeys((a, b) => a - b)
+    .entries(data.posts);
+
+data.issues.forEach((issue) => {
+  issue.volume = issue.values[0].volume;
+  issue.issue = issue.values[0].issue;
+});
+
+process.stdout.write(JSON.stringify(data, null, 2));

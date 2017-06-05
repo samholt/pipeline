@@ -37,13 +37,13 @@ poll("build/distill-posts", "https://github.com/distillpub/posts", function(erro
 });
 
 
-// Perform an async child process for some git processes
+// Perform an async child process for git syncing processes
 // that clone a remote repo if it doesn't exist, or pull it if it does exist.
 function poll(path, remote, cb) {
   console.log("Polling: " + remote);
   let callback = cb;
 
-  let exists = false;
+  let exists;
   try {
     fs.accessSync(path, fs.F_OK);
     exists = true;

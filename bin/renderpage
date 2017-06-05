@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+const jsd = require("jsdom");
+const distill = require("../build/distill-template/dist/template.js");
+const analytics = require("./analytics");
+const fs = require("fs");
+const mustache = require("mustache");
+
+const serializeDocument = jsd.serializeDocument;
+const jsdom = jsd.jsdom;
+
+const dataPath = process.argv[2];
+const dataString = fs.readFileSync(dataPath, "utf8");
+let postsData = JSON.parse(dataString);
+
+const htmlPath = process.argv[3];
+const htmlString = fs.readFileSync(htmlPath, "utf8");
+const indexString = mustache.render(htmlString, postsData);
+let dom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+
+let data = {
+  url: "http://distill.pub/" + htmlPath.replace("index.html", "").replace("pages/", ""),
+  previewURL: "http://distill.pub/preview.jpg"
+};
+distill.render(dom, data);
+distill.distillify(dom, data);
+let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
+
+process.stdout.write(transformedHtml);

@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+const jsd = require("jsdom");
+const distill = require("../build/distill-template/dist/template.js");
+const analytics = require("./analytics");
+const fs = require("fs");
+
+const serializeDocument = jsd.serializeDocument;
+const jsdom = jsd.jsdom;
+
+const htmlPath = process.argv[3];
+const htmlString = fs.readFileSync(htmlPath, "utf8");
+let dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+
+const dataPath = process.argv[2];
+const dataString = fs.readFileSync(dataPath, "utf8");
+let data = JSON.parse(dataString);
+
+distill.render(dom, data);
+distill.distillify(dom, data);
+let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
+
+process.stdout.write(transformedHtml);
+
+// TODO we need to save out data as well as JSON.
+// fs.writeFileSync("data.json", data);

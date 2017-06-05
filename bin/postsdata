@@ -1,0 +1,65 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const tf = require("d3-time-format");
+const dsv = require("d3-dsv");
+const execSync = require("child_process").execSync;
+
+const journalJSONPath = process.argv[2];
+const postsCSVPath = process.argv[3];
+
+const postsRepoPath = "build/posts"
+
+const RFC = tf.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
+
+let journalData = JSON.parse(fs.readFileSync(journalJSONPath));
+let compressedJournalData = JSON.parse(JSON.stringify(journalData));
+delete compressedJournalData.committee;
+delete compressedJournalData.editors;
+
+let postsData = dsv.csvParse(fs.readFileSync(postsCSVPath, "utf8"), (p) => {
+  let publishedDate = tf.timeParse("%Y/%m/%d")(p.publishedDate.trim());
+
+  let doiSuffix = +p.doiSuffix;
+  if (doiSuffix >= 1e5) console.error("DOI suffix overflow ", doiSuffix);
+  let doi = compressedJournalData.doi + "." + ("000000" + doiSuffix).slice(-5);
+
+  let distillPath = p.distillPath.trim();
+  let githubPath = p.githubPath.trim();
+  let gitUpdatedDate = execSync("git -C " + postsRepoPath + "/" + distillPath + " log -1 --pretty=format:%cI").toString("utf8");
+  let updatedDate = new Date(gitUpdatedDate);
+
+  // If we have a FIRST_PUBLISHED tag in git, use it
+  let githubCompareUpdatesUrl;
+  if(execSync("git -C " + postsRepoPath + "/" + distillPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
+    let tagDate = execSync("git -C " + postsRepoPath + "/" + distillPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED -n 1").toString("utf8");
+    let pubSha = execSync("git -C " + postsRepoPath + "/" + distillPath + " show --quiet --format=format:%H FIRST_PUBLISHED -n 1").toString("utf8");
+    let headSha = execSync("git -C " + postsRepoPath + "/" + distillPath + " show --quiet --format=format:%H HEAD -n 1").toString("utf8");
+    githubCompareUpdatesUrl = "https://github.com/" + distillPath + "/compare/" + pubSha + "..." + headSha;
+  }
+
+  // Final post data
+  return {
+    distillPath: distillPath,
+    doi: doi,
+    doiSuffix: doiSuffix,
+    githubCompareUpdatesUrl: githubCompareUpdatesUrl,
+    githubPath: githubPath,
+    journal: compressedJournalData,
+    publishedDate: publishedDate,
+    tags: p.tags.trim().split(" "),
+    updatedDate: updatedDate,
+  }
+})
+.sort((a, b) => {
+  return b.publishedDate - a.publishedDate;
+});
+
+let data = {
+  now: Date.now(),
+  nowRFC: RFC(Date.now()),
+  journal: journalData,
+  posts: postsData
+}
+
+process.stdout.write(JSON.stringify(data, null, 2));

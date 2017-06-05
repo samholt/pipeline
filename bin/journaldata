@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+
+let json = "";
+process.stdin.setEncoding("utf8");
+process.stdin.on("readable", () => {
+  var chunk = process.stdin.read();
+  if (chunk !== null) json += chunk.toString();
+});
+process.stdin.on("end", () => {
+  let journal = JSON.parse(json);
+  let toID = function(p) {
+    p.id = p.name.toLowerCase().replace(" ", "-")
+  }
+  journal.editors.forEach(toID);
+  journal.committee.forEach(toID);
+  process.stdout.write(JSON.stringify(journal, null, 2));
+});
