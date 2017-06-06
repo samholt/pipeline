@@ -3,17 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "initialize": "yarn install && git clone https://github.com/distillpub/distill-template.git",
-    "clone": "node bin/clone",
-    "build": "(cd distill-template/; git pull; yarn; yarn build) && yarn clone && gulp",
+    "initialize": "yarn install && yarn run poll && yarn run make",
+    "poll": "bin/poll",
+    "make": "gulp",
+    "build": "yarn run poll && yarn run make",
     "serve": "gulp serve"
   },
   "dependencies": {
     "d3": "^4.4.1",
     "d3-collection": "^1.0.2",
+    "d3-dsv": "^1.0.5",
+    "d3-queue": "^3.0.7",
     "d3-time-format": "^2.0.3",
     "del": "^2.2.2",
-    "distill-template": "^0.0.21",
     "fs-extra": "^3.0.1",
     "gulp": "gulpjs/gulp#4.0",
     "gulp-rename": "^1.2.2",

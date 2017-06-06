@@ -1,7 +1,7 @@
 const analytics = require("./bin/analytics");
 const del = require("del");
-const distill = require("./distill-template/dist/template.js");
-const exec = require("child_process").execSync;
+const distill = require("./build/distill-template/dist/template.js");
+const execSync = require("child_process").execSync;
 const fs = require("fs");
 const fse = require("fs-extra");
 const gulp = require("gulp");
@@ -15,7 +15,8 @@ const webserver = require("gulp-webserver");
 
 const d3 = Object.assign({},
     require("d3-time-format"),
-    require("d3-collection")
+    require("d3-collection"),
+    require("d3-dsv")
 );
 
 const serializeDocument = jsd.serializeDocument;
@@ -46,7 +47,7 @@ gulp.task("clean", function() { return del([paths.dest]); });
 // Copy the distill template javascript file so it is publically available
 //
 gulp.task("copyTemplate", function() {
-  return gulp.src(["distill-template/dist/template.js", "distill-template/dist/template.js.map"])
+  return gulp.src(["build/distill-template/dist/template.js", "build/distill-template/dist/template.js.map"])
     .pipe(rename(path => {
       let b = path.basename.split(".")
       b.splice(1, 0, "v1");
@@ -63,22 +64,50 @@ gulp.task("beforePostData", gulp.series(loadJournalData, loadPostsData));
 function loadJournalData(done) {
   fs.readFile("journal.json", (err, fileData) => {
     if (err) done(err);
-    data.journal = JSON.parse(fileData);
+    let journal = JSON.parse(fileData);
+      // Adding an id field to all people in masthead
+    let toID = function(p) {
+      p.id = p.name.toLowerCase().replace(" ", "-")
+    }
+    journal.editors.forEach(toID);
+    journal.committee.forEach(toID);
+    data.journal = journal;
+    fs.writeFileSync("build/journal.json", JSON.stringify(journal, null, 2));
     done();
   });
 }
 function loadPostsData(done) {
-  fs.readFile("posts/posts.json", (err, fileData) => {
+  fs.readFile("build/distill-posts/posts.csv", "utf8", (err, fileData) => {
     if (err) done(err);
-    data.posts = JSON.parse(fileData);
-    data.posts.forEach(p => {
-      p.publishedDate = new Date(p.publishedDate);
+    console.log(fileData)
+    let posts = d3.csvParse(fileData, (r) => {
+      return {
+        doiSuffix: +r.doiSuffix,
+        distillPath: r.distillPath.trim(),
+        githubPath: r.githubPath.trim(),
+        publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim()),
+        tags: r.tags.trim().split(" ")
+      }
+    });
+    posts.forEach(p => {
+      p.updatedDate = execSync("git -C build/posts/" + p.distillPath + " log -1 --pretty=format:%cI").toString("utf8");
       p.updatedDate = new Date(p.updatedDate);
       p.journal = data.journal;
       if (p.doiSuffix >= 1e5) console.error("DOI suffix overflow ", p.doiSuffix);
       p.doi = data.journal.doi + "." + ("000000" + p.doiSuffix).slice(-5);
+
+      // If we have a FIRST_PUBLISHED tag in git, use it
+      if(execSync("git -C build/posts/" + p.distillPath + " tag -l FIRST_PUBLISHED").toString("utf8")) {
+        var tagDate = execSync("git -C build/posts/" + p.distillPath + " show --quiet --pretty=format:%cI FIRST_PUBLISHED -n 1").toString("utf8");
+        var pubSha = execSync("git -C build/posts/" + p.distillPath + " show --quiet --format=format:%H FIRST_PUBLISHED -n 1").toString("utf8");
+        var headSha = execSync("git -C build/posts/" + p.distillPath + " show --quiet --format=format:%H HEAD -n 1").toString("utf8");
+        p.githubCompareUpdatesUrl = "https://github.com/" + p.githubPath + "/compare/" + pubSha + "..." + headSha;
+      }
+
     });
-    data.posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
+    posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
+    data.posts = posts;
+    fs.writeFileSync("build/beforePostData.json", JSON.stringify(posts, null, 2));
     done();
   });
 }
@@ -87,16 +116,16 @@ function loadPostsData(done) {
 //
 // Copy and render all the posts, including archive versions and crossref files.
 //
-gulp.task("posts", gulp.series(copyPosts, renderPosts, renderArchive, renderCrossref));
+gulp.task("posts", gulp.series(copyPosts, renderPosts, renderArchive));
 
 function copyPosts(done) {
   data.posts.forEach((post, i) => {
     // TODO: alert if we don't have a thumbnail?
-    let repoPath = path.join("posts", post.githubPath);
+    let repoPath = path.join("build", "posts", post.distillPath);
     let originalPath = path.join(repoPath, "public/");
     let publishedPath = path.join(paths.dest, post.distillPath);
     try {
-      fse.copySync(originalPath, publishedPath)
+      fse.copySync(originalPath, publishedPath);
     } catch (e) {
       console.error("No public folder for " + repoPath);
     }
@@ -127,7 +156,7 @@ function renderCrossref(done) {
     let crossrefXml = distill.generateCrossref(post);
     fs.writeFile(path.join(publishedPath, "crossref.xml"), crossrefXml, error => {
       if (error) done(error);
-      done()
+      done();
     });
   });
 }
@@ -163,13 +192,6 @@ function renderArchive(done) {
 // Cleanup the data after we've rendered all the posts.
 //
 gulp.task("afterPostData", function(done) {
-  // Adding an id field to all people in masthead
-  let toID = function(p) {
-    p.id = p.name.toLowerCase().replace(" ", "-")
-  }
-  data.journal.editors.forEach(toID);
-  data.journal.committee.forEach(toID);
-
   // Commentary
   data.commentaries = data.posts.filter(p => {
     return p.tags.indexOf("commentary") !== -1;
@@ -192,6 +214,7 @@ gulp.task("afterPostData", function(done) {
     issue.volume = issue.values[0].volume;
     issue.issue = issue.values[0].issue;
   });
+  fs.writeFileSync("build/afterPostData.json", JSON.stringify(data, null, 2));
   done();
 });
 
