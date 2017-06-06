@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const Inliner = require("inliner");
+const analytics = require("./analytics")
+
+let htmlPath = process.argv[2];
+let htmlWritePath = process.argv[3];
+
+// let command = "./node_modules/.bin/inliner -n -m --preserve-comments --nosvg --videos " + htmlPath + " > " + htmlWritePath;
+
+
+new Inliner(htmlPath,
+  {
+    compressCSS: false,
+    compressJS: false,
+    collapseWhitespace: false,
+    nosvg: true,
+    preserveComments: true,
+    inlinemin: true
+  },
+  function(error, html) {
+    const outHtml = html.replace(analytics, "");
+    fs.writeFileSync(htmlWritePath, outHtml, "utf8");
+  });

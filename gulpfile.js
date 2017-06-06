@@ -6,7 +6,6 @@ const exec = require("child_process").exec;
 const fs = require("fs");
 const fse = require("fs-extra");
 const gulp = require("gulp");
-const inlineAssets = require("./bin/inline-assets");
 const jsd = require("jsdom");
 const mustache = require("mustache");
 const path = require("path");
@@ -172,29 +171,25 @@ function renderCrossref(done) {
 }
 
 function renderArchive(done) {
-  return gulp.src("docs/+([0-9])/*/index.html")
-    .pipe(through.obj(function (file, enc, cb) {
-      if (file.isStream()) console.error("No streams in renderArchive");
-      let post = data.posts.find(p => file.path.includes(p.distillPath));
-      let publishedPath = path.join(paths.dest, post.distillPath);
-      console.log(post.distillPath)
-      let htmlString = String(file.contents);
-      var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-      inlineAssets(dom, "img[src]", "src", publishedPath);
-      inlineAssets(dom, 'link[rel="stylesheet"][href]', "href", publishedPath);
-      inlineAssets(dom, "script[src]", "src", publishedPath);
-      inlineAssets(dom, "video[src]", "src", publishedPath);
-      inlineAssets(dom, "video > source[src]", "src", publishedPath);
-      inlineAssets(dom, "audio[src]", "src", publishedPath);
-      inlineAssets(dom, "audio > source[src]", "src", publishedPath);
-      let archiveHtml = serializeDocument(dom);
-      //Remove analytics
-      archiveHtml = archiveHtml.replace(analytics, "");
-      file.contents = Buffer(archiveHtml);
-      cb(null, file);
-    }))
-    .pipe(rename({basename: "index.archive"}))
-    .pipe(gulp.dest("docs/"));
+  const concurrency = 4;
+  let q = d3.queue(concurrency);
+  data.posts.forEach(post => {
+    let htmlPath = "docs/" + post.distillPath + "/index.html";
+    let htmlWritePath = "docs/" + post.distillPath + "/index.archive.html";
+    q.defer(render, htmlPath, htmlWritePath);
+  });
+  function render(htmlPath, htmlWritePath, cb) {
+    let command = "./bin/inline " + htmlPath + " " + htmlWritePath;
+    console.log(command);
+    exec(command, (error, stdout) => {
+      if (error) throw error;
+      cb();
+    });
+  }
+  q.awaitAll(function(error) {
+    if (error) throw error;
+    done();
+  });
 }
 
 
