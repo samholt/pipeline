@@ -8,11 +8,13 @@ For urls that are not articles, we have a concept of `pages`. These are located 
 
 There are four main commands to know.
 
-- **`yarn initialize`** installs all dependencies.
+- **`yarn initialize`** installs all dependencies, then runs `yarn poll` and `yarn make`.
 
-- **`yarn build`** will run all the transformations necessary to build the site, then place all the output in the `docs/` folder. The `docs/` folder is then served automatically by [github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/) when the changes are committed and pushed to Github.
+- **`yarn poll`** Polls github for changes to all post repositories, the `distill-template` repo, and the `distill-posts/posts.csv` manifest file.
 
-(Note: `yarn build` runs `yarn clone` as a subprocess. `yarn clone`** will copy the latest manifest file, then clone and pull the latest from each of the repositories.)
+- **`yarn make`** Builds the site (without pinging any remote repositories), placing all the output in the `docs/` folder. The `docs/` folder is then served automatically by [github pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/) when the changes are committed and pushed to Github.
+
+- **`yarn build`** will run all the transformations necessary to build the site, specifically `yarn poll` and `yarn build`.
 
 - **`yarn serve`** Starts a static file server to view website. To view the site, navigate to `localhost:8000/docs`.
 

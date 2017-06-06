@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "initialize": "yarn install && yarn run poll && yarn run make",
+    "initialize": "yarn install && yarn run build",
+    "build": "yarn run poll && yarn run make",
     "poll": "bin/poll",
     "make": "gulp",
-    "build": "yarn run poll && yarn run make",
     "serve": "gulp serve"
   },
   "dependencies": {
