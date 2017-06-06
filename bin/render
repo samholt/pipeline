@@ -1,0 +1,30 @@
+#!/usr/bin/env node
+
+const fs = require("fs");
+const analytics = require("./analytics");
+const distill = require("../build/distill-template/dist/template.js");
+const jsd = require("jsdom");
+const serializeDocument = jsd.serializeDocument;
+const jsdom = jsd.jsdom;
+
+
+let dataPath = process.argv[2];
+let dataString = fs.readFileSync(dataPath, "utf8");
+let data = JSON.parse(dataString);
+data.publishedDate = new Date(data.publishedDate);
+data.updatedDate = new Date(data.updatedDate);
+
+let htmlPath = process.argv[3];
+let htmlString = fs.readFileSync(htmlPath, "utf8");
+let dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
+
+let htmlWritePath = process.argv[4];
+
+distill.render(dom, data);
+distill.distillify(dom, data);
+let html = serializeDocument(dom);
+
+analyticsHtml = html.replace("</body></html>", analytics + "</body></html>");
+
+fs.writeFileSync(htmlWritePath, analyticsHtml, "utf8");
+fs.writeFileSync(dataPath, JSON.stringify(data, null, 2), "utf8");
