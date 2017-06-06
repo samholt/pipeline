@@ -17,7 +17,8 @@ new Inliner(htmlPath,
     collapseWhitespace: false,
     nosvg: true,
     preserveComments: true,
-    inlinemin: true
+    inlinemin: true,
+    videos: true
   },
   function(error, html) {
     const outHtml = html.replace(analytics, "");
