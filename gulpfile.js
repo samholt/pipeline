@@ -79,7 +79,6 @@ function loadJournalData(done) {
 function loadPostsData(done) {
   fs.readFile("build/distill-posts/posts.csv", "utf8", (err, fileData) => {
     if (err) done(err);
-    console.log(fileData)
     let posts = d3.csvParse(fileData, (r) => {
       return {
         doiSuffix: +r.doiSuffix,
