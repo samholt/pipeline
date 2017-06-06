@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+
+var fs = require("fs"),
+    execSync = require("child_process").execSync,
+    exec = require("child_process").exec,
+    dsv = require("d3-dsv"),
+    queue = require("d3-queue"),
+    request = require("request");
+
+const concurrency = 10;
+
+// Poll github for changes to:
+// https://github.com/distillpub/posts
+poll("build/distill-posts", "https://github.com/distillpub/posts", function(error) {
+  if (error) throw error;
+
+  console.log("Beginning queue...");
+  let q = queue.queue(concurrency);
+
+  // Poll github for changes to:
+  // https://github.com/distillpub/template
+  q.defer(poll, "build/distill-template", "https://github.com/distillpub/template")
+
+  // Poll github for changes to all the repos listed in
+  // build/distill-posts/posts.csv
+  let posts = dsv.csvParse(fs.readFileSync("build/distill-posts/posts.csv", "utf8"));
+  posts.forEach(function(post) {
+    var path = "build/posts/" + post.distillPath.trim();
+    var remote = "https://github.com/" + post.githubPath.trim() + ".git";
+    q.defer(poll, path, remote);
+  });
+
+  // Wait for all polling updates to the posts repos
+  q.awaitAll(function(error) {
+    if (error) throw error;
+    console.log("...queue done.");
+  });
+});
+
+// Perform an async child process for git syncing processes
+// that clone a remote repo if it doesn't exist, or pull it if it does exist.
+function poll(path, remote, cb) {
+  console.log("Polling: " + remote);
+  let callback = cb;
+
+  let exists;
+  try {
+    fs.accessSync(path, fs.F_OK);
+    exists = true;
+  } catch (e) {
+    exists = false;
+  }
+
+  if (exists) {
+    exec("git -C " + path + " pull", tags);
+  } else {
+    exec("git clone --depth 1 " + remote + " " + path, tags);
+  }
+
+  // Fetching tags from remote repository
+  function tags(error) {
+    if (error) throw error;
+    exec("git -C " + path + " fetch --tags", error => {
+      if (error) throw error;
+      callback()
+    });
+  }
+
+}
