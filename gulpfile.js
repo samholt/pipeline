@@ -2,6 +2,7 @@ const analytics = require("./bin/analytics");
 const del = require("del");
 const distill = require("./build/distill-template/dist/template.js");
 const execSync = require("child_process").execSync;
+const exec = require("child_process").exec;
 const fs = require("fs");
 const fse = require("fs-extra");
 const gulp = require("gulp");
@@ -16,7 +17,8 @@ const webserver = require("gulp-webserver");
 const d3 = Object.assign({},
     require("d3-time-format"),
     require("d3-collection"),
-    require("d3-dsv")
+    require("d3-dsv"),
+    require("d3-queue")
 );
 
 const serializeDocument = jsd.serializeDocument;
@@ -107,6 +109,10 @@ function loadPostsData(done) {
     posts.sort((a, b) => { return b.publishedDate - a.publishedDate; });
     data.posts = posts;
     fs.writeFileSync("build/beforePostData.json", JSON.stringify(posts, null, 2));
+    data.posts.forEach(post => {
+      fse.ensureDirSync("build/data/" + post.distillPath);
+      fs.writeFileSync("build/data/" + post.distillPath + ".json", JSON.stringify(post, null, 2));
+    })
     done();
   });
 }
@@ -132,21 +138,26 @@ function copyPosts(done) {
   done();
 }
 
-function renderPosts() {
-  return gulp.src("docs/+([0-9])/*/index.html")
-    .pipe(through.obj(function (file, enc, cb) {
-      if (file.isStream()) console.error("No streams in renderPosts");
-      let post = data.posts.find(p => file.path.includes(p.distillPath));
-      console.log(post.distillPath)
-      let htmlString = String(file.contents);
-      var dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
-      distill.render(dom, post);
-      distill.distillify(dom, post);
-      let transformedHtml = serializeDocument(dom).replace("</body></html>", analytics + "</body></html>");
-      file.contents = Buffer(transformedHtml);
-      cb(null, file);
-    }))
-    .pipe(gulp.dest("docs/"));
+function renderPosts(done) {
+  const concurrency = 4;
+  let q = d3.queue(concurrency);
+  data.posts.forEach(post => {
+    let htmlPath = "build/posts/" + post.distillPath + "/public/index.html";
+    let dataPath = "build/data/" + post.distillPath + ".json";
+    let htmlWritePath = "docs/" + post.distillPath + "/index.html";
+    q.defer(render, dataPath, htmlPath, htmlWritePath);
+  });
+  function render(dataPath, htmlPath, htmlWritePath, cb) {
+    console.log(htmlWritePath);
+    exec("./bin/render " + dataPath + " " + htmlPath + " " + htmlWritePath, (error, stdout) => {
+      if (error) throw error;
+      cb();
+    });
+  }
+  q.awaitAll(function(error) {
+    if (error) throw error;
+    done();
+  });
 }
 
 function renderCrossref(done) {
@@ -163,7 +174,7 @@ function renderCrossref(done) {
 function renderArchive(done) {
   return gulp.src("docs/+([0-9])/*/index.html")
     .pipe(through.obj(function (file, enc, cb) {
-      if (file.isStream()) console.error("No streams in renderPosts");
+      if (file.isStream()) console.error("No streams in renderArchive");
       let post = data.posts.find(p => file.path.includes(p.distillPath));
       let publishedPath = path.join(paths.dest, post.distillPath);
       console.log(post.distillPath)
@@ -192,6 +203,15 @@ function renderArchive(done) {
 //
 gulp.task("afterPostData", function(done) {
   // Commentary
+  let newPosts = [];
+  data.posts.forEach(function(post) {
+    let postJson = fs.readFileSync("build/data/" + post.distillPath + ".json", "utf8");
+    let newPost = JSON.parse(postJson)
+    newPost.publishedDate = new Date(newPost.publishedDate);
+    newPost.updatedDate = new Date(newPost.updatedDate);
+    newPosts.push(newPost);
+  });
+  data.posts = newPosts;
   data.commentaries = data.posts.filter(p => {
     return p.tags.indexOf("commentary") !== -1;
   });
@@ -234,6 +254,7 @@ function renderPages() {
       let indexString = mustache.render(htmlString, data);
       let indexDom = jsdom(indexString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
       let pageData = {
+        distillPath: file.relative.replace("index.html", ""),
         url: "http://distill.pub/" + file.relative.replace("index.html", ""),
         previewURL: "http://distill.pub/preview.jpg"
       };
