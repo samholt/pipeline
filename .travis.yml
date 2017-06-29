@@ -1,9 +1,11 @@
 language: node_js
+node_js:
+  - "node" # latest version
 cache:
   yarn: true
   directories:
     - node_modules
-
 deploy:
   provider: firebase
   token: $FIREBASE_TOKEN
+  all_branches: true
