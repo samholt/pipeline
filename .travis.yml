@@ -8,4 +8,5 @@ cache:
 deploy:
   provider: firebase
   token: $FIREBASE_TOKEN
-  all_branches: true
+  on:
+    all_branches: true
