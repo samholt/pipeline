@@ -8,7 +8,11 @@ cache:
 script:
   - yarn build
 deploy:
-  provider: firebase
-  token: $FIREBASE_TOKEN
-  on:
-    all_branches: true
+  - provider: firebase
+    token: $FIREBASE_STAGING_TOKEN
+    on:
+      all_branches: true
+  - provider: firebase
+    token: $FIREBASE_PRODUCTION_TOKEN
+    on:
+      branch: master
