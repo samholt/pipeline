@@ -9,10 +9,12 @@ script:
   - yarn build
 deploy:
   - provider: firebase
+    project: "staging"
     token: $FIREBASE_STAGING_TOKEN
     on:
       all_branches: true
   - provider: firebase
+    project: "production"
     token: $FIREBASE_PRODUCTION_TOKEN
     on:
       branch: master
