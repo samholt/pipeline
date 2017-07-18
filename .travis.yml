@@ -10,15 +10,16 @@ script:
 before_deploy:
   - cd functions && yarn install && cd ..
 deploy:
-  skip_cleanup: true
   - provider: firebase
     project: "staging"
     token: $FIREBASE_STAGING_TOKEN
+    skip_cleanup: true
     on:
       all_branches: true
       condition: $TRAVIS_BRANCH != "master"
   - provider: firebase
     project: "production"
     token: $FIREBASE_PRODUCTION_TOKEN
+    skip_cleanup: true
     on:
       branch: master
