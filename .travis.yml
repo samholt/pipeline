@@ -7,6 +7,8 @@ cache:
     - node_modules
 script:
   - yarn build
+before_deploy:
+  - cd functions && yarn install
 deploy:
   - provider: firebase
     project: "staging"

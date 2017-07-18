@@ -23,6 +23,7 @@ node_modules
 # Build
 build/
 bower_components/
+docs/
 
 # emacs
 *~docs/
