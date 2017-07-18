@@ -1,6 +1,7 @@
 {
   "projects": {
     "staging": "distill-a88b6",
-    "production": "distill-wrp"
+    "production": "distill-wrp",
+    "default": "distill-wrp"
   }
 }
