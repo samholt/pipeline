@@ -8,7 +8,7 @@ cache:
 script:
   - yarn build
 before_deploy:
-  - cd functions && yarn install
+  - cd functions && yarn install && cd ..
 deploy:
   - provider: firebase
     project: "staging"
