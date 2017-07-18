@@ -1,3 +1,7 @@
+# 🚧 You are likely looking for https://github.com/distillpub/template instead. 🚧
+
+This is just infrastructure code to build the `distill.pub` website.
+
 # Build and Deploy the Distill Website
 
 Instructions for how to build and deploy the [http://distill.pub](http://distill.pub) website.
