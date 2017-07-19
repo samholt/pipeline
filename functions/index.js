@@ -13,9 +13,10 @@ exports.githubWebhook = functions.https.onRequest((req, resp) => {
     console.log("We are seeing a push to '" + repo.name + "'.");
 
     const isPost = repo.name.startsWith('post--');
+    const isPublic = !repo.private;
     const isToMaster = req.body.ref.endsWith('master');
-    if ( isPost && isToMaster ) {
-      console.log("Push is to a post & to master branch; triggering a build of pipeline.");
+    if ( isPost && isToMaster && isPublic ) {
+      console.log("Push is to master branch of a public post repo; triggering a build of /pipeline.");
 
       // TODO: decide when to build staging instead
       const repositoryToBuild = encodeURIComponent("distill/pipeline");
@@ -48,7 +49,7 @@ exports.githubWebhook = functions.https.onRequest((req, resp) => {
       });
 
     } else {
-      console.log("Push was not to a post; doing nothing.");
+      console.log("Push was not to master branch of a public post repo; doing nothing.");
     }
   }
 
