@@ -23,7 +23,7 @@
   <h2>A collection of examples and best practices for creating interactive explanatory articles using the Distill web framework</h2>
   <hr>
   <h2>Getting Started</h2>
-  <p>Distill ships with a CSS framework and a collection of custom web components that make building interactive academic articles easier than with raw HTML, CSS and JavaScript. At its simplest, each distill post is just a single HTML file with one special script tag.</p>
+  <p>Distill ships with a CSS framework and a collection of custom web components that make building interactive academic articles easier than with raw HTML, CSS and JavaScript. At its simplest, each Distill post is just a single HTML file with one special script tag.</p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
@@ -33,8 +33,8 @@
       &lt;h1&gt;Hello World&lt;/h1&gt;
     &lt;/dt-article&gt;
   </dt-code>
-  <p>This script tag will modify your post in your browser, adding the distill styling and functionality. When we publish your article, we will bake in these transformations, but during development it’s handy to be able to preview it locally (It even works without a web server).</p>
-  <p>A typical distill post will be quite a bit longer than the one above. Below is a more complete example. Don’t worry if some of the tags don’t make sense, they’re all documented further in this post.</p>
+  <p>This script tag will modify your post in your browser, adding the Distill styling and functionality. When we publish your article, we will bake in these transformations, but during development it’s handy to be able to preview it locally (It even works without a web server).</p>
+  <p>A typical Distill post will be quite a bit longer than the one above. Below is a more complete example. Don’t worry if some of the tags don’t make sense, they’re all documented further in this post.</p>
   <dt-code block language="html">
     &lt;!doctype html&gt;
     &lt;meta charset="utf-8"&gt;
@@ -190,12 +190,12 @@
   <h2>Equations</h2>
   <p>Please use <a href="https://www.mathjax.org/">MathJax</a> or <a href="https://github.com/Khan/KaTeX">KaTeX</a> for equations.</p>
   <p>In the future, we may provide a more structured way to handle equations so we can pre-render them on the server side.</p>
-  
+
   <hr>
   <h2>Diagrams</h2>
   <p>For static diagrams, we recommend using a vector graphics tool, like <a href="http://www.adobe.com/products/illustrator.html">Adobe Illustrator</a>, <a href="https://www.sketchapp.com/">Sketch</a> or <a href="https://inkscape.org/en/">Inkscape</a>. For equations in diagrams, inkscape has a plugin to support LaTeX equations, while Illustrator integrates well with tools like Equation Maker.</p>
   <p> For dynamic diagrams we recommend <a href="https://d3js.org/">D3.js</a>. For complex diagrams where you only want to animate part of them, you can draw a static diagram, tag elements of your diagram with classes or ids, and then manipulate them with D3.</p>
-  
+
   <hr>
   <h2>Layouts</h2>
   <p>The main text column is referred to as the body. It is the assumed layout of any direct descendents of the <code>dt-article</code> element.</p>
