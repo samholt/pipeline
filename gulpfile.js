@@ -82,7 +82,7 @@ function loadPostsData(done) {
     if (err) done(err);
     let journal = JSON.parse(fileData, (key, value) => {
       if (key == "publishedDate") {
-          return new Date(value);
+          return d3.timeParse("%Y-%m-%d")(value);
       } else {
           return value;
       }
