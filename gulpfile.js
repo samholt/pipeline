@@ -63,7 +63,7 @@ gulp.task("copyTemplate", function() {
 //
 gulp.task("beforePostData", gulp.series(loadJournalData, loadPostsData));
 function loadJournalData(done) {
-  fs.readFile("journal.json", (err, fileData) => {
+  fs.readFile("journal.json", "utf-8", (err, fileData) => {
     if (err) done(err);
     let journal = JSON.parse(fileData);
       // Adding an id field to all people in masthead
@@ -78,17 +78,16 @@ function loadJournalData(done) {
   });
 }
 function loadPostsData(done) {
-  fs.readFile("build/distill-posts/posts.csv", "utf8", (err, fileData) => {
+  fs.readFile("journal.json", "utf-8", (err, fileData) => {
     if (err) done(err);
-    let posts = d3.csvParse(fileData, (r) => {
-      return {
-        doiSuffix: +r.doiSuffix,
-        distillPath: r.distillPath.trim(),
-        githubPath: r.githubPath.trim(),
-        publishedDate: d3.timeParse("%Y/%m/%d")(r.publishedDate.trim()),
-        tags: r.tags.trim().split(" ")
+    let journal = JSON.parse(fileData, (key, value) => {
+      if (key == "publishedDate") {
+          return new Date(value);
+      } else {
+          return value;
       }
     });
+    let posts = journal.articles;
     posts.forEach(p => {
       p.updatedDate = execSync("git -C build/posts/" + p.distillPath + " log -1 --pretty=format:%cI").toString("utf8");
       p.updatedDate = new Date(p.updatedDate);
@@ -147,7 +146,7 @@ function renderPosts(done) {
     q.defer(render, dataPath, htmlPath, htmlWritePath);
   });
   function render(dataPath, htmlPath, htmlWritePath, cb) {
-    console.log(htmlWritePath);
+    console.log("Rendering: " + htmlWritePath);
     exec("./bin/render " + dataPath + " " + htmlPath + " " + htmlWritePath, (error, stdout) => {
       if (error) throw error;
       cb();
@@ -180,7 +179,7 @@ function renderArchive(done) {
   });
   function render(htmlPath, htmlWritePath, cb) {
     let command = "./bin/inline " + htmlPath + " " + htmlWritePath;
-    console.log(command);
+    console.log("Rendering archive: " + command);
     exec(command, (error, stdout) => {
       if (error) throw error;
       cb();

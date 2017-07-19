@@ -2,7 +2,7 @@
   "title": "Distill",
   "full_title": "Distill",
   "abbrev_title": "Distill",
-  "url": "http://distill.pub",
+  "url": "https://distill.pub",
   "doi": "10.23915/distill",
   "publisherName" : "Distill Working Group",
   "publisherEmail" : "admin@distill.pub",
@@ -13,12 +13,20 @@
   ],
   "committee": [
     { "name": "Yoshua Bengio", "nameURL": "http://www.iro.umontreal.ca/~bengioy/yoshua_en/index.html", "affiliation": "Université de Montréal", "affiliationURL": "" },
-    { "name": "Mike Bostock", "nameURL": "//bost.ocks.org/mike/", "affiliation": "Data-Driven Documents", "affiliationURL": "//d3js.org" },
-    { "name": "Amanda Cox", "nameURL": "//www.nytimes.com/by/amanda-cox", "affiliation": "The New York Times", "affiliationURL": "//www.nytimes.com/section/upshot" },
+    { "name": "Mike Bostock", "nameURL": "https://bost.ocks.org/mike/", "affiliation": "Data-Driven Documents", "affiliationURL": "//d3js.org" },
+    { "name": "Amanda Cox", "nameURL": "https://www.nytimes.com/by/amanda-cox", "affiliation": "The New York Times", "affiliationURL": "//www.nytimes.com/section/upshot" },
     { "name": "Ian Goodfellow", "nameURL": "http://www.iangoodfellow.com", "affiliation": "Google Brain Team", "affiliationURL": "//g.co/brain" },
     { "name": "Andrej Karpathy", "nameURL": "http://cs.stanford.edu/people/karpathy/", "affiliation": "Tesla", "affiliationURL": "//www.tesla.com/" },
     { "name": "Shakir Mohamed", "nameURL": "http://shakirm.com", "affiliation": "DeepMind", "affiliationURL": "//deepmind.com" },
     { "name": "Michael Nielsen", "nameURL": "http://michaelnielsen.org", "affiliation": "YC Research", "affiliationURL": "//ycr.org" },
     { "name": "Fernanda Viégas", "nameURL": "http://fernandaviegas.com", "affiliation": "Google Big Picture Group", "affiliationURL": "https://research.google.com/bigpicture/" }
+  ],
+  "articles": [
+    { "doiSuffix": 1, "distillPath": "2016/augmented-rnns", "githubPath": "distillpub/post--augmented-rnns", "publishedDate": "2016-09-08", "tags": ["rnn"] },
+    { "doiSuffix": 2, "distillPath": "2016/misread-tsne", "githubPath": "distillpub/post--misread-tsne", "publishedDate": "2016-10-13", "tags": ["tsne", "playground"] },
+    { "doiSuffix": 3, "distillPath": "2016/deconv-checkerboard", "githubPath": "distillpub/post--deconv-checkerboard", "publishedDate": "2016-10-17", "tags": [] },
+    { "doiSuffix": 4, "distillPath": "2016/handwriting", "githubPath": "distillpub/post--handwriting", "publishedDate": "2016-12-06", "tags": [] },
+    { "doiSuffix": 5, "distillPath": "2017/research-debt", "githubPath": "distillpub/post--research-debt", "publishedDate": "2017-03-22", "tags": ["commentary"] },
+    { "doiSuffix": 6, "distillPath": "2017/momentum", "githubPath": "distillpub/post--momentum", "publishedDate": "2017-04-04", "tags": [] }
   ]
 }
