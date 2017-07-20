@@ -2,37 +2,31 @@
 
 var fs = require("fs"),
     exec = require("child_process").exec,
-    dsv = require("d3-dsv"),
     queue = require("d3-queue");
 
 const concurrency = 10;
 
+console.log("Beginning queue...");
+let q = queue.queue(concurrency);
+
 // Poll github for changes to:
-// https://github.com/distillpub/posts
-poll("build/distill-posts", "https://github.com/distillpub/posts", function(error) {
+// https://github.com/distillpub/template
+q.defer(poll, "build/distill-template", "https://github.com/distillpub/template")
+
+// Poll github for changes to all the repos listed in
+// build/distill-posts/posts.csv
+let journalFile = fs.readFileSync("journal.json", "utf8");
+let articles = JSON.parse(journalFile).articles;
+articles.forEach(function(article) {
+  var path = "build/posts/" + article.distillPath.trim();
+  var remote = "https://github.com/" + article.githubPath.trim() + ".git";
+  q.defer(poll, path, remote);
+});
+
+// Wait for all polling updates to the posts repos
+q.awaitAll(function(error) {
   if (error) throw error;
-
-  console.log("Beginning queue...");
-  let q = queue.queue(concurrency);
-
-  // Poll github for changes to:
-  // https://github.com/distillpub/template
-  q.defer(poll, "build/distill-template", "https://github.com/distillpub/template")
-
-  // Poll github for changes to all the repos listed in
-  // build/distill-posts/posts.csv
-  let posts = dsv.csvParse(fs.readFileSync("build/distill-posts/posts.csv", "utf8"));
-  posts.forEach(function(post) {
-    var path = "build/posts/" + post.distillPath.trim();
-    var remote = "https://github.com/" + post.githubPath.trim() + ".git";
-    q.defer(poll, path, remote);
-  });
-
-  // Wait for all polling updates to the posts repos
-  q.awaitAll(function(error) {
-    if (error) throw error;
-    console.log("...queue done.");
-  });
+  console.log("...queue done.");
 });
 
 // Perform an async child process for git syncing processes
