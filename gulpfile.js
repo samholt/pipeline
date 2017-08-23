@@ -65,11 +65,13 @@ gulp.task("copyTemplate", function() {
 gulp.task("copyThirdParty", function() {
   const katex = gulp.src("./node_modules/katex/dist/*")
     .pipe(gulp.dest(paths.thirdParty + 'katex/'));
+  const katexFonts = gulp.src("./node_modules/katex/dist/fonts/*")
+    .pipe(gulp.dest(paths.thirdParty + 'katex/fonts/'));
   const webcomponents = gulp.src("./node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js*")
     .pipe(gulp.dest(paths.thirdParty + 'polyfills/'));
   const intersection = gulp.src("./node_modules/intersection-observer/intersection-observer.js*")
     .pipe(gulp.dest(paths.thirdParty + 'polyfills/'));
-  return merge(katex, webcomponents, intersection);
+  return merge(katex, katexFonts, webcomponents, intersection);
 });
 //
 // Suck in the journal.json data and the posts.json data
