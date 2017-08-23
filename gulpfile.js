@@ -12,6 +12,7 @@ const path = require("path");
 const rename = require("gulp-rename");
 const through = require("through2");
 const webserver = require("gulp-webserver");
+const merge = require('merge-stream');
 
 const d3 = Object.assign({},
     require("d3-time-format"),
@@ -25,7 +26,8 @@ const jsdom = jsd.jsdom;
 const RFC = d3.timeFormat("%a, %d %b %Y %H:%M:%S %Z");
 
 const paths = {
-  dest: "docs/"
+  dest: "docs/",
+  thirdParty: "docs/third-party/"
 };
 
 
@@ -41,7 +43,10 @@ let data = {
 //
 // Delete entire build folder
 //
-gulp.task("clean", function() { return del([paths.dest]); });
+gulp.task("clean", function() { 
+  const folders = Object.values(paths);
+  return del(folders); 
+});
 
 
 //
@@ -57,7 +62,15 @@ gulp.task("copyTemplate", function() {
     .pipe(gulp.dest(paths.dest));
 });
 
-
+gulp.task("copyThirdParty", function() {
+  const katex = gulp.src("./node_modules/katex/dist/*")
+    .pipe(gulp.dest(paths.thirdParty + 'katex/'));
+  const webcomponents = gulp.src("./node_modules/@webcomponents/webcomponentsjs/webcomponents-lite.js*")
+    .pipe(gulp.dest(paths.thirdParty + 'polyfills/'));
+  const intersection = gulp.src("./node_modules/intersection-observer/intersection-observer.js*")
+    .pipe(gulp.dest(paths.thirdParty + 'polyfills/'));
+  return merge(katex, webcomponents, intersection);
+});
 //
 // Suck in the journal.json data and the posts.json data
 //
@@ -289,6 +302,7 @@ gulp.task("serve", function() {
 gulp.task("default", gulp.series(
   "clean",
   "copyTemplate",
+  "copyThirdParty",
   "beforePostData",
   "posts",
   "afterPostData",
