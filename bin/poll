@@ -31,6 +31,7 @@ q.awaitAll(function(error) {
 });
 
 function wget(path, remoteURL, callback) {
+  console.log("Downloading: " + remoteURL);
   exec("mkdir -p " + path);
   exec("curl -L " + remoteURL + " > " + path + '/' + remoteURL.split('/').pop(), error => {
     if (error) throw error;

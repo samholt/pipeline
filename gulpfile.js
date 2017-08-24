@@ -1,6 +1,6 @@
 const analytics = require("./bin/analytics");
 const del = require("del");
-const distill = require("./build/distill-template/dist/template.js");
+const distill = require("./build/distill-template/template.v1.js");
 const execSync = require("child_process").execSync;
 const exec = require("child_process").exec;
 const fs = require("fs");
@@ -53,7 +53,7 @@ gulp.task("clean", function() {
 // Copy the distill template javascript file so it is publically available
 //
 gulp.task("copyTemplateV1", function() {
-  return gulp.src(["build/distill-template/dist/template.v1.js", "build/distill-template/dist/template.v1.js.map"])
+  return gulp.src(["build/distill-template/template.v1.js", "build/distill-template/template.v1.js.map"])
     .pipe(gulp.dest(paths.dest));
 });
 
