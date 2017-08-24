@@ -52,13 +52,8 @@ gulp.task("clean", function() {
 //
 // Copy the distill template javascript file so it is publically available
 //
-gulp.task("copyTemplate", function() {
-  return gulp.src(["build/distill-template/dist/template.js", "build/distill-template/dist/template.js.map"])
-    .pipe(rename(path => {
-      let b = path.basename.split(".")
-      b.splice(1, 0, "v1");
-      path.basename = b.join(".");
-    }))
+gulp.task("copyTemplateV1", function() {
+  return gulp.src(["build/distill-template/dist/template.v1.js", "build/distill-template/dist/template.v1.js.map"])
     .pipe(gulp.dest(paths.dest));
 });
 
@@ -303,7 +298,7 @@ gulp.task("serve", function() {
 //
 gulp.task("default", gulp.series(
   "clean",
-  "copyTemplate",
+  "copyTemplateV1",
   "copyThirdParty",
   "beforePostData",
   "posts",

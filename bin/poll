@@ -11,7 +11,8 @@ let q = queue.queue(concurrency);
 
 // Poll github for changes to:
 // https://github.com/distillpub/template
-q.defer(poll, "build/distill-template", "https://github.com/distillpub/template")
+q.defer(wget, "build/distill-template", "https://github.com/distillpub/template/releases/download/v1.1.1/template.v1.js")
+q.defer(wget, "build/distill-template", "https://github.com/distillpub/template/releases/download/v1.1.1/template.v1.js.map")
 
 // Poll github for changes to all the repos listed in
 // build/distill-posts/posts.csv
@@ -28,6 +29,14 @@ q.awaitAll(function(error) {
   if (error) throw error;
   console.log("...queue done.");
 });
+
+function wget(path, remoteURL, callback) {
+  exec("mkdir -p " + path);
+  exec("curl -L " + remoteURL + " > " + path + '/' + remoteURL.split('/').pop(), error => {
+    if (error) throw error;
+    callback()
+  });
+}
 
 // Perform an async child process for git syncing processes
 // that clone a remote repo if it doesn't exist, or pull it if it does exist.
