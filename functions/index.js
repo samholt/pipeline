@@ -1,13 +1,46 @@
 const functions = require('firebase-functions');
 const request = require('request');
 
+function requestBuild(repo) {
+  const repositoryToBuild = encodeURIComponent(repo);
+  const options = {
+    method: 'POST',
+    json: true,
+    body: {
+      "request": {
+        "branch":"master"
+      }
+    },
+    url: "https://api.travis-ci.org/repo/" + repositoryToBuild + "/requests",
+    headers: {
+      'User-Agent': 'request',
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Travis-API-Version': "3",
+      'Authorization': "token " + functions.config().travis.token
+    }
+  };
+  request(options, (error, travisResponse, body) => {
+    const accepted = 202;
+    if (travisResponse.statusCode == accepted){
+      console.log("Triggered build successfully.");
+    } else {
+      console.log("Triggering build failed!");
+      console.log("Status Code: " + travisResponse.statusCode);
+      console.log("Debug Info: " + error, travisResponse, body);
+    }
+  });
+}
+
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 exports.githubWebhook = functions.https.onRequest((req, resp) => {
   console.log("Handling a webhook from github.");
 
-  const isPush = req.body.repository && req.body.commits
+  const isPush = req.body.repository && req.body.commits;
+  const isRelease = req.body.action && req.body.action == "published";
+  
   if (isPush) {
     const repo = req.body.repository;
     console.log("We are seeing a push to '" + repo.name + "'.");
@@ -17,41 +50,25 @@ exports.githubWebhook = functions.https.onRequest((req, resp) => {
     const isToMaster = req.body.ref.endsWith('master');
     if ( isPost && isToMaster && isPublic ) {
       console.log("Push is to master branch of a public post repo; triggering a build of /pipeline.");
-
       // TODO: decide when to build staging instead
-      const repositoryToBuild = encodeURIComponent("distill/pipeline");
-      const options = {
-        method: 'POST',
-        json: true,
-        body: {
-          "request": {
-            "branch":"master"
-          }
-        },
-        url: "https://api.travis-ci.org/repo/" + repositoryToBuild + "/requests",
-        headers: {
-          'User-Agent': 'request',
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-          'Travis-API-Version': "3",
-          'Authorization': "token " + functions.config().travis.token
-        }
-      };
-      request(options, (error, travisResponse, body) => {
-        const accepted = 202;
-        if (travisResponse.statusCode == accepted){
-          console.log("Triggered build successfully.");
-        } else {
-          console.log("Triggering build failed!");
-          console.log("Status Code: " + travisResponse.statusCode);
-          console.log("Debug Info: " + error, travisResponse, body);
-        }
-      });
-
+      requestBuild("distill/pipeline");
     } else {
       console.log("Push was not to master branch of a public post repo; doing nothing.");
     }
   }
+  
+  if (isRelease) {
+    const repo = req.body.repository;
+    console.log("We are seeing a release on '" + repo.name + "'.");
+    
+    const isOnTemplate = repo.name = "template";
+    if (isOnTemplate) {
+      console.log("Release was on template; triggering a build of /pipeline to deploy that new version on the distill website.");
+      requestBuild("distill/pipeline");
+    } else {
+      console.log("Release was not on a repo we care about; doing nothing.");
+    }
+  }
 
   resp.send("OK");
-});
+}
