@@ -2,12 +2,16 @@
 
 var fs = require("fs"),
     exec = require("child_process").exec,
-    queue = require("d3-queue");
+    queue = require("d3-queue"),
+    request = require('request');
 
 const concurrency = 10;
 
 console.log("Beginning queue...");
 let q = queue.queue(concurrency);
+
+// Download latest template release from Github
+q.defer(getLatestRelease, "build/distill-template", "distillpub/template")
 
 // Poll github for changes to:
 // https://github.com/distillpub/template
@@ -35,7 +39,30 @@ function wget(path, remoteURL, callback) {
   exec("mkdir -p " + path);
   exec("curl -L " + remoteURL + " > " + path + '/' + remoteURL.split('/').pop(), error => {
     if (error) throw error;
-    callback()
+  });
+}
+
+function getLatestRelease(path, repo, callback) {
+  console.log("Getting latest release: " + repo);
+  const options = {
+    url: "https://api.github.com/repos/" + repo + "/releases/latest",
+    headers: {
+      'User-Agent': 'distill-pipeline (like node request)'
+    }
+  };
+  request(options, (error, response, body) => {
+    if (!error && response.statusCode === 200) {
+      const response = JSON.parse(body)
+      console.log("Latest release is tagged as " + response.tag_name);
+      const links = response.assets.map((asset) => {
+        return asset.browser_download_url;
+      });
+      for (const link of links) {
+        wget("build/distill-template", link);
+      }
+    } else {
+      console.log("Got an error: ", error, ", status code: ", response.statusCode, body);
+    }
   });
 }
 
