@@ -44,10 +44,14 @@ function wget(path, remoteURL, callback) {
 
 function getLatestRelease(path, repo, callback) {
   console.log("Getting latest release: " + repo);
+  let url = "https://api.github.com/repos/" + repo + "/releases/latest"
+  if (process.env.GITHUB_CLIENT_ID && process.env.GITHUB_CLIENT_SECRET) {
+    url += '?client_id=' + process.env.GITHUB_CLIENT_ID + '&client_secret=' + process.env.GITHUB_CLIENT_SECRET
+  }
   const options = {
-    url: "https://api.github.com/repos/" + repo + "/releases/latest",
+    url: url
     headers: {
-      'User-Agent': 'distill-pipeline (like node request)'
+      'User-Agent': 'distill-pipeline poll (headless; Linux x86_64, like node request)'
     }
   };
   request(options, (error, response, body) => {
@@ -61,6 +65,7 @@ function getLatestRelease(path, repo, callback) {
         wget("build/distill-template", link);
       }
     } else {
+      if (error) throw error;
       console.log("Got an error: ", error, ", status code: ", response.statusCode, body);
     }
   });
