@@ -1,4 +1,5 @@
-# 🚧 You are likely looking for https://github.com/distillpub/template instead. 🚧
+
+# 🚧 You are likely looking for [template](https://github.com/distillpub/template) instead. 🚧 [![Build Status](https://travis-ci.org/distillpub/pipeline.svg?branch=master)](https://travis-ci.org/distillpub/pipeline)
 
 This is just infrastructure code to build the `distill.pub` website.
 
