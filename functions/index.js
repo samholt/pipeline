@@ -3,6 +3,7 @@ const request = require('request');
 
 function requestBuild(repo) {
   const repositoryToBuild = encodeURIComponent(repo);
+  const url =  "https://api.travis-ci.org/repo/" + repositoryToBuild + "/requests";
   const options = {
     method: 'POST',
     json: true,
@@ -11,7 +12,7 @@ function requestBuild(repo) {
         "branch":"master"
       }
     },
-    url: "https://api.travis-ci.org/repo/" + repositoryToBuild + "/requests",
+    url: url,
     headers: {
       'User-Agent': 'request',
       'Content-Type': 'application/json',
@@ -27,7 +28,7 @@ function requestBuild(repo) {
     } else {
       console.log("Triggering build failed!");
       console.log("Status Code: " + travisResponse.statusCode);
-      console.log("Debug Info: " + error, travisResponse, body);
+      console.log("Debug Info: " + error, body);
     }
   });
 }
@@ -51,7 +52,7 @@ exports.githubWebhook = functions.https.onRequest((req, resp) => {
     if ( isPost && isToMaster && isPublic ) {
       console.log("Push is to master branch of a public post repo; triggering a build of /pipeline.");
       // TODO: decide when to build staging instead
-      requestBuild("distill/pipeline");
+      requestBuild("distillpub/pipeline");
     } else {
       console.log("Push was not to master branch of a public post repo; doing nothing.");
     }
