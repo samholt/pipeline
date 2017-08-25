@@ -49,7 +49,7 @@ function getLatestRelease(path, repo, callback) {
     url += '?client_id=' + process.env.GITHUB_CLIENT_ID + '&client_secret=' + process.env.GITHUB_CLIENT_SECRET
   }
   const options = {
-    url: url
+    url: url,
     headers: {
       'User-Agent': 'distill-pipeline poll (headless; Linux x86_64, like node request)'
     }
