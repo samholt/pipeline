@@ -8,7 +8,7 @@ script:
   - npm run tests
   - npm run build
 before_deploy:
-  - cd functions && yarn install && cd ..
+  - cd functions && npm install && cd ..
 deploy:
   - provider: firebase
     project: "staging"
