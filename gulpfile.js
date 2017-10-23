@@ -1,6 +1,6 @@
 const analytics = require("./bin/analytics");
 const del = require("del");
-const distill = require("./build/distill-template/template.v1.js");
+const distill = require("./build/distill-template/dist/template.v1.js");
 const execSync = require("child_process").execSync;
 const exec = require("child_process").exec;
 const fs = require("fs");
@@ -54,7 +54,7 @@ gulp.task("clean", function() {
 //
 
 gulp.task("copyTemplateV2", function() {
-  return gulp.src("build/distill-template/*")
+  return gulp.src("build/distill-template/dist/*")
     .pipe(gulp.dest(paths.dest));
 });
 
@@ -88,16 +88,18 @@ function loadJournalData(done) {
     done();
   });
 }
-function loadPostsData(done) {
+function loadPostsData(done) {  
   fs.readFile("journal.json", "utf-8", (err, fileData) => {
     if (err) done(err);
     let journal = JSON.parse(fileData, (key, value) => {
       if (key == "publishedDate") {
-          return d3.timeParse("%Y-%m-%d")(value);
+        // interpret as Noon PDT (ignoring daylight savings variations)
+        return new Date(value+'T12:00:00-08:00'); 
       } else {
-          return value;
+        return value;
       }
     });
+    
     let posts = journal.articles;
     posts.forEach(p => {
       p.updatedDate = execSync("git -C build/posts/" + p.distillPath + " log -1 --pretty=format:%cI").toString("utf8");
@@ -250,6 +252,7 @@ gulp.task("pages", gulp.series(copyPages, renderPages));
 function copyPages() {
   return gulp.src("pages/**/*").pipe(gulp.dest(paths.dest));
 }
+
 function renderPages() {
   return gulp.src(["pages/index.html", "pages/**/*.html"])
     .pipe(through.obj(function (file, enc, cb) {

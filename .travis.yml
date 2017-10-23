@@ -2,11 +2,11 @@ language: node_js
 node_js:
   - "node" # latest version
 cache:
-  yarn: true
   directories:
     - node_modules
 script:
-  - yarn build
+  - npm run tests
+  - npm run build
 before_deploy:
   - cd functions && yarn install && cd ..
 deploy:

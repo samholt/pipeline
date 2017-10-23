@@ -1,27 +1,39 @@
 #!/usr/bin/env node
 
 const fs = require("fs");
+const path = require("path");
 const analytics = require("./analytics");
-const distill = require("../build/distill-template/template.v1.js");
+const distill_v1 = require("../build/distill-template/dist/template.v1.js");
+const distill_v2 = require("../build/distill-template/dist/transforms.v2.js");
 const jsd = require("jsdom");
 const serializeDocument = jsd.serializeDocument;
 const jsdom = jsd.jsdom;
 
 
+
 let dataPath = process.argv[2];
 let dataString = fs.readFileSync(dataPath, "utf8");
 let data = JSON.parse(dataString);
+
 data.publishedDate = new Date(data.publishedDate);
 data.updatedDate = new Date(data.updatedDate);
 
 let htmlPath = process.argv[3];
+data.inputHTMLPath = htmlPath; // may be needed to resolve relative links!
+data.inputDirectory = path.dirname(htmlPath);
 let htmlString = fs.readFileSync(htmlPath, "utf8");
 let dom = jsdom(htmlString, {features: {ProcessExternalResources: false, FetchExternalResources: false}});
 
 let htmlWritePath = process.argv[4];
 
-distill.render(dom, data);
-distill.distillify(dom, data);
+if (distill_v2.usesTemplateV2(dom)) {
+  distill_v2.render(dom, data);
+  distill_v2.distillify(dom, data);
+} else {
+  distill_v1.render(dom, data);
+  distill_v1.distillify(dom, data);
+}
+
 let html = serializeDocument(dom);
 
 analyticsHtml = html.replace("</body></html>", analytics + "</body></html>");

@@ -3,15 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "initialize": "yarn install && yarn run build",
-    "build": "yarn run poll && yarn run make",
+    "initialize": "npm install && npm run build",
+    "build": "npm run poll && npm run make",
     "poll": "bin/poll",
     "make": "gulp",
     "clean": "gulp clean",
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "test": "mocha"
   },
   "dependencies": {
-    "@webcomponents/webcomponentsjs": "^1.0.7",
+    "@webcomponents/webcomponentsjs": "^1.0.17",
     "d3": "^4.4.1",
     "d3-collection": "^1.0.2",
     "d3-queue": "^3.0.7",
@@ -30,5 +31,9 @@
     "request": "^2.81.0",
     "through2": "^2.0.3"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "mocha-jsdom": "^1.1.0",
+    "should": "^13.1.2"
+  }
 }
