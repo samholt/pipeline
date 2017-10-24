@@ -8,8 +8,7 @@
     "poll": "bin/poll",
     "make": "gulp",
     "clean": "gulp clean",
-    "serve": "gulp serve",
-    "test": "mocha"
+    "serve": "gulp serve"
   },
   "dependencies": {
     "@webcomponents/webcomponentsjs": "^1.0.17",
