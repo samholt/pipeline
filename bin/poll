@@ -6,17 +6,18 @@ var fs = require("fs"),
     request = require('request');
 
 const concurrency = 10;
+const templatePath = "build/distill-template/dist";
 
 console.log("Beginning queue...");
 let q = queue.queue(concurrency);
 
 // Download latest template release from Github
-q.defer(getLatestRelease, "build/distill-template", "distillpub/template")
+q.defer(getLatestRelease, templatePath, "distillpub/template")
 
 // Poll github for changes to:
 // https://github.com/distillpub/template
-q.defer(wget, "build/distill-template", "https://github.com/distillpub/template/releases/download/v1.1.1/template.v1.js")
-q.defer(wget, "build/distill-template", "https://github.com/distillpub/template/releases/download/v1.1.1/template.v1.js.map")
+q.defer(wget, templatePath, "https://github.com/distillpub/template/releases/download/v1.1.1/template.v1.js")
+q.defer(wget, templatePath, "https://github.com/distillpub/template/releases/download/v1.1.1/template.v1.js.map")
 
 // Poll github for changes to all the repos listed in
 // build/distill-posts/posts.csv
@@ -37,7 +38,7 @@ q.awaitAll(function(error) {
 function wget(path, remoteURL, callback) {
   console.log("Downloading: " + remoteURL);
   exec("mkdir -p " + path);
-  exec("curl -L " + remoteURL + " > " + path + '/' + remoteURL.split('/').pop(), error => {
+  exec("curl -L " + remoteURL + " --retry 5 > " + path + '/' + remoteURL.split('/').pop(), error => {
     if (error) throw error;
   });
 }
@@ -62,7 +63,7 @@ function getLatestRelease(path, repo, callback) {
         return asset.browser_download_url;
       });
       for (const link of links) {
-        wget("build/distill-template", link);
+        wget(path, link);
       }
     } else {
       if (error) throw error;
