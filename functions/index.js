@@ -65,7 +65,7 @@ exports.githubWebhook = functions.https.onRequest((req, resp) => {
     const isOnTemplate = repo.name = "template";
     if (isOnTemplate) {
       console.log("Release was on template; triggering a build of /pipeline to deploy that new version on the distill website.");
-      requestBuild("distill/pipeline");
+      requestBuild("distillpub/pipeline");
     } else {
       console.log("Release was not on a repo we care about; doing nothing.");
     }
