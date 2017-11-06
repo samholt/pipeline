@@ -28,7 +28,8 @@
     "merge-stream": "^1.0.1",
     "mustache": "^2.3.0",
     "request": "^2.81.0",
-    "through2": "^2.0.3"
+    "through2": "^2.0.3",
+    "xml": "^1.0.1"
   },
   "devDependencies": {
     "mocha": "^4.0.1",
