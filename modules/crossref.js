@@ -4,16 +4,18 @@ module.exports = function(data) {
 
     var date = data.publishedDate;
 
+    //TODO This is a hack, not sure why author lastName and firstName aren't there
+    data.authors.forEach(author => {
+      let names = author.name.split(" ");
+      author.firstName = author.firstName ? author.firstName : names[0];
+      author.lastName = author.lastName ? author.lastName : names[names.length - 1];
+    });
+
     var batch_timestamp = Math.floor(Date.now() / 1000);
     var batch_id = '';
     if (data.authors.length) {
       let author = data.authors[0];
-      if (author.lastName) {
-        batch_id += author.lastName.toLowerCase().slice(0,20);
-      } else {
-        let names = author.name.split(" ");
-        batch_id += names[names.length - 1].toLowerCase().slice(0, 20);
-      }
+      batch_id += author.lastName.toLowerCase().slice(0,20);
     } else {
       batch_id += "Anonymous";
     }
