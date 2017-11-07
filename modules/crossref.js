@@ -1,13 +1,24 @@
-import xml from 'xml';
+const xmlModule = require('xml');
 
-export default function(data) {
+module.exports = function(data) {
 
     var date = data.publishedDate;
 
     var batch_timestamp = Math.floor(Date.now() / 1000);
-    var batch_id = data.authors.length ? data.authors[0].lastName.toLowerCase().slice(0,20) : "Anonymous";
-        batch_id += "_" + date.getFullYear();
-        batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;
+    var batch_id = '';
+    if (data.authors.length) {
+      let author = data.authors[0];
+      if (author.lastName) {
+        batch_id += author.lastName.toLowerCase().slice(0,20);
+      } else {
+        let names = author.name.split(" ");
+        batch_id += names[names.length - 1].toLowerCase().slice(0, 20);
+      }
+    } else {
+      batch_id += "Anonymous";
+    }
+    batch_id += "_" + date.getFullYear();
+    batch_id += "_" + data.title.split(" ")[0].toLowerCase().slice(0,20) + "_" +  batch_timestamp;
 
     // generate XML
     var crf_data =
@@ -158,7 +169,7 @@ export default function(data) {
       content = content.map(s => "  " + s).join("\n")
       var result = `<${name}${attr_string}>\n${content}\n</${name}>`;
     } else {
-      content = xml(content);
+      content = xmlModule(content);
       var result = `<${name}${attr_string}>${content}</${name}>`;
     }
     return result;

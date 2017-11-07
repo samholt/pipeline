@@ -13,6 +13,7 @@ const rename = require("gulp-rename");
 const through = require("through2");
 const webserver = require("gulp-webserver");
 const merge = require('merge-stream');
+const generateCrossref = require('./modules/crossref.js');
 
 const d3 = Object.assign({},
     require("d3-time-format"),
@@ -43,9 +44,9 @@ let data = {
 //
 // Delete entire build folder
 //
-gulp.task("clean", function() { 
+gulp.task("clean", function() {
   const folders = Object.values(paths);
-  return del(folders); 
+  return del(folders);
 });
 
 
@@ -88,18 +89,18 @@ function loadJournalData(done) {
     done();
   });
 }
-function loadPostsData(done) {  
+function loadPostsData(done) {
   fs.readFile("journal.json", "utf-8", (err, fileData) => {
     if (err) done(err);
     let journal = JSON.parse(fileData, (key, value) => {
       if (key == "publishedDate") {
         // interpret as Noon PDT (ignoring daylight savings variations)
-        return new Date(value+'T12:00:00-08:00'); 
+        return new Date(value+'T12:00:00-08:00');
       } else {
         return value;
       }
     });
-    
+
     let posts = journal.articles;
     posts.forEach(p => {
       p.updatedDate = execSync("git -C build/posts/" + p.distillPath + " log -1 --pretty=format:%cI").toString("utf8");
@@ -130,7 +131,7 @@ function loadPostsData(done) {
 
 
 //
-// Copy and render all the posts, including archive versions and crossref files.
+// Copy and render all the posts, including archive versions.
 //
 gulp.task("posts", gulp.series(copyPosts, renderPosts, renderArchive));
 
@@ -171,17 +172,6 @@ function renderPosts(done) {
   });
 }
 
-function renderCrossref(done) {
-  data.posts.forEach(post => {
-    let publishedPath = path.join(paths.dest, post.distillPath);
-    let crossrefXml = distill.generateCrossref(post);
-    fs.writeFile(path.join(publishedPath, "crossref.xml"), crossrefXml, error => {
-      if (error) done(error);
-      done();
-    });
-  });
-}
-
 function renderArchive(done) {
   const concurrency = 4;
   let q = d3.queue(concurrency);
@@ -204,10 +194,10 @@ function renderArchive(done) {
   });
 }
 
+//
+// Cleanup the data after we've rendered all the posts and render crossref.xml files.
+//
 
-//
-// Cleanup the data after we've rendered all the posts.
-//
 gulp.task("afterPostData", function(done) {
   // Commentary
   let newPosts = [];
@@ -216,6 +206,12 @@ gulp.task("afterPostData", function(done) {
     let newPost = JSON.parse(postJson)
     newPost.publishedDate = new Date(newPost.publishedDate);
     newPost.updatedDate = new Date(newPost.updatedDate);
+
+    // //BEGIN crossref
+    let crossrefXml = generateCrossref(newPost);
+    fs.writeFileSync("docs/" + post.distillPath + "/crossref.xml", crossrefXml);
+    // //END crossref
+
     newPosts.push(newPost);
   });
   data.posts = newPosts;
