@@ -24,7 +24,7 @@
     "inliner": "^1.12.2",
     "intersection-observer": "^0.4.0",
     "jsdom": "^9.8.3",
-    "katex": "^0.7.1",
+    "katex": "^0.8.3",
     "merge-stream": "^1.0.1",
     "mustache": "^2.3.0",
     "request": "^2.81.0",
