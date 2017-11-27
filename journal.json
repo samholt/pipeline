@@ -28,6 +28,7 @@
     { "doiSuffix": 4, "distillPath": "2016/handwriting", "githubPath": "distillpub/post--handwriting", "publishedDate": "2016-12-06", "tags": [] },
     { "doiSuffix": 5, "distillPath": "2017/research-debt", "githubPath": "distillpub/post--research-debt", "publishedDate": "2017-03-22", "tags": ["commentary"] },
     { "doiSuffix": 6, "distillPath": "2017/momentum", "githubPath": "distillpub/post--momentum", "publishedDate": "2017-04-04", "tags": [] },
-    { "doiSuffix": 7, "distillPath": "2017/feature-visualization", "githubPath": "distillpub/post--feature-visualization", "publishedDate": "2017-11-07", "tags": [] }
+    { "doiSuffix": 7, "distillPath": "2017/feature-visualization", "githubPath": "distillpub/post--feature-visualization", "publishedDate": "2017-11-07", "tags": [] },
+    { "doiSuffix": 8, "distillPath": "2017/ctc", "githubPath": "distillpub/post--ctc", "publishedDate": "2017-11-27", "tags": [] }
   ]
 }
