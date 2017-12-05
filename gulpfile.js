@@ -215,17 +215,8 @@ gulp.task("afterPostData", function(done) {
     newPosts.push(newPost);
   });
   data.posts = newPosts;
-  data.commentaries = data.posts.filter(p => {
-    return p.tags.indexOf("commentary") !== -1;
-  });
-  data.commentariesLength = data.commentaries.length;
-
-  // Articles
-  data.articles = data.posts.filter(p => {
-    return p.tags.indexOf("commentary") === -1;
-  });
-  data.articlesLength = data.articles.length;
-
+  data.postsLength = data.posts.length;
+  
   // Nest the articles into volume/issues
   data.issues = d3.nest()
       .key((d) => d.volume * 100 + d.issue)
