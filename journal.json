@@ -22,8 +22,8 @@
     { "name": "Fernanda Viégas", "nameURL": "http://fernandaviegas.com", "affiliation": "Google Big Picture Group", "affiliationURL": "https://research.google.com/bigpicture/" }
   ],
   "articles": [
-    { "doiSuffix": 1, "distillPath": "2016/augmented-rnns", "githubPath": "distillpub/post--augmented-rnns", "publishedDate": "2016-09-08", "tags": ["rnn"] },
-    { "doiSuffix": 2, "distillPath": "2016/misread-tsne", "githubPath": "distillpub/post--misread-tsne", "publishedDate": "2016-10-13", "tags": ["tsne", "playground"] },
+    { "doiSuffix": 1, "distillPath": "2016/augmented-rnns", "githubPath": "distillpub/post--augmented-rnns", "publishedDate": "2016-09-08", "tags": [] },
+    { "doiSuffix": 2, "distillPath": "2016/misread-tsne", "githubPath": "distillpub/post--misread-tsne", "publishedDate": "2016-10-13", "tags": [] },
     { "doiSuffix": 3, "distillPath": "2016/deconv-checkerboard", "githubPath": "distillpub/post--deconv-checkerboard", "publishedDate": "2016-10-17", "tags": [] },
     { "doiSuffix": 4, "distillPath": "2016/handwriting", "githubPath": "distillpub/post--handwriting", "publishedDate": "2016-12-06", "tags": [] },
     { "doiSuffix": 5, "distillPath": "2017/research-debt", "githubPath": "distillpub/post--research-debt", "publishedDate": "2017-03-22", "tags": ["commentary"] },
