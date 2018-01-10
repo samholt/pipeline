@@ -33,9 +33,6 @@ function requestBuild(repo) {
   });
 }
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
 exports.githubWebhook = functions.https.onRequest((req, resp) => {
   console.log("Handling a webhook from github.");
 
@@ -71,5 +68,17 @@ exports.githubWebhook = functions.https.onRequest((req, resp) => {
     }
   }
 
+  resp.send("OK");
+});
+
+
+exports.githubDraftsWebhook = functions.https.onRequest((req, resp) => {
+  console.log("Handling a drafts webhook from github.");
+  const isPush = req.body.repository && req.body.commits;
+  if (isPush) {
+    const repo = req.body.repository;
+    console.log("We are seeing a push to '" + repo.name + "'. Requesting drafts rebuild.");
+    requestBuild("distillpub/drafts");
+  }
   resp.send("OK");
 });
